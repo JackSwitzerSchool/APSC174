@@ -1,0 +1,14 @@
+/.venv/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.py
+
+*.gif
+*.html
+
+/data/
+
+/__pycache__/
