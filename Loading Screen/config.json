@@ -63,29 +63,29 @@
         "Sanskrit": 0.5,
         "Arabic": 0.5
       },
-      "numSymbols": 500,
+      "numSymbols": 200,
       "baseFontSize": 14,
-      "defaultColor": "#000000"
+      "defaultColor": "#533875"
     },
     "phases": {
       "popInPhase": {
         "enabled": true,
         "startFrame": 0,
-        "endFrame": 40,
-        "popSpread": 20
+        "endFrame": 160,
+        "popSpread": 80
       },
       "wavePhase": {
         "enabled": true,
-        "startFrame": 0,
-        "endFrame": 80,
+        "startFrame": 120,
+        "endFrame": 210,
         "amplitude": 0.5,
         "frequency": 4.0,
-        "fadeInTime": 30
+        "fadeInTime": 60
       },
       "swirlPhase": {
         "enabled": true,
-        "startFrame": 80,
-        "endFrame": 220,
+        "startFrame": 210,
+        "endFrame": 270,
         "swirlCenter": [0.0, 0.0],
         "swirlBaseRadius": 4.0,
         "swirlSpeedMin": 0.01,
@@ -93,7 +93,7 @@
       },
       "flutterPhase": {
         "enabled": true,
-        "startFrame": 200,
+        "startFrame": 270,
         "endFrame": 300,
         "frequency": 10.0,
         "amplitude": 0.25,
@@ -102,7 +102,7 @@
       "finalReveal": {
         "enabled": true,
         "startFrame": 300,
-        "endFrame": 380,
+        "endFrame": 400,
         "text": "Linear Algebra\nby Jack Switzer",
         "fadeInTime": 80,
         "fontSize": 18,
