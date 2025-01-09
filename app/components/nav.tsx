@@ -15,10 +15,7 @@ const navItems = {
   },
   '/course-resources': {
     name: 'course resources',
-  },
-  '/onboarding': {
-    name: 'onboarding',
-  },
+  }
 }
 
 export function Navbar() {

@@ -1,6 +1,6 @@
 import { getBlogPosts } from 'app/notes/utils' //note: this could be in components/posts.tsx
 
-export const baseUrl = 'https://portfolio-blog-starter.vercel.app'
+export const baseUrl = 'https://jackswitzer.com'
 
 export default async function sitemap() {
   let notes = getBlogPosts().map((post) => ({

@@ -1,15 +1,15 @@
-import { BlogPosts } from 'app/components/posts' //note: this could be in components/posts.tsx
+import { BlogPosts } from 'app/components/posts' 
 
 export default function Page() {
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        My Portfolio
+        APSC174 Course Website
       </h1>
       <p className="mb-4">
         {`Welcome.`}
       </p>
-      <div className="my-8">
+      <div className="my-8">  /* note: This is where posts are rendered */
         <BlogPosts />
       </div>
     </section>
