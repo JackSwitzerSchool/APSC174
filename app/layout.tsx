@@ -5,21 +5,20 @@ import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Course Website',
+    template: '%s | Course Website',
   },
-  description: 'This is my portfolio.',
+  description: 'Course materials, notes, and resources.',
   openGraph: {
-    title: 'My Portfolio',
-    description: 'This is my portfolio.',
+    title: 'Course Website',
+    description: 'Course materials, notes, and resources.',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Course Website',
     locale: 'en_US',
     type: 'website',
   },
@@ -56,7 +55,6 @@ export default function RootLayout({
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Navbar />
           {children}
-          <Footer />
           <Analytics />
           <SpeedInsights />
         </main>

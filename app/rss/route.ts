@@ -1,10 +1,10 @@
 import { baseUrl } from 'app/sitemap'
-import { getBlogPosts } from 'app/blog/utils'
+import { getBlogPosts } from 'app/notes/utils' //note: this could be in components/posts.tsx
 
 export async function GET() {
-  let allBlogs = await getBlogPosts()
+  let allNotes = await getBlogPosts()
 
-  const itemsXml = allBlogs
+  const itemsXml = allNotes
     .sort((a, b) => {
       if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
         return -1
@@ -15,7 +15,7 @@ export async function GET() {
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>${baseUrl}/blog/${post.slug}</link>
+          <link>${baseUrl}/notes/${post.slug}</link>
           <description>${post.metadata.summary || ''}</description>
           <pubDate>${new Date(
             post.metadata.publishedAt
@@ -24,6 +24,7 @@ export async function GET() {
     )
     .join('\n')
 
+    // candidate for deletion below.
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0">
     <channel>
