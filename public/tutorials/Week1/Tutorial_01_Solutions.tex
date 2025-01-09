@@ -1,0 +1,53 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Tutorial 01 Solutions}
+
+\begin{enumerate}
+    \item \textbf{Solution.} Let $x$ be the rate of the ship in still water and $y$ be the rate of the current. 
+    Since rate times time is distance, we can write the system of equations:
+    \[
+    4(x + y) = 60, \quad 5(x - y) = 60.
+    \]
+    Solve the system:
+    \[
+    20(x + y) = 300, \quad 20(x - y) = 240.
+    \]
+    Adding these gives $40x = 540$, so $x = 13.5$. Substituting $x = 13.5$ back, we find $y = 1.5$. 
+    The rate of the ship is $x = 13.5$ km/h, and the rate of the current is $y = 1.5$ km/h.
+
+    \item \textbf{Solution.} 
+    To match up the sets, we evaluate each set:
+    \begin{enumerate}
+        \item $\{x^2 : x \in \mathbb{Z}\}$ is the set of integers divided by $2$.
+        \item $\{\cos^2(x) + 1 : x \in \mathbb{R}\} = [1, 2]$.
+        \item $\mathbb{Z} \cap \{x \in \mathbb{R} : -\frac{1}{2} \leq x \leq \frac{9}{2}\} = \{0, 1, 2, 3, 4\}$.
+        \item $\{x - \frac{1}{2} : x \in \mathbb{Z}\} \cup \mathbb{Z}$ is the set of integers and half-integers.
+        \item $\{|x| : x \in \mathbb{Z}, -4 \leq x \leq 4\} = \{0, 1, 2, 3, 4\}$.
+        \item $\{2(x - 1) : \frac{3}{2} \leq x \leq 2\} = [1, 2]$.
+    \end{enumerate}
+    Thus, the sets match as follows: 
+    (a) $\leftrightarrow$ (d), (b) $\leftrightarrow$ (f), (c) $\leftrightarrow$ (e).
+
+    \item \textbf{Solution.} To prove $A \cap B = A$ when $A \subset B$:
+    \begin{enumerate}
+        \item By definition of intersection, $A \cap B \subset A$.
+        \item Since $A \subset B$, any $x \in A$ is also in $B$, so $A \subset A \cap B$.
+    \end{enumerate}
+    Combining, $A \cap B = A$.
+
+    \item \textbf{Solution.}
+    For each case:
+    \begin{enumerate}
+        \item $f : \mathbb{N} \to \mathbb{N}$ defines a surjective but not injective function.
+        \item $f : \mathbb{Z} \to \mathbb{Z}$ defines a bijective function.
+        \item $g : \mathbb{Z} \to \mathbb{Z}$ is neither injective nor surjective.
+        \item $g : \mathbb{Z} \to \mathbb{Z}$ is surjective but not injective.
+        \item $g : \mathbb{R} \to \mathbb{R}^2$ is injective but not surjective.
+        \item $h : \mathbb{Q}^+ \to \mathbb{N}$ does not define a function due to non-uniqueness.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

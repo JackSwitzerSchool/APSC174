@@ -6,24 +6,6 @@ export const metadata = {
   description: 'Course materials and PDF resources.',
 }
 
-function getPDFFiles(subdir = '') {
-  const resourcesDir = path.join(process.cwd(), 'public', 'base', subdir)
-  try {
-    if (!fs.existsSync(resourcesDir)) {
-      return []
-    }
-    return fs.readdirSync(resourcesDir)
-      .filter(file => file.toLowerCase().endsWith('.pdf'))
-      .map(file => ({
-        name: file.replace('.pdf', ''),
-        path: `/CourseContent/${subdir}/${file}`.replace(/\/+/g, '/') // Clean up double slashes
-      }))
-  } catch (error) {
-    console.error('Error reading PDF files:', error)
-    return []
-  }
-}
-
 export default function Page() {
   return (
     <section>
@@ -31,21 +13,20 @@ export default function Page() {
         Course Resources
       </h1>
       <div className="prose prose-neutral dark:prose-invert">
-        <h2>Course Base</h2>
         <ul>
           <li>Syllabus
             <ul>
-              <li><a href="/CourseContent/base/First Year Resources.pdf">Lecture Notes</a></li>
+              <li><a href="/base/Syllabus.pdf">Syllabus</a></li>
             </ul>
           </li>
           <li> Mansouri Notes
             <ul>
-              <li><a href="/CourseContent/base/Mansouri-Notes.pdf">Mansouri Notes</a></li>
+              <li><a href="/base/Mansouri-Notes.pdf">Mansouri Notes</a></li>
             </ul>
           </li>
-          <li>Additional Resources
+          <li>Totally not the Textbook
             <ul>
-              <li><a href="/CourseContent/additional/scanning-guide.pdf">Document Scanning Guide</a></li>
+              <li><a href="https://drive.google.com/file/d/1ZXD4xNHmzAa3i5ysoL7ITZuN6mji_fwj/view?usp=sharing">book</a></li>
             </ul>
           </li>
         </ul>
