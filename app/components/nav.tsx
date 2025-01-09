@@ -13,6 +13,9 @@ const navItems = {
   '/videos': {
     name: 'videos',
   },
+  '/course-resources': {
+    name: 'course resources',
+  },
 }
 
 export function Navbar() {
