@@ -41,7 +41,7 @@ export default function Page() {
           </li>
           <li> Mansouri Notes
             <ul>
-              <li><a href="/CourseContent/base/Mansouri Notes.pdf">Mansouri Notes</a></li>
+              <li><a href="/CourseContent/base/Mansouri-Notes.pdf">Mansouri Notes</a></li>
             </ul>
           </li>
           <li> Textbook (4th edition)
