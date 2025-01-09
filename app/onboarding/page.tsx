@@ -11,7 +11,7 @@ export default function Page() {
       </h1>
       <div className="w-full aspect-square relative">
         <iframe
-          src="/components/animation.html"
+          src="/components/onboarding/animation.html"
           className="absolute top-0 left-0 w-full h-full border-0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
         />
