@@ -1,14 +1,13 @@
-import fs from 'fs' //note: maybe delete this
+import fs from 'fs'
 import path from 'path'
-import Link from 'next/link'
 
 export const metadata = {
   title: 'Course Resources',
   description: 'Course materials and PDF resources.',
 }
 
-function getPDFFiles() {
-  const resourcesDir = path.join(process.cwd(), 'public', 'CourseContent')
+function getPDFFiles(subdir = '') {
+  const resourcesDir = path.join(process.cwd(), 'public', 'base', subdir)
   try {
     if (!fs.existsSync(resourcesDir)) {
       return []
@@ -17,7 +16,7 @@ function getPDFFiles() {
       .filter(file => file.toLowerCase().endsWith('.pdf'))
       .map(file => ({
         name: file.replace('.pdf', ''),
-        path: `/CourseContent/${file}`
+        path: `/CourseContent/${subdir}/${file}`.replace(/\/+/g, '/') // Clean up double slashes
       }))
   } catch (error) {
     console.error('Error reading PDF files:', error)
@@ -44,26 +43,13 @@ export default function Page() {
               <li><a href="/CourseContent/base/Mansouri-Notes.pdf">Mansouri Notes</a></li>
             </ul>
           </li>
-          <li> Textbook (4th edition)
+          <li>Additional Resources
             <ul>
-              <li><a href="/CourseContent/base/First Year Resources.pdf">Lecture Notes</a></li>
+              <li><a href="/CourseContent/additional/scanning-guide.pdf">Document Scanning Guide</a></li>
             </ul>
           </li>
-          <li>Document Scanning Guide lol
-            <ul>
-              <li><a href="/CourseContent/base/Document Scanning Guide.pdf">Document Scanning Guide</a></li>
-            </ul>
-          </li>
-          <li>First Year Resources
-            <ul>
-              <li><a href="/CourseContent/base/First Year Resources.pdf">Lecture Notes</a></li>
-            </ul>
-          </li>
-          
         </ul>
-
       </div>
-
     </section>
   )
 }
