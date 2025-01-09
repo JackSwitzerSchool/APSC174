@@ -16,17 +16,26 @@ export default function Page() {
         <ul>
           <li>Syllabus
             <ul>
-              <li><a href="/base/Syllabus.pdf">Syllabus</a></li>
+              <li><a href="/base/Syllabus2025.pdf" aria-label="Download Syllabus PDF">Syllabus</a></li>
             </ul>
           </li>
-          <li> Mansouri Notes
+          <li>Mansouri Notes
             <ul>
-              <li><a href="/base/Mansouri-Notes.pdf">Mansouri Notes</a></li>
+              <li><a href="/base/Mansouri-Notes.pdf" aria-label="Download Mansouri Notes PDF">Mansouri Notes</a></li>
             </ul>
           </li>
           <li>Totally not the Textbook
             <ul>
-              <li><a href="https://drive.google.com/file/d/1ZXD4xNHmzAa3i5ysoL7ITZuN6mji_fwj/view?usp=sharing">book</a></li>
+              <li>
+                <a 
+                  href="https://drive.google.com/file/d/1ZXD4xNHmzAa3i5ysoL7ITZuN6mji_fwj/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open textbook in Google Drive (opens in new tab)"
+                >
+                  book
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
