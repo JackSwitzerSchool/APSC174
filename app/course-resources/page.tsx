@@ -26,16 +26,7 @@ export default function Page() {
           </li>
           <li>Totally not the Textbook
             <ul>
-              <li>
-                <a 
-                  href="https://drive.google.com/file/d/1ZXD4xNHmzAa3i5ysoL7ITZuN6mji_fwj/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Open textbook in Google Drive (opens in new tab)"
-                >
-                  book
-                </a>
-              </li>
+            <li><a href="/base/Linear Algebra 5th edition.pdf" aria-label="textbook pdf">book</a></li>
             </ul>
           </li>
         </ul>
