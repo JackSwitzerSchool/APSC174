@@ -10,11 +10,11 @@ export default function Page() {
       <div className="prose prose-neutral dark:prose-invert">
         <h2 className="text-xl font-medium">
           Week 1:{' '}
-          <a href="/tutorials/week1/Tutorial1Questions.pdf" className="text-blue-500 hover:text-blue-600">
+          <a href="/tutorials/Week1/Tutorial1Questions.pdf" className="text-blue-500 hover:text-blue-600">
             Problems
           </a>
           {' | '}
-          <a href="/tutorials/week1/Tutorial1Solutions.pdf" className="text-blue-500 hover:text-blue-600">
+          <a href="/tutorials/Week1/Tutorial1Solutions.pdf" className="text-blue-500 hover:text-blue-600">
             Solutions
           </a>
         </h2>
