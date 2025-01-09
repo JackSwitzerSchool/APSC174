@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs' //note: maybe delete this
 import path from 'path'
 import Link from 'next/link'
 
@@ -26,31 +26,44 @@ function getPDFFiles() {
 }
 
 export default function Page() {
-  const pdfFiles = getPDFFiles()
-
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Course Resources</h1>
-      <div className="space-y-4">
-        {pdfFiles.length > 0 ? (
-          pdfFiles.map((file) => (
-            <div key={file.path} className="flex">
-              <Link
-                href={file.path}
-                className="text-neutral-800 dark:text-neutral-200 hover:text-neutral-600 dark:hover:text-neutral-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {file.name}
-              </Link>
-            </div>
-          ))
-        ) : (
-          <p className="text-neutral-600 dark:text-neutral-400">
-            No PDF resources available at this time.
-          </p>
-        )}
+      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
+        Course Resources
+      </h1>
+      <div className="prose prose-neutral dark:prose-invert">
+        <h2>Course Base</h2>
+        <ul>
+          <li>Syllabus
+            <ul>
+              <li><a href="/CourseContent/base/First Year Resources.pdf">Lecture Notes</a></li>
+            </ul>
+          </li>
+          <li> Mansouri Notes
+            <ul>
+              <li><a href="/CourseContent/base/Mansouri Notes.pdf">Mansouri Notes</a></li>
+            </ul>
+          </li>
+          <li> Textbook (4th edition)
+            <ul>
+              <li><a href="/CourseContent/base/First Year Resources.pdf">Lecture Notes</a></li>
+            </ul>
+          </li>
+          <li>Document Scanning Guide lol
+            <ul>
+              <li><a href="/CourseContent/base/Document Scanning Guide.pdf">Document Scanning Guide</a></li>
+            </ul>
+          </li>
+          <li>First Year Resources
+            <ul>
+              <li><a href="/CourseContent/base/First Year Resources.pdf">Lecture Notes</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+
       </div>
+
     </section>
   )
 }
