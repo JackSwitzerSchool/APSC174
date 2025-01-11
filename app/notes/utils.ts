@@ -9,6 +9,18 @@ type Metadata = {
 }
 
 function parseFrontmatter(fileContent: string) {
+  // Handle files without frontmatter by providing defaults
+  if (!fileContent.startsWith('---')) {
+    const title = fileContent.split('\n')[0].replace('#', '').trim()
+    return {
+      metadata: {
+        title,
+        publishedAt: new Date().toISOString(),
+      } as Metadata,
+      content: fileContent,
+    }
+  }
+
   let frontmatterRegex = /---\s*([\s\S]*?)\s*---/
   let match = frontmatterRegex.exec(fileContent)
   let frontMatterBlock = match![1]
@@ -26,19 +38,39 @@ function parseFrontmatter(fileContent: string) {
   return { metadata: metadata as Metadata, content }
 }
 
-function getMDXFiles(dir) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
+// Update to handle both .md and .mdx files
+function getMarkdownFiles(dir) {
+  return fs.readdirSync(dir).filter((file) => 
+    ['.md', '.mdx'].includes(path.extname(file))
+  )
 }
 
-function readMDXFile(filePath) {
+function readMarkdownFile(filePath) {
   let rawContent = fs.readFileSync(filePath, 'utf-8')
+  
+  // Process Obsidian-style wiki links [[Page Name]]
+  rawContent = rawContent.replace(
+    /\[\[(.*?)\]\]/g,
+    (match, pageName) => {
+      const [name, alias] = pageName.split('|')
+      const slug = name.toLowerCase().replace(/\s+/g, '-')
+      return `[${alias || name}](/notes/${slug})`
+    }
+  )
+
+  // Process Obsidian-style images ![[image.png]]
+  rawContent = rawContent.replace(
+    /!\[\[(.*?)\]\]/g,
+    (match, imageName) => `![${imageName}](/images/${imageName})`
+  )
+
   return parseFrontmatter(rawContent)
 }
 
-function getMDXData(dir) {
-  let mdxFiles = getMDXFiles(dir)
-  return mdxFiles.map((file) => {
-    let { metadata, content } = readMDXFile(path.join(dir, file))
+function getMarkdownData(dir) {
+  let mdFiles = getMarkdownFiles(dir)
+  return mdFiles.map((file) => {
+    let { metadata, content } = readMarkdownFile(path.join(dir, file))
     let slug = path.basename(file, path.extname(file))
 
     return {
@@ -50,7 +82,16 @@ function getMDXData(dir) {
 }
 
 export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), 'app', 'notes'))
+  // Look in both app/notes and public/notes directories
+  const appNotes = getMarkdownData(path.join(process.cwd(), 'app', 'notes'))
+  const publicNotes = getMarkdownData(path.join(process.cwd(), 'public', 'notes'))
+  
+  return [...appNotes, ...publicNotes].sort((a, b) => {
+    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+      return -1
+    }
+    return 1
+  })
 }
 
 export function formatDate(date: string, includeTime: boolean = false) {

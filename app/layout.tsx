@@ -6,6 +6,7 @@ import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
+import 'katex/dist/katex.min.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
