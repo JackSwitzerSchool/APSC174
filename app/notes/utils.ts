@@ -69,7 +69,9 @@ function readMarkdownFile(filePath) {
 
 export function getBlogPosts() {
   const notesDir = path.join(process.cwd(), 'public', 'notes')
+  console.log('Looking for notes in:', notesDir)
   let mdFiles = getMarkdownFiles(notesDir)
+  console.log('Found files:', mdFiles)
   
   return mdFiles.map((file) => {
     let { metadata, content } = readMarkdownFile(path.join(notesDir, file))

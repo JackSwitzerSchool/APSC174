@@ -1,17 +1,17 @@
-import { BlogPosts } from 'app/components/posts' 
+import { getBlogPosts } from './notes/utils'
+import { CustomMDX } from './components/mdx'
 
-export default function Page() {
+export default function Home() {
+  const posts = getBlogPosts()
+  const week1Post = posts.find(post => post.slug === 'Week 1')
+  
   return (
-    <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        APSC174 Course Website
-      </h1>
-      <p className="mb-4">
-        {`Welcome.`}
-      </p>
-      <div className="my-8">  /* note: This is where posts are rendered */
-        <BlogPosts />
-      </div>
-    </section>
+    <div className="prose dark:prose-invert">
+      {week1Post ? (
+        <CustomMDX source={week1Post.content} />
+      ) : (
+        <p>Week 1 content not found</p>
+      )}
+    </div>
   )
 }
