@@ -3,29 +3,6 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React from 'react'
-import { InlineMath, BlockMath } from './math'
-
-function Table({ data }) {
-  let headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
-  ))
-  let rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
-      ))}
-    </tr>
-  ))
-
-  return (
-    <table>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
-  )
-}
 
 function CustomLink(props) {
   let href = props.href
@@ -97,40 +74,6 @@ let components = {
   Image: RoundedImage,
   a: CustomLink,
   code: Code,
-  Table,
-  InlineMath,
-  BlockMath,
-  p: ({ children }) => {
-    if (typeof children !== 'string') return <p>{children}</p>
-    
-    const parts = children.split(/(\$.*?\$)/g)
-    return (
-      <p>
-        {parts.map((part, i) => {
-          if (part.startsWith('$') && part.endsWith('$')) {
-            return (
-              <InlineMath key={i}>
-                {part.slice(1, -1)}
-              </InlineMath>
-            )
-          }
-          return part
-        })}
-      </p>
-    )
-  },
-  pre: ({ children }) => {
-    if (typeof children !== 'string') return <pre>{children}</pre>
-    
-    if (children.startsWith('$$') && children.endsWith('$$')) {
-      return (
-        <BlockMath>
-          {children.slice(2, -2)}
-        </BlockMath>
-      )
-    }
-    return <pre>{children}</pre>
-  },
 }
 
 export function CustomMDX(props) {
