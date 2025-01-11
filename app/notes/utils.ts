@@ -4,7 +4,7 @@ import path from 'path'
 type Metadata = {
   title: string
   publishedAt: string
-  summary: string
+  summary?: string
   image?: string
 }
 
@@ -16,6 +16,7 @@ function parseFrontmatter(fileContent: string) {
       metadata: {
         title,
         publishedAt: new Date().toISOString(),
+        summary: '',
       } as Metadata,
       content: fileContent,
     }
@@ -38,39 +39,40 @@ function parseFrontmatter(fileContent: string) {
   return { metadata: metadata as Metadata, content }
 }
 
-// Update to handle both .md and .mdx files
 function getMarkdownFiles(dir) {
-  return fs.readdirSync(dir).filter((file) => 
-    ['.md', '.mdx'].includes(path.extname(file))
-  )
+  try {
+    return fs.readdirSync(dir).filter((file) => 
+      ['.md', '.mdx'].includes(path.extname(file))
+    )
+  } catch (error) {
+    console.warn(`Warning: Could not read directory ${dir}`, error)
+    return []
+  }
 }
 
 function readMarkdownFile(filePath) {
-  let rawContent = fs.readFileSync(filePath, 'utf-8')
-  
-  // Process Obsidian-style wiki links [[Page Name]]
-  rawContent = rawContent.replace(
-    /\[\[(.*?)\]\]/g,
-    (match, pageName) => {
-      const [name, alias] = pageName.split('|')
-      const slug = name.toLowerCase().replace(/\s+/g, '-')
-      return `[${alias || name}](/notes/${slug})`
+  try {
+    let rawContent = fs.readFileSync(filePath, 'utf-8')
+    return parseFrontmatter(rawContent)
+  } catch (error) {
+    console.error(`Error reading file ${filePath}`, error)
+    return {
+      metadata: {
+        title: 'Error',
+        publishedAt: new Date().toISOString(),
+        summary: 'Error loading content',
+      } as Metadata,
+      content: 'Error loading content',
     }
-  )
-
-  // Process Obsidian-style images ![[image.png]]
-  rawContent = rawContent.replace(
-    /!\[\[(.*?)\]\]/g,
-    (match, imageName) => `![${imageName}](/images/${imageName})`
-  )
-
-  return parseFrontmatter(rawContent)
+  }
 }
 
-function getMarkdownData(dir) {
-  let mdFiles = getMarkdownFiles(dir)
+export function getBlogPosts() {
+  const notesDir = path.join(process.cwd(), 'public', 'notes')
+  let mdFiles = getMarkdownFiles(notesDir)
+  
   return mdFiles.map((file) => {
-    let { metadata, content } = readMarkdownFile(path.join(dir, file))
+    let { metadata, content } = readMarkdownFile(path.join(notesDir, file))
     let slug = path.basename(file, path.extname(file))
 
     return {
@@ -78,19 +80,6 @@ function getMarkdownData(dir) {
       slug,
       content,
     }
-  })
-}
-
-export function getBlogPosts() {
-  // Look in both app/notes and public/notes directories
-  const appNotes = getMarkdownData(path.join(process.cwd(), 'app', 'notes'))
-  const publicNotes = getMarkdownData(path.join(process.cwd(), 'public', 'notes'))
-  
-  return [...appNotes, ...publicNotes].sort((a, b) => {
-    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-      return -1
-    }
-    return 1
   })
 }
 
