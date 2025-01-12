@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getBlogPosts } from '@/app/notes/utils'
 import { formatDate } from '@/app/notes/utils'
@@ -14,23 +13,14 @@ interface BlogPost {
   }
 }
 
-export default function Posts() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const allBlogs = await getBlogPosts()
-      const sortedBlogs = allBlogs.sort((a, b) => {
-        if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-          return -1
-        }
-        return 1
-      })
-      setPosts(sortedBlogs)
+export default async function Posts() {
+  const allBlogs = await getBlogPosts()
+  const posts = allBlogs.sort((a, b) => {
+    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+      return -1
     }
-
-    fetchPosts()
-  }, [])
+    return 1
+  })
 
   return (
     <div>
