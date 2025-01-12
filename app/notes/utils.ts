@@ -53,7 +53,11 @@ function getMarkdownFiles(dir) {
 function readMarkdownFile(filePath) {
   try {
     let rawContent = fs.readFileSync(filePath, 'utf-8')
-    return parseFrontmatter(rawContent)
+    console.log('Reading file:', filePath)
+    console.log('Raw content:', rawContent.substring(0, 200)) // Log first 200 chars
+    const parsed = parseFrontmatter(rawContent)
+    console.log('Parsed content:', parsed)
+    return parsed
   } catch (error) {
     console.error(`Error reading file ${filePath}`, error)
     return {
@@ -61,7 +65,7 @@ function readMarkdownFile(filePath) {
         title: 'Error',
         publishedAt: new Date().toISOString(),
         summary: 'Error loading content',
-      } as Metadata,
+      },
       content: 'Error loading content',
     }
   }
@@ -75,7 +79,7 @@ export function getBlogPosts() {
   
   return mdFiles.map((file) => {
     let { metadata, content } = readMarkdownFile(path.join(notesDir, file))
-    let slug = path.basename(file, path.extname(file))
+    let slug = path.basename(file, path.extname(file)).toLowerCase()
 
     return {
       metadata,

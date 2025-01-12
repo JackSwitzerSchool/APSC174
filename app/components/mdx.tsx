@@ -77,10 +77,20 @@ let components = {
 }
 
 export function CustomMDX(props) {
-  return (
-    <MDXRemote
-      {...props}
-      components={{ ...components, ...(props.components || {}) }}
-    />
-  )
+  if (!props.source) {
+    console.error('No source provided to CustomMDX')
+    return <div>Error: No content available</div>
+  }
+  
+  try {
+    return (
+      <MDXRemote
+        {...props}
+        components={{ ...components, ...(props.components || {}) }}
+      />
+    )
+  } catch (error) {
+    console.error('Error rendering MDX:', error)
+    return <div>Error rendering content</div>
+  }
 }
