@@ -42,8 +42,8 @@ const CustomImage = (props) => {
       <Image 
         {...props}
         src={src}
-        width={width}
-        height={height}
+        width={Number(width)}
+        height={Number(height)}
         alt={props.alt || 'Image'}
         className="rounded-lg mx-auto"
         style={{

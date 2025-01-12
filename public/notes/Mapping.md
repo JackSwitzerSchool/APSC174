@@ -14,7 +14,12 @@ $$
 
 Where $\mathbb{X}$ is the domain of the function and $\mathbb{Y}$ is the codomain or image of $f$
 
-![Function Mapping showing domain and codomain](/assets/BasicMappings.png){width=600 height=400}
+<img 
+  src="/assets/BasicMappings.png" 
+  alt="Function Mapping showing domain and codomain" 
+  width={600} 
+  height={400} 
+/>
 
 ## Optional Properties
 [[Injective]] - One-to-One: 
