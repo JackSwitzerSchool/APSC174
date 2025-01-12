@@ -66,7 +66,7 @@ function createHeading(level) {
   return Heading
 }
 
-let components = {
+const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -88,7 +88,7 @@ export function CustomMDX(props) {
     return (
       <MDXRemote
         {...props}
-        components={{ ...components, ...(props.components || {}) }}
+        components={components}
       />
     )
   } catch (error) {
