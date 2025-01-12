@@ -58,9 +58,12 @@ function parseFrontmatter(fileContent: string) {
 
 function getMarkdownFiles(dir) {
   try {
-    return fs.readdirSync(dir).filter((file) => 
+    const files = fs.readdirSync(dir).filter((file) => 
       ['.md', '.mdx'].includes(path.extname(file))
     )
+    // Log found files for debugging
+    console.log('Found files in', dir, ':', files)
+    return files
   } catch (error) {
     console.warn(`Warning: Could not read directory ${dir}`, error)
     return []
@@ -102,6 +105,7 @@ function readMarkdownFile(filePath) {
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const parts = name.split('|')
+    console.log('Resolving wiki link:', name)
     const pageName = parts[0].trim()
       .toLowerCase()
       .replace(/\s+/g, '-')
@@ -109,6 +113,8 @@ const wikiLinkConfig = {
     return [pageName]
   },
   hrefTemplate: (permalink: string) => {
+    console.log('Creating href for:', permalink)
+    
     // Check if the permalink starts with a category prefix
     if (permalink.startsWith('base/') || 
         permalink.startsWith('tutorials/') || 
@@ -116,18 +122,15 @@ const wikiLinkConfig = {
       return `/${permalink}`
     }
 
-    // Map of slugs to actual filenames
-    const fileMap = {
-      'webwork': 'Webwork',
-      'midterm-1': 'Midterm 1',
-      'midterm-2': 'Midterm 2',
-      'final-exam': 'Final Exam',
-      'course-resources': 'Course Resources'
-    }
-    
-    // If it's a base file, use the mapped filename
-    if (fileMap[permalink]) {
-      return `/notes/base/${encodeURIComponent(fileMap[permalink])}`
+    // These files are in the base directory
+    const baseFiles = ['webwork', 'midterm-1', 'midterm-2', 'final-exam', 'course-resources']
+    if (baseFiles.includes(permalink)) {
+      // Convert kebab-case to Title Case for the filename
+      const filename = permalink.split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
+      console.log('Base file:', filename)
+      return `/notes/base/${encodeURIComponent(filename)}`
     }
     
     // Default to notes directory
