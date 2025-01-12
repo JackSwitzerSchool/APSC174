@@ -11,7 +11,7 @@ interface BlogPost {
   }
 }
 
-export default async function Posts() {
+export async function BlogPosts() {
   const allBlogs = await getBlogPosts()
   const posts = allBlogs.sort((a, b) => {
     if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {

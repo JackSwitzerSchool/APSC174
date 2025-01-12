@@ -1,4 +1,4 @@
-import { getBlogPosts } from '../notes/utils'
+import { getBlogPosts } from '@/app/notes/utils'
 import Link from 'next/link'
 
 export default async function NotesPage() {
