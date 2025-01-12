@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { serialize } from 'next-mdx-remote/serialize'
 
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
@@ -84,7 +85,7 @@ function readMarkdownFile(filePath) {
   }
 }
 
-export function getBlogPosts() {
+export async function getBlogPosts() {
   const notesDir = path.join(process.cwd(), 'public', 'notes')
   console.log('Looking for notes in:', notesDir)
   
@@ -96,15 +97,19 @@ export function getBlogPosts() {
   let mdFiles = getMarkdownFiles(notesDir)
   console.log('Found files:', mdFiles)
   
-  return mdFiles.map((file) => {
+  const posts = await Promise.all(mdFiles.map(async (file) => {
     let { metadata, content } = readMarkdownFile(path.join(notesDir, file))
     let slug = path.basename(file, path.extname(file)).toLowerCase()
-    console.log('Created slug:', slug, 'for file:', file) // Debug log
+    console.log('Created slug:', slug, 'for file:', file)
+
+    const mdxSource = await serialize(content)
 
     return {
       metadata,
       slug,
-      content,
+      content: mdxSource,
     }
-  })
+  }))
+
+  return posts
 }

@@ -3,7 +3,8 @@ import { CustomMDX } from 'app/components/mdx'
 import { getBlogPosts, formatDate } from 'app/notes/utils'
 
 export default async function Page({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.slug)
+  const posts = await getBlogPosts()
+  let post = posts.find((post) => post.slug === params.slug)
 
   if (!post) {
     notFound()

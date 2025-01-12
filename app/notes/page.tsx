@@ -6,8 +6,8 @@ export const metadata = {
   description: 'Course notes and learning materials.',
 }
 
-export default function NotesPage() {
-  const posts = getBlogPosts()
+export default async function NotesPage() {
+  const posts = await getBlogPosts()
   // Note: the slug will be 'week-1' because of the space in the filename
   const week1Post = posts.find(post => post.slug === 'week 1')
   

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { MDXRemote } from 'next-mdx-remote'
 import { highlight } from 'sugar-high'
 import React from 'react'
 
@@ -85,9 +85,14 @@ export function CustomMDX(props) {
   }
   
   try {
+    const mdxSource = {
+      compiledSource: props.source,
+      scope: {}
+    }
+
     return (
       <MDXRemote
-        {...props}
+        {...mdxSource}
         components={components}
       />
     )
