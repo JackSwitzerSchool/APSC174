@@ -4,6 +4,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import remarkWikiLink from 'remark-wiki-link'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
@@ -141,7 +142,19 @@ const wikiLinkConfig = {
   wikiLinkClassName: 'wiki-link'
 }
 
-export async function getBlogPosts() {
+export interface BlogPost {
+  slug: string
+  category: string
+  metadata: {
+    title: string
+    publishedAt: string
+    summary?: string
+  }
+  content: MDXRemoteSerializeResult
+  originalFilename?: string
+}
+
+export async function getBlogPosts(): Promise<BlogPost[]> {
   const directories = [
     path.join(process.cwd(), 'public', 'notes'),
     path.join(process.cwd(), 'public', 'base'),

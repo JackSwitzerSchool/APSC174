@@ -1,5 +1,5 @@
-import { getBlogPosts } from '../notes/utils'
-import { CustomMDX } from '../components/mdx'
+import { getBlogPosts } from '@/app/notes/utils'
+import { CustomMDX } from '@/app/components/mdx'
 
 export default async function Page() {
   const posts = await getBlogPosts()

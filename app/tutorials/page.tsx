@@ -1,5 +1,5 @@
-import { CustomMDX } from '../components/mdx'
-import { getBlogPosts } from '../notes/utils'
+import { CustomMDX } from '@/app/components/mdx'
+import { getBlogPosts } from '@/app/notes/utils'
 
 export const metadata = {
   title: 'Tutorials',

@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { getBlogPosts } from '@/app/notes/utils'
-import { formatDate } from '@/app/notes/utils'
+import { getBlogPosts, formatDate } from '@/app/notes/utils'
 
 interface BlogPost {
   slug: string

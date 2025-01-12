@@ -1,5 +1,5 @@
-import { getBlogPosts } from '../../notes/utils'
-import { CustomMDX } from '../../components/mdx'
+import { getBlogPosts } from '@/app/notes/utils'
+import { CustomMDX } from '@/app/components/mdx'
 import { notFound } from 'next/navigation'
 
 export default async function BasePage({ params }: { params: { slug: string[] } }) {

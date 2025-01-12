@@ -1,4 +1,4 @@
-import { getBlogPosts } from 'app/notes/utils'
+import { getBlogPosts } from '@/app/notes/utils'
 
 export const baseUrl = 'https://jackswitzer.com'
 
