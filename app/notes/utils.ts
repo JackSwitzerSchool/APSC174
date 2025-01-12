@@ -99,6 +99,7 @@ export function getBlogPosts() {
   return mdFiles.map((file) => {
     let { metadata, content } = readMarkdownFile(path.join(notesDir, file))
     let slug = path.basename(file, path.extname(file)).toLowerCase()
+    console.log('Created slug:', slug, 'for file:', file) // Debug log
 
     return {
       metadata,
