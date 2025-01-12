@@ -1,6 +1,6 @@
 'use client'
 
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -8,9 +8,7 @@ interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> 
   href: string
 }
 
-const CustomLink = (props: CustomLinkProps) => {
-  const href = props.href
-
+const CustomLink = ({ href, ...props }: CustomLinkProps) => {
   if (href.startsWith('/')) {
     return (
       <Link href={href} {...props}>
@@ -19,7 +17,7 @@ const CustomLink = (props: CustomLinkProps) => {
     )
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />
+  return <a target="_blank" rel="noopener noreferrer" href={href} {...props} />
 }
 
 interface CustomImageProps {
@@ -64,7 +62,7 @@ export const MDXComponents = {
 }
 
 interface CustomMDXProps {
-  source: any // You might want to import the proper type from next-mdx-remote
+  source: MDXRemoteSerializeResult
 }
 
 export function CustomMDX({ source }: CustomMDXProps) {
