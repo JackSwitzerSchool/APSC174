@@ -9,10 +9,10 @@ export const metadata = {
 
 export default function TutorialsPage() {
   const posts = getBlogPosts()
-  console.log('All posts:', posts.map(p => p.slug)) // Debug logging
+  console.log('All posts:', posts.map(p => p.slug))
   
   const tutorialPost = posts.find(post => post.slug === 'tutorials')
-  console.log('Tutorial post:', tutorialPost) // Debug logging
+  console.log('Tutorial post:', tutorialPost)
   
   if (!tutorialPost) {
     console.error('Tutorial post not found')

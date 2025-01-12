@@ -1,23 +1,33 @@
 'use client'
 
-import { Component } from 'react'
+import { Component, ReactNode } from 'react'
 
-export class ErrorBoundary extends Component<
-  { children: React.ReactNode },
-  { hasError: boolean }
-> {
-  constructor(props) {
+interface Props {
+  children: ReactNode
+  fallback: ReactNode
+}
+
+interface State {
+  hasError: boolean
+}
+
+export class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_: Error): State {
     return { hasError: true }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('ErrorBoundary caught an error:', error, errorInfo)
   }
 
   render() {
     if (this.state.hasError) {
-      return <div>Something went wrong loading the content.</div>
+      return this.props.fallback
     }
 
     return this.props.children
