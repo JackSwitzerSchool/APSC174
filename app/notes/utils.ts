@@ -70,20 +70,20 @@ function getMarkdownFiles(dir) {
   }
 }
 
-function readMarkdownFile(filePath) {
+function readMarkdownFile(filePath: string) {
   try {
     let rawContent = fs.readFileSync(filePath, 'utf-8')
     
-    // For tutorial header, only return the content after frontmatter
+    // For tutorial header, return only the content after frontmatter
     if (filePath.includes('tutorialsHeader.md')) {
       const parts = rawContent.split('---')
-      const content = parts.slice(2).join('').trim()
       return {
         metadata: {
           title: 'Tutorial Materials',
           publishedAt: new Date().toISOString(),
         },
-        content
+        // Take everything after the second '---' and trim whitespace
+        content: parts.length >= 3 ? parts.slice(2).join('---').trim() : rawContent.trim()
       }
     }
     
@@ -172,7 +172,7 @@ export async function getBlogPosts() {
         slug: slug.toLowerCase().replace(/\s+/g, '-'),  // Convert spaces to hyphens
         originalFilename: slug,
         content: await serialize(content, {
-          parseFrontmatter: file !== 'tutorialsHeader.md',
+          parseFrontmatter: false,
           mdxOptions: {
             remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
             rehypePlugins: [rehypeKatex],
