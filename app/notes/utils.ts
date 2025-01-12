@@ -122,7 +122,7 @@ const wikiLinkConfig = {
       return `/${permalink}`
     }
 
-    // Special case for Course Resources
+    // Special case for Course Resources - use encoded URL
     if (permalink === 'course-resources') {
       return `/notes/base/Course%20Resources`
     }
