@@ -9,7 +9,7 @@ We say, "$\mathbb{X}$ is a subset of $\mathbb{Y}$" if every element of $\mathbb{
 
 Formally:
 $$
-\mathbb{X} \subseteq \mathbb{Y} \iff \forall x \in \mathbb{X} \Rightarrow x \in \mathbb{Y} 
+\mathbb{X} \subseteq \mathbb{Y} \iff \forall x \in \mathbb{X} \Rightarrow x \in \mathbb{Y}
 $$
 
 In class I believe you will use "$\subseteq$" to denote a subset where the subset can equal the reference set and "$\subset$" to denote strict subsets - subsets that are not equal to the reference set.
