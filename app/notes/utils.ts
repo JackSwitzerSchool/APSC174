@@ -102,7 +102,14 @@ export async function getBlogPosts() {
     let slug = path.basename(file, path.extname(file)).toLowerCase()
     console.log('Created slug:', slug, 'for file:', file)
 
-    const mdxSource = await serialize(content)
+    const mdxSource = await serialize(content, {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [],
+        rehypePlugins: [],
+        format: 'mdx'
+      }
+    })
 
     return {
       metadata,

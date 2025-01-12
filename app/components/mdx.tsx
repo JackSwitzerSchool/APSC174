@@ -33,46 +33,7 @@ function Code({ children, ...props }) {
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
-function slugify(str) {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-}
-
-function createHeading(level) {
-  const Heading = ({ children }) => {
-    let slug = slugify(children)
-    return React.createElement(
-      `h${level}`,
-      { id: slug },
-      [
-        React.createElement('a', {
-          href: `#${slug}`,
-          key: `link-${slug}`,
-          className: 'anchor',
-        }),
-      ],
-      children
-    )
-  }
-
-  Heading.displayName = `Heading${level}`
-
-  return Heading
-}
-
 const components = {
-  h1: createHeading(1),
-  h2: createHeading(2),
-  h3: createHeading(3),
-  h4: createHeading(4),
-  h5: createHeading(5),
-  h6: createHeading(6),
   Image: RoundedImage,
   a: CustomLink,
   code: Code,
@@ -83,21 +44,11 @@ export function CustomMDX(props) {
     console.error('No source provided to CustomMDX')
     return <div>Error: No content available</div>
   }
-  
-  try {
-    const mdxSource = {
-      compiledSource: props.source,
-      scope: {}
-    }
 
-    return (
-      <MDXRemote
-        {...mdxSource}
-        components={components}
-      />
-    )
-  } catch (error) {
-    console.error('Error rendering MDX:', error)
-    return <div>Error rendering content</div>
-  }
+  return (
+    <MDXRemote
+      {...props.source}
+      components={components}
+    />
+  )
 }
