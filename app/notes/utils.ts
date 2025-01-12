@@ -70,17 +70,21 @@ function getMarkdownFiles(dir) {
 function readMarkdownFile(filePath) {
   try {
     let rawContent = fs.readFileSync(filePath, 'utf-8')
-    const parsed = parseFrontmatter(rawContent)
     
-    // For tutorial header, strip out the frontmatter completely
+    // For tutorial header, only return the content after frontmatter
     if (filePath.includes('tutorialsHeader.md')) {
-      const content = rawContent.replace(/^---[\s\S]*?---/, '').trim()
+      const content = rawContent.split('---').slice(2).join('---').trim()
       return {
-        metadata: parsed.metadata,
+        metadata: {
+          title: 'Tutorial Materials',
+          publishedAt: new Date().toISOString(),
+        },
         content
       }
     }
     
+    // For all other files, parse normally
+    const parsed = parseFrontmatter(rawContent)
     return parsed
   } catch (error) {
     console.error(`Error reading file ${filePath}`, error)
@@ -101,7 +105,7 @@ const wikiLinkConfig = {
     const pageName = parts[0].trim()
       .toLowerCase()
       .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '') // Remove any special characters
+      .replace(/[^a-z0-9-]/g, '')
     return [pageName]
   },
   hrefTemplate: (permalink: string) => {
@@ -111,15 +115,19 @@ const wikiLinkConfig = {
         permalink.startsWith('notes/')) {
       return `/${permalink}`
     }
-    // Special cases for base files
-    const baseFiles = ['webwork', 'midterm-1', 'midterm-2', 'final-exam', 'course-resources']
-    if (baseFiles.includes(permalink)) {
-      return `/notes/base/${permalink}`
+
+    // Map of slugs to actual filenames
+    const fileMap = {
+      'webwork': 'Webwork',
+      'midterm-1': 'Midterm 1',
+      'midterm-2': 'Midterm 2',
+      'final-exam': 'Final Exam',
+      'course-resources': 'Course Resources'
     }
     
-    // Special case for Week 1
-    if (permalink === 'week-1') {
-      return `/notes/week-1`
+    // If it's a base file, use the mapped filename
+    if (fileMap[permalink]) {
+      return `/notes/base/${encodeURIComponent(fileMap[permalink])}`
     }
     
     // Default to notes directory
@@ -150,10 +158,10 @@ export async function getBlogPosts() {
     const posts = await Promise.all(mdFiles.map(async (file) => {
       let { metadata, content } = readMarkdownFile(path.join(dir, file))
       let slug = path.basename(file, path.extname(file)).toLowerCase()
-      console.log('Created slug:', slug, 'for file:', file)
-
-      const mdxSource = await serialize(content, {
-        parseFrontmatter: true,
+      
+      // For tutorials header, don't include frontmatter in serialization
+      const mdxOptions = {
+        parseFrontmatter: file !== 'tutorialsHeader.md',
         mdxOptions: {
           remarkPlugins: [
             remarkMath,
@@ -163,13 +171,15 @@ export async function getBlogPosts() {
           format: 'mdx',
           development: process.env.NODE_ENV === 'development'
         }
-      })
+      }
+
+      const mdxSource = await serialize(content, mdxOptions)
 
       return {
         metadata,
         slug,
         content: mdxSource,
-        category: path.basename(dir) // Add category based on directory
+        category: path.basename(dir)
       }
     }))
     
