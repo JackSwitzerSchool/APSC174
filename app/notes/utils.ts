@@ -90,13 +90,15 @@ function readMarkdownFile(filePath) {
 
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
-    // If there's an alias, use the first part for the link
     const parts = name.split('|')
-    const pageName = parts[0].toLowerCase().replace(/\s+/g, '-')
+    const pageName = parts[0].trim().toLowerCase().replace(/\s+/g, '-')
     return [pageName]
   },
-  hrefTemplate: (permalink: string) => `/notes/${permalink}`,
-  aliasDivider: '|'
+  hrefTemplate: (permalink: string) => permalink,
+  aliasDivider: '|',
+  wikiLinkClassName: 'wikilink',
+  type: 'mdxJsxTextElement',
+  component: 'wikilink'
 }
 
 export async function getBlogPosts() {
