@@ -4,7 +4,7 @@ publishedAt: '2025-01-11'
 ---
 
 Syllabus: [Download PDF](https://onq.queensu.ca/content/enforced/992465-APSC174W25/APSC174-Syllabus-W21.pdf)
-Mansouri Notes: [Download PDF](/resources/MansouriNotes.pdf)
+Mansouri Notes: [Download PDF](https://onq.queensu.ca/content/enforced/992465-APSC174W25/MansouriNotes.pdf)
 Totally not the Textbook: ???
 
 ## Course Calendar

@@ -12,7 +12,7 @@ $$
 
 Where $\mathbb{X}$ is the domain of the function and $\mathbb{Y}$ is the codomain or image of $f$
 
-![Function Mapping](/images/BasicMappings.png)
+![Function Mapping](/assets/BasicMappings.png)
 
 ## Optional Properties
 [[Injective]] - One-to-One: 
