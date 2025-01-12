@@ -4,9 +4,15 @@ publishedAt: '2025-01-11'
 ---
 
 ## Sets
-[[Sets|Set]]: $\\{ \\text{ Element name } : \\text{ Rule or Pattern or Condition } \\}$
+[[Sets|Set]]: 
 
-Given That (Rule or Pattern or Condition): ":" or "|" 
+$$
+\{ x : P(x) \}
+$$
+
+Where $x$ is an element and $P(x)$ is a condition on $x$.
+
+Given That (Rule or Pattern or Condition): "$:$" or "$|$" 
 
 [[Subset]]: $\subseteq$
 
@@ -32,7 +38,11 @@ Real Numbers: $\mathbb{R}$
 
 [[Cartesian Product]]: $\times$
 
-Set Equality: $A=B \iff A \subseteq B \text{ and } B \subseteq A$
+Set Equality: 
+
+$$
+A = B \iff A \subseteq B \text{ and } B \subseteq A
+$$
 
 ## General
 Such That: "s.t."

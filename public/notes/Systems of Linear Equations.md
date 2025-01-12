@@ -7,6 +7,7 @@ publishedAt: '2025-01-11'
 A system of linear equations is a collection of equations that are of a particular form.
 
 More generally, a linear equation is in the form ( * ):
+
 $$
 c_1x_1 + c_2x_2 + \dots + c_{n-1}x_{n-1} + c_nx_n = b
 $$
@@ -22,12 +23,13 @@ In a 3 dimensional system of linear equations, each individual equation describe
 
 ### Example
 Consider the system:
+
 $$
-\begin{align*}
-2x-5y-13z &= 1000 \\
-3x-9y+3z &= 0 \\
-5x-6y-8z &= 600
-\end{align*}
+\begin{gathered}
+2x-5y-13z = 1000 \\
+3x-9y+3z = 0 \\
+5x-6y-8z = 600
+\end{gathered}
 $$
 
 Solution: This gives a unique solution of $x=1200$, $y=500$, $z=300$

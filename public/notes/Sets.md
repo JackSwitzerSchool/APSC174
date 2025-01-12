@@ -13,12 +13,19 @@ An object "a" being in a set $\mathbb{X}$ is often said "a is an element of $\ma
 A set is described by squiggly brackets $\{\}$ and must be unambiguously defined. 
 A set's elements can be listed simply: $\mathbb{X} = \{\text{Gold}, \text{Blue}, \text{Red}\}$ 
 or described by some pattern or rule: $\mathbb{Y}=\{a, b, c, \dots, y, z\}$
-or conditions on another set: $\mathbb{S} = \{x \in \mathbb{Z} : 0 \leq x \leq 4\}=\{0,1,2,3,4\}$
+or conditions on another set: 
+
+$$
+\mathbb{S} = \{ x \in \mathbb{Z} : 0 \leq x \leq 4 \} = \{0,1,2,3,4\}
+$$
 
 The above example would read: "Some set S is defined by an element x of the integers given that it is in-between the bounds 0 and 4 inclusive"
 
 ## [[Subset|Subsets]]
-$\emptyset \subset \mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$
+
+$$
+\emptyset \subset \mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}
+$$
 
 ## Examples
 In descent from the abstract, many common objects you're used to can be easily described by the notion of a set and some rule(s)!

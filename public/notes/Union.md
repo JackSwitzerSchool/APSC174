@@ -7,8 +7,9 @@ publishedAt: '2025-01-11'
 The union of two [[Sets|sets]] $\mathbb{X}, \mathbb{Y}$ is the set of all elements that belong to $\mathbb{X}$ *or* $\mathbb{Y}$
 
 Formally: 
+
 $$
-\mathbb{X} \cup \mathbb{Y} = \{ x: x \in \mathbb{X} \text{ or } x \in \mathbb{Y}\}
+\mathbb{X} \cup \mathbb{Y} = \{ x : x \in \mathbb{X} \text{ or } x \in \mathbb{Y} \}
 $$
 
 This notion of "or" is foundational to computer programming and logic gates.
@@ -27,4 +28,8 @@ iv) $\mathbb{X} \cup \emptyset = \mathbb{X}$
 ## Example
 Let $\mathbb{X}=\{a, b, c, d\}$, $\mathbb{Y}=\{a, e, f\}$
 
-Then $\mathbb{X} \cup \mathbb{Y} = \{a, b, c, d, e, f\}$
+Then:
+
+$$
+\mathbb{X} \cup \mathbb{Y} = \{a, b, c, d, e, f\}
+$$

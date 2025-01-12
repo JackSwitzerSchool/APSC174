@@ -6,6 +6,7 @@ publishedAt: '2025-01-11'
 Given [[Sets|sets]] $\mathbb{X}, \mathbb{Y}$, a function or mapping from $\mathbb{X}$ to $\mathbb{Y}$ is a rule that assigns each $x \in \mathbb{X}$ a unique element $f(x) \in \mathbb{Y}$ 
 
 Formally: 
+
 $$
 f: \mathbb{X} \longrightarrow \mathbb{Y}
 $$
@@ -16,13 +17,15 @@ Where $\mathbb{X}$ is the domain of the function and $\mathbb{Y}$ is the codomai
 
 ## Optional Properties
 [[Injective]] - One-to-One: 
+
 $$
-\forall x_1, x_2 \in \mathbb{X}, f(x_1)=f(x_2) \Rightarrow x_1=x_2
+\forall x_1, x_2 \in \mathbb{X}, \; f(x_1)=f(x_2) \implies x_1=x_2
 $$
 
 [[Surjective]] - Onto: 
+
 $$
-\forall y \in \mathbb{Y}, \exists x \in \mathbb{X} \text{ such that } f(x)=y
+\forall y \in \mathbb{Y}, \; \exists x \in \mathbb{X} : f(x)=y
 $$
 
 Bijective - Both injective and surjective

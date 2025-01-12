@@ -6,9 +6,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import { highlight } from 'sugar-high'
 import React from 'react'
 
-function CustomLink(props) {
-  let href = props.href
-
+const CustomLink = ({ href, ...props }) => {
   if (href.startsWith('/')) {
     return (
       <Link href={href} {...props}>
@@ -24,11 +22,11 @@ function CustomLink(props) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function RoundedImage(props) {
+const RoundedImage = (props) => {
   return <Image alt={props.alt} className="rounded-lg" {...props} />
 }
 
-function Code({ children, ...props }) {
+const Code = ({ children, ...props }) => {
   let codeHTML = highlight(children)
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
@@ -39,15 +37,15 @@ const components = {
   code: Code,
 }
 
-export function CustomMDX(props) {
-  if (!props.source) {
+export function CustomMDX({ source }) {
+  if (!source) {
     console.error('No source provided to CustomMDX')
     return <div>Error: No content available</div>
   }
 
   return (
     <MDXRemote
-      {...props.source}
+      {...source}
       components={components}
     />
   )

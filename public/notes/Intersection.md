@@ -7,8 +7,9 @@ publishedAt: '2025-01-11'
 The intersection of two [[Sets|sets]] $\mathbb{X}, \mathbb{Y}$ is the set of all elements that belong to $\mathbb{X}$ *and* $\mathbb{Y}$
 
 Formally: 
+
 $$
-\mathbb{X} \cap \mathbb{Y} = \{ x: x \in \mathbb{X} \text{ and } x \in \mathbb{Y}\}
+\mathbb{X} \cap \mathbb{Y} = \{ x : x \in \mathbb{X} \text{ and } x \in \mathbb{Y} \}
 $$
 
 This notion of "and" is foundational to computer programming and logic gates.
@@ -27,4 +28,8 @@ iv) $\mathbb{X} \cap \emptyset = \emptyset$
 ## Example
 Let $\mathbb{X}=\{a, b, c, d\}$, $\mathbb{Y}=\{a, e, f\}$
 
-Then $\mathbb{X} \cap \mathbb{Y} = \{a\}$
+Then:
+
+$$
+\mathbb{X} \cap \mathbb{Y} = \{a\}
+$$
