@@ -3,6 +3,7 @@ import path from 'path'
 import { serialize } from 'next-mdx-remote/serialize'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
+import remarkWikiLink from 'remark-wiki-link'
 
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
@@ -87,6 +88,17 @@ function readMarkdownFile(filePath) {
   }
 }
 
+const wikiLinkConfig = {
+  pageResolver: (name: string) => {
+    // If there's an alias, use the first part for the link
+    const parts = name.split('|')
+    const pageName = parts[0].toLowerCase().replace(/\s+/g, '-')
+    return [pageName]
+  },
+  hrefTemplate: (permalink: string) => `/notes/${permalink}`,
+  aliasDivider: '|'
+}
+
 export async function getBlogPosts() {
   const notesDir = path.join(process.cwd(), 'public', 'notes')
   console.log('Looking for notes in:', notesDir)
@@ -107,7 +119,10 @@ export async function getBlogPosts() {
     const mdxSource = await serialize(content, {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkMath],
+        remarkPlugins: [
+          remarkMath,
+          [remarkWikiLink, wikiLinkConfig]
+        ],
         rehypePlugins: [rehypeKatex],
         format: 'mdx'
       }
