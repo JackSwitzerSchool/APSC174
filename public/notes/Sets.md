@@ -23,7 +23,7 @@ $\emptyset \subset \mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mat
 ## Examples
 In descent from the abstract, many common objects you're used to can be easily described by the notion of a set and some rule(s)!
 
-[[Empty Set|The Empty Set]]: $\emptyset=\{\}$
+[[Empty Set]]: $\emptyset=\{\}$
 The Natural Numbers: $\mathbb{N} = \{0, 1, 2, 3, \dots \}$
 The Integers: $\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots \}$
 The Real Numbers: $\mathbb{R}$ where $\{\sqrt{2}, -129801, 54/23, \pi\} \in \mathbb{R}$
@@ -31,4 +31,4 @@ The Real Numbers: $\mathbb{R}$ where $\{\sqrt{2}, -129801, 54/23, \pi\} \in \mat
 I wonder how these real numbers can be defined? You may need to chose apple to find out...
 
 ## Who Cares?
-Literally every single mathematical object can be described by sets; Set theory is the language in which modern math has been built up from. The modern ZFC axioms have allowed for more formalization, generalization across domains and diving further into the depths of mathematical theory and application. This tool of abstraction [[Motivation for the Abstract|why abstract]] allows solving the toughest engineering problems and understanding the base of the pyramid will allow you to explore more and more difficult puzzles.
+Literally every single mathematical object can be described by sets; Set theory is the language in which modern math has been built up from. The modern ZFC axioms have allowed for more formalization, generalization across domains and diving further into the depths of mathematical theory and application. This tool of abstraction ([[Motivation for the Abstract|Why Abstract?]]) allows solving the toughest engineering problems and understanding the base of the pyramid will allow you to explore more and more difficult puzzles.

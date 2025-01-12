@@ -32,7 +32,7 @@ $$
 
 Solution: This gives a unique solution of $x=1200$, $y=500$, $z=300$
 
-See [[Solving Systems of Linear Equations]] to learn more about how to solve these.
+See [[Solving Systems of Linear Equations|how to solve these systems]].
 
 ### Counter Examples
 #### a) $\sin(x) = 0.2$ 
