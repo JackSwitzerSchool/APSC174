@@ -107,28 +107,37 @@ const wikiLinkConfig = {
     const parts = name.split('|')
     console.log('Resolving wiki link:', name)
     const pageName = parts[0].trim()
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-    return [pageName]
+    
+    // Don't transform absolute paths
+    if (pageName.startsWith('/')) {
+      return [pageName]
+    }
+    
+    // For relative paths, convert to lowercase and replace spaces with hyphens
+    return [pageName.toLowerCase().replace(/\s+/g, '-')]
   },
   hrefTemplate: (permalink: string) => {
     console.log('Creating href for:', permalink)
     
+    // Handle absolute paths (starting with /)
+    if (permalink.startsWith('/')) {
+      return permalink
+    }
+
+    // Convert spaces to hyphens and lowercase for all relative paths
+    const normalizedPermalink = permalink
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+
     // Check if the permalink starts with a category prefix
     if (permalink.startsWith('base/') || 
         permalink.startsWith('tutorials/') || 
         permalink.startsWith('notes/')) {
-      return `/${permalink}`
-    }
-
-    // Special case for Course Resources - use encoded URL
-    if (permalink === 'course-resources') {
-      return `/notes/base/Course%20Resources`
+      return `/${normalizedPermalink}`
     }
 
     // Default to notes directory
-    return `/notes/${permalink}`
+    return `/notes/${normalizedPermalink}`
   },
   aliasDivider: '|',
   wikiLinkClassName: 'wiki-link'
@@ -154,28 +163,21 @@ export async function getBlogPosts() {
     
     const posts = await Promise.all(mdFiles.map(async (file) => {
       let { metadata, content } = readMarkdownFile(path.join(dir, file))
-      let slug = path.basename(file, path.extname(file)).toLowerCase()
+      let slug = path.basename(file, path.extname(file))
       
-      // For tutorials header, don't include frontmatter in serialization
-      const mdxOptions = {
-        parseFrontmatter: file !== 'tutorialsHeader.md',
-        mdxOptions: {
-          remarkPlugins: [
-            remarkMath,
-            [remarkWikiLink, wikiLinkConfig]
-          ],
-          rehypePlugins: [rehypeKatex],
-          format: 'mdx',
-          development: process.env.NODE_ENV === 'development'
-        }
-      }
-
-      const mdxSource = await serialize(content, mdxOptions)
-
+      // Store both the original filename and the lowercase slug
       return {
         metadata,
-        slug,
-        content: mdxSource,
+        slug: slug.toLowerCase(),
+        originalFilename: slug,
+        content: await serialize(content, {
+          parseFrontmatter: file !== 'tutorialsHeader.md',
+          mdxOptions: {
+            remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
+            rehypePlugins: [rehypeKatex],
+            format: 'mdx'
+          }
+        }),
         category: path.basename(dir)
       }
     }))

@@ -5,9 +5,9 @@ export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // Handle both /course-resources and encoded versions
-  if (pathname === '/course-resources' || pathname === '/notes/base/course-resources') {
+  if (pathname === '/course-resources') {
     return NextResponse.redirect(
-      new URL('/notes/base/Course%20Resources', request.url)
+      new URL('/base/Course Resources', request.url)
     )
   }
 
@@ -15,5 +15,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/course-resources', '/notes/base/course-resources']
+  matcher: ['/course-resources']
 } 
