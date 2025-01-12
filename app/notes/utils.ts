@@ -97,7 +97,16 @@ const wikiLinkConfig = {
       .replace(/[^a-z0-9-]/g, '') // Remove any special characters
     return [pageName]
   },
-  hrefTemplate: (permalink: string) => `/notes/${permalink}`,
+  hrefTemplate: (permalink: string) => {
+    // Check if the permalink starts with a category prefix
+    if (permalink.startsWith('base/') || 
+        permalink.startsWith('tutorials/') || 
+        permalink.startsWith('notes/')) {
+      return `/${permalink}`
+    }
+    // Default to notes directory
+    return `/notes/${permalink}`
+  },
   aliasDivider: '|',
   wikiLinkClassName: 'wiki-link'
 }
