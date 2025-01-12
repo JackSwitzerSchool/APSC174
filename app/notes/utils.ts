@@ -76,7 +76,8 @@ function readMarkdownFile(filePath) {
     
     // For tutorial header, only return the content after frontmatter
     if (filePath.includes('tutorialsHeader.md')) {
-      const content = rawContent.split('---').slice(2).join('---').trim()
+      const parts = rawContent.split('---')
+      const content = parts.slice(2).join('').trim()
       return {
         metadata: {
           title: 'Tutorial Materials',
@@ -168,7 +169,7 @@ export async function getBlogPosts() {
       // Store both the original filename and the lowercase slug
       return {
         metadata,
-        slug: slug.toLowerCase(),
+        slug: slug.toLowerCase().replace(/\s+/g, '-'),  // Convert spaces to hyphens
         originalFilename: slug,
         content: await serialize(content, {
           parseFrontmatter: file !== 'tutorialsHeader.md',
