@@ -19,6 +19,16 @@ export default async function NotesPage() {
     return acc
   }, {})
 
+  const getPostHref = (post) => {
+    if (post.category === 'notes') {
+      return `/notes/${post.slug}`
+    }
+    if (post.category === 'tutorials' && post.slug === 'tutorialsheader') {
+      return '/notes/tutorials'
+    }
+    return `/notes/${post.category}/${post.slug}`
+  }
+
   return (
     <section>
       <div className="mb-8">
@@ -43,7 +53,7 @@ export default async function NotesPage() {
                   <Link
                     key={post.slug}
                     className="flex flex-col space-y-1 p-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-900"
-                    href={`/notes/${post.category}/${post.slug}`}
+                    href={getPostHref(post)}
                   >
                     <div className="w-full flex flex-col">
                       <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
