@@ -94,11 +94,8 @@ const wikiLinkConfig = {
     const pageName = parts[0].trim().toLowerCase().replace(/\s+/g, '-')
     return [pageName]
   },
-  hrefTemplate: (permalink: string) => permalink,
-  aliasDivider: '|',
-  wikiLinkClassName: 'wikilink',
-  type: 'mdxJsxTextElement',
-  component: 'wikilink'
+  hrefTemplate: (permalink: string) => `/notes/${permalink}`,
+  aliasDivider: '|'
 }
 
 export async function getBlogPosts() {

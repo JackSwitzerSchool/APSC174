@@ -1,10 +1,16 @@
+import { getBlogPosts } from '@/app/notes/utils'
+import { CustomMDX } from '@/app/components/mdx'
 import { notFound } from 'next/navigation'
-import { CustomMDX } from 'app/components/mdx'
-import { getBlogPosts, formatDate } from 'app/notes/utils'
 
-export default async function Page({ params }) {
+interface PageProps {
+  params: {
+    slug: string
+  }
+}
+
+export default async function Page({ params }: PageProps) {
   const posts = await getBlogPosts()
-  let post = posts.find((post) => post.slug === params.slug)
+  const post = posts.find((post) => post.slug === params.slug)
 
   if (!post) {
     notFound()
@@ -12,30 +18,19 @@ export default async function Page({ params }) {
 
   return (
     <section>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            description: post.metadata.summary,
-          }),
-        }}
-      />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+      <h1 className="font-bold text-2xl tracking-tighter max-w-[650px]">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
-        </p>
-      </div>
       <article className="prose prose-quoteless prose-neutral dark:prose-invert">
         <CustomMDX source={post.content} />
       </article>
     </section>
   )
+}
+
+export async function generateStaticParams() {
+  const posts = await getBlogPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
 }

@@ -1,17 +1,32 @@
-import { getBlogPosts } from './notes/utils'
-import { CustomMDX } from './components/mdx'
+import { getBlogPosts } from '@/app/notes/utils'
+import Link from 'next/link'
 
-export default async function Home() {
+export default async function Page() {
   const posts = await getBlogPosts()
-  const week1Post = posts.find(post => post.slug === 'week 1')
-  
+
   return (
-    <div className="prose dark:prose-invert">
-      {week1Post ? (
-        <CustomMDX source={week1Post.content} />
-      ) : (
-        <p>Week 1 content not found</p>
-      )}
-    </div>
+    <section>
+      <h1 className="font-bold text-2xl mb-8 tracking-tighter">Course Notes</h1>
+      <div className="prose prose-neutral dark:prose-invert">
+        {posts
+          .sort((a, b) => 
+            new Date(b.metadata.publishedAt).getTime() - 
+            new Date(a.metadata.publishedAt).getTime()
+          )
+          .map((post) => (
+            <Link
+              key={post.slug}
+              className="flex flex-col space-y-1 mb-4"
+              href={`/notes/${post.slug}`}
+            >
+              <div className="w-full flex flex-col">
+                <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
+                  {post.metadata.title}
+                </p>
+              </div>
+            </Link>
+          ))}
+      </div>
+    </section>
   )
 }

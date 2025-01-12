@@ -7,26 +7,10 @@ import { highlight } from 'sugar-high'
 import React from 'react'
 import { MDXComponents } from 'mdx/types'
 
-// Wiki link component
-const WikiLink = ({ href, children }) => {
-  // Split on | to handle aliases
-  const [link, label] = href.split('|').map(s => s.trim())
-  const displayText = label || children || link
-
-  return (
-    <Link 
-      href={`/notes/${link.toLowerCase().replace(/\s+/g, '-')}`} 
-      className="text-blue-500 hover:underline"
-    >
-      {displayText}
-    </Link>
-  )
-}
-
 const CustomLink = ({ href, ...props }) => {
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
+      <Link href={href} {...props} className="text-blue-500 hover:underline">
         {props.children}
       </Link>
     )
@@ -51,8 +35,7 @@ const Code = ({ children, ...props }) => {
 const components: MDXComponents = {
   Image: RoundedImage,
   a: CustomLink,
-  code: Code,
-  wikilink: WikiLink,
+  code: Code
 }
 
 interface CustomMDXProps {
