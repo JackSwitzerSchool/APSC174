@@ -1,6 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import { serialize } from 'next-mdx-remote/serialize'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
@@ -105,8 +107,8 @@ export async function getBlogPosts() {
     const mdxSource = await serialize(content, {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
         format: 'mdx'
       }
     })
