@@ -1,5 +1,5 @@
 import { baseUrl } from 'app/sitemap'
-import { getBlogPosts } from 'app/notes/utils' //note: this could be in components/posts.tsx
+import { getBlogPosts } from 'app/notes/utils'
 
 export async function GET() {
   let allNotes = await getBlogPosts()
@@ -24,7 +24,6 @@ export async function GET() {
     )
     .join('\n')
 
-    // candidate for deletion below.
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0">
     <channel>

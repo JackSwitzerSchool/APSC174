@@ -6,17 +6,6 @@ export const metadata = {
   description: 'Course tutorials and practice problems.',
 }
 
-export default async function getHeaderContent() {
-  try {
-    const headerPath = path.join(process.cwd(), 'public', 'tutorials', 'tutorialsHeader.md')
-    const content = fs.readFileSync(headerPath, 'utf-8')
-    return await serialize(content)
-  } catch (error) {
-    console.warn('Could not read tutorials header:', error)
-    return null
-  }
-}
-
 export default async function TutorialsPage() {
   const posts = await getBlogPosts()
   const tutorialHeader = posts.find(
