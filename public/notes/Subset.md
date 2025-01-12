@@ -5,7 +5,7 @@ publishedAt: '2025-01-11'
 
 ## Definition
 A subset is a set that is solely contained in another set.
-We say, "X is a subset of Y" if every element of X is also an element of Y
+We say, "$\mathbb{X}$ is a subset of $\mathbb{Y}$" if every element of $\mathbb{X}$ is also an element of $\mathbb{Y}$
 
 Formally:
 $$
