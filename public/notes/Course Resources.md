@@ -22,26 +22,25 @@ Midterm Test 2: 22.5%
 Final Exam: 45%
 b) Midterm Test 1 or 2: 22.5% - best midterm grade
 Final Exam: 67.5%
+
 ## Instructor Information
 
 ### Office Hours
 
-Alan Ableson - Monday 11:30 -
-|   |   |   |
-|---|---|---|
-|**Instructors**|**Time/Date**|**Location  <br>**|
-|Alan Ableson|Mondays 11:30 AM -12:30 PM  <br>Tuesdays 11:30 AM - 1:30 PM|McLaughlin Hall, RM 330|
-|Mike Roth|TBA|Jeffery Hall|
-|Luke Steverango|TBA|Jeffery Hall|
-|Kexue Zhang|Mondays 12:30pm-02:30pm  <br>Tuesdays 04:30pm-05:30pm|Jeffery Hall, RM 409|
+| Instructor | Time | Location |
+|------------|------|-----------|
+| Alan Ableson | Mondays 11:30 AM - 12:30 PM, Tuesdays 11:30 AM - 1:30 PM | McLaughlin Hall, RM 330 |
+| Mike Roth | TBA | Jeffery Hall |
+| Luke Steverango | TBA | Jeffery Hall |
+| Kexue Zhang | Mondays 12:30pm - 2:30pm, Tuesdays 4:30pm - 5:30pm | Jeffery Hall, RM 409 |
 
 ## Contact Information
 Course email: [apsc174@queensu.ca](mailto:apsc174@queensu.ca)
+Course Coordinator - Kexue Zhang: [kexue.zhang@queensu.ca](mailto:kexue.zhang@queensu.ca)
 My email: [j.switzer@queensu.ca](mailto:j.switzer@queensu.ca)
 Alan Ableson: [ableson@queensu.ca](mailto:ableson@queensu.ca)
 Mike Roth: [mike.roth@queensu.ca](mailto:mike.roth@queensu.ca)
 Luke Steverango: [lwps@queensu.ca](mailto:lwps@queensu.ca)
-Course Coordinator Kexue: [kexue.zhang@queensu.ca](mailto:kexue.zhang@queensu.ca)
 Math Help Center: [Math Help Center | Department of Mathematics and Statistics](https://www.queensu.ca/mathstat/undergraduate/current-undergraduate/help)
 
 
