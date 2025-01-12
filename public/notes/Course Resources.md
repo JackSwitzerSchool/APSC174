@@ -3,8 +3,8 @@ title: Course Resources
 publishedAt: '2025-01-11'
 ---
 
-Syllabus: Download PDF
-Mansouri Notes: Download PDF
+Syllabus: [Download PDF](https://onq.queensu.ca/content/enforced/992465-APSC174W25/APSC174-Syllabus-W21.pdf)
+Mansouri Notes: [Download PDF](/resources/MansouriNotes.pdf)
 Totally not the Textbook: ???
 
 ## Course Calendar
@@ -36,12 +36,12 @@ Alan Ableson - Monday 11:30 -
 |Kexue Zhang|Mondays 12:30pm-02:30pm  <br>Tuesdays 04:30pm-05:30pm|Jeffery Hall, RM 409|
 
 ## Contact Information
-Course email: apsc174@queensu.ca
-my email: j.switzer@queensu.ca
-ableson@queensu.ca
-mike.roth@queensu.ca
-Luke: lwps@queensu.ca
-Course Coordinator Kexue: kexue.zhang@queensu.ca
+Course email: [apsc174@queensu.ca](mailto:apsc174@queensu.ca)
+My email: [j.switzer@queensu.ca](mailto:j.switzer@queensu.ca)
+Alan Ableson: [ableson@queensu.ca](mailto:ableson@queensu.ca)
+Mike Roth: [mike.roth@queensu.ca](mailto:mike.roth@queensu.ca)
+Luke Steverango: [lwps@queensu.ca](mailto:lwps@queensu.ca)
+Course Coordinator Kexue: [kexue.zhang@queensu.ca](mailto:kexue.zhang@queensu.ca)
 Math Help Center: [Math Help Center | Department of Mathematics and Statistics](https://www.queensu.ca/mathstat/undergraduate/current-undergraduate/help)
 
 

@@ -10,5 +10,5 @@ In week 1 we learnt about the following:
 3) [[Systems of Linear Equations]]
 4) [[Notation]]
 
-Exit [[poll|https://docs.google.com/forms/d/e/1FAIpQLSfatiebdTJeIUfPJQTumOWZbkSNXyk7KMjSazemUAh161kg1g/viewform?usp=header]] from Week 1 - Closes January 12th
+[Exit poll](https://docs.google.com/forms/d/e/1FAIpQLSfatiebdTJeIUfPJQTumOWZbkSNXyk7KMjSazemUAh161kg1g/viewform?usp=header) from Week 1 - Closes January 12th
 

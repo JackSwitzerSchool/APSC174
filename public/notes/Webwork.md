@@ -10,4 +10,4 @@ Username: your **upper-case NetID**, e.g. 21JARS1
 Password: your **NetID password**
 
 Access the course at:
-https://qse-webwork.smithengineering.queensu.ca/webwork2/APSC_174_2025
+[APSC 174 Webwork](https://qse-webwork.smithengineering.queensu.ca/webwork2/APSC_174_2025)
