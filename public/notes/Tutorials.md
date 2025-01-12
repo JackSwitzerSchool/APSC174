@@ -1,7 +1,6 @@
 ---
 title: Tutorials
 publishedAt: '2025-01-11'
-summary: Course tutorials and practice problems
 ---
 
 ## Tutorials

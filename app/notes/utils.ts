@@ -87,6 +87,12 @@ function readMarkdownFile(filePath) {
 export function getBlogPosts() {
   const notesDir = path.join(process.cwd(), 'public', 'notes')
   console.log('Looking for notes in:', notesDir)
+  
+  if (!fs.existsSync(notesDir)) {
+    console.warn(`Notes directory not found: ${notesDir}`)
+    return []
+  }
+  
   let mdFiles = getMarkdownFiles(notesDir)
   console.log('Found files:', mdFiles)
   
