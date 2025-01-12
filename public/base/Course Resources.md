@@ -10,10 +10,10 @@ First Year Resources: [Link](public\base\First Year Resources.pdf)
 Textbook: Email Me
 
 ## Course Calendar
-Webwork - Due Thursday's @3:00 pm; Starting on January 16 - [[base/Webwork]]
-[[base/Midterm 1]] - February 11 @6:30 pm
-[[base/Midterm 2]] - March 25 @6:30 pm
-Final - (tentative?) April 18th @2:00 pm
+Webwork - Due Thursday's @3:00 pm; Starting on January 16 - [[Webwork]]
+[[Midterm 1]] - February 11 @6:30 pm
+[[Midterm 2]] - March 25 @6:30 pm
+[[Final Exam]] - (tentative?) April 18th @2:00 pm
 Tutorials - Thursday @ 1:30 Kingston 200 & Friday @10:30 Stirling 414
 
 ### Grading Scheme

@@ -104,6 +104,17 @@ const wikiLinkConfig = {
         permalink.startsWith('notes/')) {
       return `/${permalink}`
     }
+    // Special cases for base files
+    const baseFiles = ['webwork', 'midterm-1', 'midterm-2', 'final-exam', 'course-resources']
+    if (baseFiles.includes(permalink)) {
+      return `/notes/base/${permalink}`
+    }
+    
+    // Special case for Week 1
+    if (permalink === 'week-1') {
+      return `/notes/week-1`
+    }
+    
     // Default to notes directory
     return `/notes/${permalink}`
   },
