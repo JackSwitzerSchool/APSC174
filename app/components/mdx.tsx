@@ -4,32 +4,34 @@ import { MDXRemote } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image from 'next/image'
 
-const CustomLink = (props) => {
+interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string
+}
+
+const CustomLink = (props: CustomLinkProps) => {
   const href = props.href
 
   if (href.startsWith('/')) {
     return (
-      <Link href={href} className="text-blue-500 hover:text-blue-600 hover:underline">
+      <Link href={href} {...props}>
         {props.children}
       </Link>
     )
   }
 
-  if (href.startsWith('#')) {
-    return <a className="text-blue-500 hover:text-blue-600 hover:underline" {...props} />
-  }
-
-  return (
-    <a 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className="text-blue-500 hover:text-blue-600 hover:underline"
-      {...props} 
-    />
-  )
+  return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-const CustomImage = (props) => {
+interface CustomImageProps {
+  src?: string
+  source?: string
+  width?: number | string
+  height?: number | string
+  alt?: string
+  [key: string]: any // for other props that might be passed
+}
+
+const CustomImage = (props: CustomImageProps) => {
   // Default width and height if not provided
   const width = props.width || 800
   const height = props.height || 600
@@ -56,29 +58,19 @@ const CustomImage = (props) => {
   )
 }
 
-const components = {
-  Image: CustomImage,
-  img: CustomImage,  // Handle both Image and img tags
+export const MDXComponents = {
   a: CustomLink,
-  p: (props) => <p className="mb-4" {...props} />,
-  ul: (props) => <ul className="mb-4 list-disc pl-6" {...props} />,
-  ol: (props) => <ol className="mb-4 list-decimal pl-6" {...props} />,
-  li: (props) => <li className="mb-1" {...props} />,
-  h2: (props) => <h2 className="text-2xl font-bold mt-8 mb-4" {...props} />,
-  h3: (props) => <h3 className="text-xl font-semibold mt-6 mb-3" {...props} />,
-  table: (props) => (
-    <div className="overflow-x-auto mb-6">
-      <table className="min-w-full divide-y divide-gray-200" {...props} />
-    </div>
-  ),
-  th: (props) => <th className="px-4 py-2 bg-gray-50" {...props} />,
-  td: (props) => <td className="px-4 py-2 border-t" {...props} />
+  Image
 }
 
-export function CustomMDX({ source }) {
+interface CustomMDXProps {
+  source: any // You might want to import the proper type from next-mdx-remote
+}
+
+export function CustomMDX({ source }: CustomMDXProps) {
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-none">
-      <MDXRemote {...source} components={components} />
+      <MDXRemote {...source} components={MDXComponents} />
     </article>
   )
 }
