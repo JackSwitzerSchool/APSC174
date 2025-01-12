@@ -122,17 +122,11 @@ const wikiLinkConfig = {
       return `/${permalink}`
     }
 
-    // These files are in the base directory
-    const baseFiles = ['webwork', 'midterm-1', 'midterm-2', 'final-exam', 'course-resources']
-    if (baseFiles.includes(permalink)) {
-      // Convert kebab-case to Title Case for the filename
-      const filename = permalink.split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
-      console.log('Base file:', filename)
-      return `/notes/base/${encodeURIComponent(filename)}`
+    // Special case for Course Resources
+    if (permalink === 'course-resources') {
+      return `/notes/base/Course%20Resources`
     }
-    
+
     // Default to notes directory
     return `/notes/${permalink}`
   },
