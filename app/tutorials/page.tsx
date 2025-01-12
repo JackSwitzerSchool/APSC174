@@ -13,13 +13,13 @@ export default function TutorialsPage() {
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
-      {tutorialPost ? (
-        <CustomMDX source={tutorialPost.content} />
-      ) : (
-        <div className="prose dark:prose-invert">
+      <div className="prose dark:prose-invert">
+        {tutorialPost ? (
+          <CustomMDX source={tutorialPost.content} />
+        ) : (
           <p>Loading tutorials...</p>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   )
 } 
