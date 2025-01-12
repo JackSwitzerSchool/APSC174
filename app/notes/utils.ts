@@ -19,14 +19,17 @@ export function formatDate(date: string, includeTime: boolean = false) {
   return new Date(date).toLocaleDateString('en-US', options)
 }
 
-type Metadata = {
+export interface Metadata {
   title: string
   publishedAt: string
   summary?: string
   image?: string
 }
 
-function parseFrontmatter(fileContent: string) {
+function parseFrontmatter(fileContent: string): {
+  metadata: Metadata
+  content: string
+} {
   // Handle files without frontmatter by providing defaults
   if (!fileContent.startsWith('---')) {
     const title = fileContent.split('\n')[0].replace('#', '').trim()
@@ -35,7 +38,7 @@ function parseFrontmatter(fileContent: string) {
         title,
         publishedAt: new Date().toISOString(),
         summary: '',
-      } as Metadata,
+      },
       content: fileContent,
     }
   }

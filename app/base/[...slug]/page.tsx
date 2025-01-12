@@ -1,8 +1,14 @@
-import { getBlogPosts } from '@/app/notes/utils'
+import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 import { CustomMDX } from '@/app/components/mdx'
 import { notFound } from 'next/navigation'
 
-export default async function BasePage({ params }: { params: { slug: string[] } }) {
+interface SlugParams {
+  params: {
+    slug: string[]
+  }
+}
+
+export default async function BasePage({ params }: SlugParams) {
   const posts = await getBlogPosts()
   
   const slug = decodeURIComponent(params.slug[params.slug.length - 1])
@@ -10,15 +16,11 @@ export default async function BasePage({ params }: { params: { slug: string[] } 
     .replace(/\s+/g, '-')
   const category = 'base'
   
-  console.log('Base route - Looking for post with slug:', slug, 'and category:', category)
-  
   const post = posts.find(
-    post => post.slug === slug && post.category === category
+    (post): post is BlogPost => post.slug === slug && post.category === category
   )
 
   if (!post) {
-    console.log('Base route - Post not found. Available posts:', 
-      posts.map(p => ({ slug: p.slug, category: p.category })))
     notFound()
   }
 

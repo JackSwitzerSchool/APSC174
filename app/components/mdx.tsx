@@ -71,7 +71,11 @@ const components = {
   Image: CustomImage,
 } as MDXComponentsType
 
-export function CustomMDX({ source }: { source: MDXRemoteSerializeResult }) {
+interface MDXProps {
+  source: MDXRemoteSerializeResult
+}
+
+export function CustomMDX({ source }: MDXProps) {
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-none">
       <MDXRemote {...source} components={components} />

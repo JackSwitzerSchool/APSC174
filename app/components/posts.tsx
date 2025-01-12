@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getBlogPosts, formatDate } from '@/app/notes/utils'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 interface BlogPost {
   slug: string
@@ -7,7 +8,10 @@ interface BlogPost {
   metadata: {
     title: string
     publishedAt: string
+    summary?: string
   }
+  content: MDXRemoteSerializeResult
+  originalFilename?: string
 }
 
 export async function BlogPosts() {
