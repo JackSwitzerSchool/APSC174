@@ -1,16 +1,18 @@
 ---
 title: Course Resources
 publishedAt: '2025-01-11'
+summary: 'Collection of helpful resources, including textbooks, online materials, and supplementary learning tools.'
 ---
 
-Syllabus: [Download PDF](https://onq.queensu.ca/content/enforced/992465-APSC174W25/APSC174-Syllabus-W21.pdf)
-Mansouri Notes: [Download PDF](https://onq.queensu.ca/content/enforced/992465-APSC174W25/MansouriNotes.pdf)
-Totally not the Textbook: ???
+Syllabus: [Link](https://onq.queensu.ca/content/enforced/992465-APSC174W25/APSC174-Syllabus-W21.pdf)
+Mansouri Notes: [Link](https://onq.queensu.ca/content/enforced/992465-APSC174W25/MansouriNotes.pdf)
+First Year Resources: [Link](public\base\First Year Resources.pdf)
+Textbook: Email Me
 
 ## Course Calendar
-Webwork - Due Thursday's @3:00 pm; Starting on January 16 - [[Webwork]]
-Midterm 1 - February 11 @6:30 pm
-Midterm 2 - March 25 @6:30 pm
+Webwork - Due Thursday's @3:00 pm; Starting on January 16 - [[base/Webwork]]
+[[base/Midterm 1]] - February 11 @6:30 pm
+[[base/Midterm 2]] - March 25 @6:30 pm
 Final - (tentative?) April 18th @2:00 pm
 Tutorials - Thursday @ 1:30 Kingston 200 & Friday @10:30 Stirling 414
 

@@ -1,6 +1,7 @@
 ---
 title: Intersection
 publishedAt: '2025-01-11'
+summary: 'Operation that finds common elements between sets. Fundamental for understanding set relationships and constraints.'
 ---
 
 ## Definition

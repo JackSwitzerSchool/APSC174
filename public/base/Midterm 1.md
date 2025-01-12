@@ -1,6 +1,7 @@
 ---
 title: Midterm 1
 publishedAt: '2025-01-11'
+summary: 'Details about the first midterm examination, covering topics from weeks 1-5.'
 ---
 
 Midterm 1 will be given on **Tuesday, Feb 11, 2025** at **6:30 pm EST**. 

@@ -1,6 +1,7 @@
 ---
 title: Notation
 publishedAt: '2025-01-11'
+summary: 'Essential mathematical symbols and conventions used throughout the course. Foundation for reading and writing mathematical expressions.'
 ---
 
 ## Sets

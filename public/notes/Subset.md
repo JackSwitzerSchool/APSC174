@@ -1,6 +1,7 @@
 ---
 title: Subset
 publishedAt: '2025-01-11'
+summary: 'Understanding set containment and hierarchies. Important for classification and organizing mathematical structures.'
 ---
 
 ## Definition

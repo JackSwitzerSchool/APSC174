@@ -1,6 +1,7 @@
 ---
 title: Union
 publishedAt: '2025-01-11'
+summary: 'Operation that combines elements from multiple sets. Key concept for understanding set operations and logical OR.'
 ---
 
 ## Definition

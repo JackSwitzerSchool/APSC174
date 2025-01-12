@@ -1,6 +1,7 @@
 ---
 title: Sets
 publishedAt: '2025-01-11'
+summary: 'Core concepts of sets, including definitions, operations, and properties. Foundation for understanding mathematical structures.'
 ---
 
 ## Definition

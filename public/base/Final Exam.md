@@ -1,6 +1,7 @@
 ---
 title: Final Exam
 publishedAt: '2025-01-11'
+summary: 'Information about the final examination, including date, format, and topics covered.'
 ---
 
 As per the course [syllabus](https://onq.queensu.ca/content/enforced/992465-APSC174W25/APSC174-Syllabus-W21.pdf?ou=992465):

@@ -1,6 +1,7 @@
 ---
 title: Cartesian Product
 publishedAt: '2025-01-11'
+summary: 'Understanding the product of sets and ordered pairs. Essential for working with coordinates and multi-dimensional spaces.'
 ---
 
 ## Definition

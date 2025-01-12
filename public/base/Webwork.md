@@ -1,6 +1,7 @@
 ---
 title: Webwork
 publishedAt: '2025-01-11'
+summary: 'Online homework system information and access details. Weekly assignments due Thursdays at 3pm.'
 ---
 
 Weekly homework exercises due Thursdays at 3pm.

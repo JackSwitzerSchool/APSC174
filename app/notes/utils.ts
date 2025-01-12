@@ -91,48 +91,63 @@ function readMarkdownFile(filePath) {
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const parts = name.split('|')
-    const pageName = parts[0].trim().toLowerCase().replace(/\s+/g, '-')
+    const pageName = parts[0].trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '') // Remove any special characters
     return [pageName]
   },
   hrefTemplate: (permalink: string) => `/notes/${permalink}`,
-  aliasDivider: '|'
+  aliasDivider: '|',
+  wikiLinkClassName: 'wiki-link'
 }
 
 export async function getBlogPosts() {
-  const notesDir = path.join(process.cwd(), 'public', 'notes')
-  console.log('Looking for notes in:', notesDir)
+  const directories = [
+    path.join(process.cwd(), 'public', 'notes'),
+    path.join(process.cwd(), 'public', 'base'),
+    path.join(process.cwd(), 'public', 'tutorials')
+  ]
   
-  if (!fs.existsSync(notesDir)) {
-    console.warn(`Notes directory not found: ${notesDir}`)
-    return []
-  }
+  let allPosts = []
   
-  let mdFiles = getMarkdownFiles(notesDir)
-  console.log('Found files:', mdFiles)
-  
-  const posts = await Promise.all(mdFiles.map(async (file) => {
-    let { metadata, content } = readMarkdownFile(path.join(notesDir, file))
-    let slug = path.basename(file, path.extname(file)).toLowerCase()
-    console.log('Created slug:', slug, 'for file:', file)
-
-    const mdxSource = await serialize(content, {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [
-          remarkMath,
-          [remarkWikiLink, wikiLinkConfig]
-        ],
-        rehypePlugins: [rehypeKatex],
-        format: 'mdx'
-      }
-    })
-
-    return {
-      metadata,
-      slug,
-      content: mdxSource,
+  for (const dir of directories) {
+    if (!fs.existsSync(dir)) {
+      console.warn(`Directory not found: ${dir}`)
+      continue
     }
-  }))
+    
+    let mdFiles = getMarkdownFiles(dir)
+    console.log('Found files in', dir, ':', mdFiles)
+    
+    const posts = await Promise.all(mdFiles.map(async (file) => {
+      let { metadata, content } = readMarkdownFile(path.join(dir, file))
+      let slug = path.basename(file, path.extname(file)).toLowerCase()
+      console.log('Created slug:', slug, 'for file:', file)
 
-  return posts
+      const mdxSource = await serialize(content, {
+        parseFrontmatter: true,
+        mdxOptions: {
+          remarkPlugins: [
+            remarkMath,
+            [remarkWikiLink, wikiLinkConfig]
+          ],
+          rehypePlugins: [rehypeKatex],
+          format: 'mdx',
+          development: process.env.NODE_ENV === 'development'
+        }
+      })
+
+      return {
+        metadata,
+        slug,
+        content: mdxSource,
+        category: path.basename(dir) // Add category based on directory
+      }
+    }))
+    
+    allPosts = [...allPosts, ...posts]
+  }
+
+  return allPosts
 }

@@ -1,6 +1,7 @@
 ---
 title: Systems of Linear Equations
 publishedAt: '2025-01-11'
+summary: 'Understanding and solving systems of linear equations, with geometric interpretations and practical examples.'
 ---
 
 ## Definition

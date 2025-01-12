@@ -1,6 +1,7 @@
 ---
-title: Mapping
+title: Functions and Mappings
 publishedAt: '2025-01-11'
+summary: 'Exploring functions as mappings between sets, including key properties and classifications.'
 ---
 
 Given [[Sets|sets]] $\mathbb{X}, \mathbb{Y}$, a function or mapping from $\mathbb{X}$ to $\mathbb{Y}$ is a rule that assigns each $x \in \mathbb{X}$ a unique element $f(x) \in \mathbb{Y}$ 

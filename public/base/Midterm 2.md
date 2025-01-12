@@ -1,6 +1,7 @@
 ---
 title: Midterm 2
 publishedAt: '2025-01-11'
+summary: 'Information about the second midterm examination, covering topics from weeks 7-12.'
 ---
 
 Midterm 2 will be given on **Tuesday, March 25, 2025** at **6:30 pm**.
