@@ -70,10 +70,17 @@ function getMarkdownFiles(dir) {
 function readMarkdownFile(filePath) {
   try {
     let rawContent = fs.readFileSync(filePath, 'utf-8')
-    console.log('Reading file:', filePath)
-    console.log('Raw content:', rawContent.substring(0, 200)) // Log first 200 chars
     const parsed = parseFrontmatter(rawContent)
-    console.log('Parsed content:', parsed)
+    
+    // For tutorial header, strip out the frontmatter completely
+    if (filePath.includes('tutorialsHeader.md')) {
+      const content = rawContent.replace(/^---[\s\S]*?---/, '').trim()
+      return {
+        metadata: parsed.metadata,
+        content
+      }
+    }
+    
     return parsed
   } catch (error) {
     console.error(`Error reading file ${filePath}`, error)

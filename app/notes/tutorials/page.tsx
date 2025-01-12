@@ -13,9 +13,6 @@ export default async function TutorialsPage() {
 
   return (
     <section>
-      <h1 className="font-bold text-2xl mb-8 tracking-tighter">
-        {tutorialHeader.metadata.title}
-      </h1>
       <div className="prose prose-neutral dark:prose-invert">
         <CustomMDX source={tutorialHeader.content} />
       </div>
