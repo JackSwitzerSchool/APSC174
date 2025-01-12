@@ -7,20 +7,34 @@ import type { ComponentProps } from 'react'
 import type { MDXComponents as MDXComponentsType } from 'mdx/types'
 
 // Extend the base anchor props but make href required
-interface CustomLinkProps extends Omit<ComponentProps<'a'>, 'href'> {
+interface CustomLinkProps extends Omit<ComponentProps<'a'>, 'href' | 'ref'> {
   href: string
 }
 
-const CustomLink = ({ href, ...props }: CustomLinkProps) => {
+const CustomLink = ({ href, className, children, ...props }: CustomLinkProps) => {
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
-        {props.children}
+      <Link 
+        href={href} 
+        className={className}
+        {...props}
+      >
+        {children}
       </Link>
     )
   }
 
-  return <a target="_blank" rel="noopener noreferrer" href={href} {...props} />
+  return (
+    <a 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      href={href} 
+      className={className}
+      {...props}
+    >
+      {children}
+    </a>
+  )
 }
 
 interface CustomImageProps extends Omit<ImageProps, 'src'> {
