@@ -7,20 +7,33 @@ import { highlight } from 'sugar-high'
 import React from 'react'
 import { MDXComponents } from 'mdx/types'
 
-const CustomLink = ({ href, ...props }) => {
+const CustomLink = (props) => {
+  const href = props.href
+
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props} className="text-blue-500 hover:underline">
+      <Link 
+        href={href} 
+        className="text-blue-500 hover:text-blue-600 hover:underline" 
+        {...props}
+      >
         {props.children}
       </Link>
     )
   }
 
   if (href.startsWith('#')) {
-    return <a {...props} />
+    return <a className="text-blue-500 hover:text-blue-600 hover:underline" {...props} />
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />
+  return (
+    <a 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="text-blue-500 hover:text-blue-600 hover:underline" 
+      {...props} 
+    />
+  )
 }
 
 const RoundedImage = (props) => {

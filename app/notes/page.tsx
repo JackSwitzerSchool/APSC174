@@ -7,7 +7,7 @@ export default async function NotesPage() {
   const categories = {
     notes: 'Course Notes',
     base: 'Course Information',
-    tutorials: 'Tutorials',
+    tutorials: 'Tutorial Materials',
     assorted: 'Other Resources'
   }
 
@@ -43,7 +43,7 @@ export default async function NotesPage() {
                   <Link
                     key={post.slug}
                     className="flex flex-col space-y-1 p-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-900"
-                    href={`/notes/${post.slug}`}
+                    href={`/notes/${post.category}/${post.slug}`}
                   >
                     <div className="w-full flex flex-col">
                       <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">

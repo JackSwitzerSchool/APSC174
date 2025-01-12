@@ -1,5 +1,5 @@
 ---
-title: Tutorials
+title: Tutorial Materials
 publishedAt: '2025-01-11'
 summary: 'Weekly tutorial sessions schedule and information.'
 ---
