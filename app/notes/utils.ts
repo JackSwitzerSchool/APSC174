@@ -1,5 +1,5 @@
-import fs from 'fs'
 import path from 'path'
+import { promises as fs } from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -106,7 +106,6 @@ function readMarkdownFile(filePath: string) {
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const parts = name.split('|')
-    console.log('Resolving wiki link:', name)
     const pageName = parts[0].trim()
     
     // Don't transform absolute paths
@@ -118,8 +117,6 @@ const wikiLinkConfig = {
     return [pageName.toLowerCase().replace(/\s+/g, '-')]
   },
   hrefTemplate: (permalink: string) => {
-    console.log('Creating href for:', permalink)
-    
     // Handle absolute paths (starting with /)
     if (permalink.startsWith('/')) {
       return permalink
@@ -154,36 +151,36 @@ export async function getBlogPosts() {
   let allPosts = []
   
   for (const dir of directories) {
-    if (!fs.existsSync(dir)) {
-      console.warn(`Directory not found: ${dir}`)
-      continue
-    }
-    
-    let mdFiles = getMarkdownFiles(dir)
-    console.log('Found files in', dir, ':', mdFiles)
-    
-    const posts = await Promise.all(mdFiles.map(async (file) => {
-      let { metadata, content } = readMarkdownFile(path.join(dir, file))
-      let slug = path.basename(file, path.extname(file))
+    try {
+      const files = await fs.readdir(dir)
+      const mdFiles = files.filter(file => ['.md', '.mdx'].includes(path.extname(file)))
       
-      // Store both the original filename and the lowercase slug
-      return {
-        metadata,
-        slug: slug.toLowerCase().replace(/\s+/g, '-'),  // Convert spaces to hyphens
-        originalFilename: slug,
-        content: await serialize(content, {
-          parseFrontmatter: false,
-          mdxOptions: {
-            remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
-            rehypePlugins: [rehypeKatex],
-            format: 'mdx'
-          }
-        }),
-        category: path.basename(dir)
-      }
-    }))
-    
-    allPosts = [...allPosts, ...posts]
+      const posts = await Promise.all(mdFiles.map(async (file) => {
+        const filePath = path.join(dir, file)
+        const content = await fs.readFile(filePath, 'utf-8')
+        const { metadata, content: mdxContent } = parseFrontmatter(content)
+        const slug = path.basename(file, path.extname(file))
+        
+        return {
+          metadata,
+          slug: slug.toLowerCase().replace(/\s+/g, '-'),
+          originalFilename: slug,
+          content: await serialize(mdxContent, {
+            parseFrontmatter: false,
+            mdxOptions: {
+              remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
+              rehypePlugins: [rehypeKatex],
+              format: 'mdx'
+            }
+          }),
+          category: path.basename(dir)
+        }
+      }))
+      
+      allPosts = [...allPosts, ...posts]
+    } catch (error) {
+      console.warn(`Warning: Could not read directory ${dir}`, error)
+    }
   }
 
   return allPosts

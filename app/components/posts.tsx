@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { getBlogPosts } from '@/app/notes/utils'
 import { formatDate } from '@/app/notes/utils'

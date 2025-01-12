@@ -1,14 +1,12 @@
 import { CustomMDX } from '../components/mdx'
-import fs from 'fs'
-import path from 'path'
-import { serialize } from 'next-mdx-remote/serialize'
+import { getBlogPosts } from '../notes/utils'
 
 export const metadata = {
   title: 'Tutorials',
   description: 'Course tutorials and practice problems.',
 }
 
-async function getHeaderContent() {
+export default async function getHeaderContent() {
   try {
     const headerPath = path.join(process.cwd(), 'public', 'tutorials', 'tutorialsHeader.md')
     const content = fs.readFileSync(headerPath, 'utf-8')
@@ -20,9 +18,12 @@ async function getHeaderContent() {
 }
 
 export default async function TutorialsPage() {
-  const headerContent = await getHeaderContent()
+  const posts = await getBlogPosts()
+  const tutorialHeader = posts.find(
+    post => post.slug === 'tutorialsheader' && post.category === 'tutorials'
+  )
   
-  if (!headerContent) {
+  if (!tutorialHeader) {
     return (
       <section>
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
@@ -35,7 +36,7 @@ export default async function TutorialsPage() {
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
       <div className="prose dark:prose-invert">
-        <CustomMDX source={headerContent} />
+        <CustomMDX source={tutorialHeader.content} />
       </div>
     </section>
   )
