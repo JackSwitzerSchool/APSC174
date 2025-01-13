@@ -26,7 +26,7 @@ export default async function BasePage({ params }: { params: { slug: string[] } 
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
           {post.metadata?.title || post.slug}
         </h1>
-        <div className="prose prose-neutral dark:prose-invert">
+        <div>
           <MDXContent source={post.content} />
         </div>
       </section>

@@ -27,7 +27,7 @@ export default async function CourseResourcesPage() {
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
           {courseResources.metadata.title || 'Course Resources'}
         </h1>
-        <div className="prose prose-neutral dark:prose-invert">
+        <div>
           <MDXContent source={courseResources.content} />
         </div>
       </section>

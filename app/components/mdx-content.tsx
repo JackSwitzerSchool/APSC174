@@ -3,6 +3,7 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 const components = {
   a: ({ href, children, ...props }: any) => {
@@ -40,9 +41,19 @@ interface MDXContentProps {
 }
 
 export default function MDXContent({ source }: MDXContentProps) {
-  if (!source?.compiledSource) {
-    return null
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted || !source?.compiledSource) {
+    return <div>Loading...</div>
   }
 
-  return <MDXRemote {...source} components={components} />
+  return (
+    <div className="prose prose-neutral dark:prose-invert">
+      <MDXRemote {...source} components={components} />
+    </div>
+  )
 } 
