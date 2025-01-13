@@ -11,7 +11,6 @@ export default async function NotePage({ params }: { params: { slug: string[] } 
     const posts = await getBlogPosts()
     const slug = params.slug.join('/')
     
-    // Find the post that matches the slug
     const post = posts.find((post): post is BlogPost => {
       const postSlug = `${post.category}/${post.slug}`
       return (postSlug === slug || post.slug === slug) && !!post.content

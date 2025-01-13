@@ -6,6 +6,7 @@ import rehypeKatex from 'rehype-katex'
 import remarkWikiLink from 'remark-wiki-link'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import remarkRehype from 'remark-rehype'
+import matter from 'gray-matter'
 
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
@@ -163,79 +164,62 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   
   let allPosts: BlogPost[] = []
   
-  for (const dir of directories) {
+  const processDirectory = async (dir: string, category: string) => {
     try {
-      console.log(`Reading directory ${dir}:`, await fs.readdir(dir))
-      
-      const files = (await fs.readdir(dir))
-        .filter(file => file.endsWith('.md'))
-      console.log(`Markdown files in ${dir}:`, files)
-      
-      const posts = await Promise.all(files.map(async (file) => {
+      const files = await fs.promises.readdir(dir)
+      const mdFiles = files.filter(file => file.endsWith('.md'))
+
+      for (const file of mdFiles) {
         try {
-          // Use the full directory path when reading files
-          const filePath = path.join(dir, file)
-          console.log(`Processing file: ${filePath}`)
-          
-          // Skip processing tutorialsHeader.md as a regular post
           if (file === 'tutorialsHeader.md') {
-            console.log('Found tutorialsHeader.md, skipping as regular post')
-            return null
+            continue
           }
 
-          const content = await fs.readFile(filePath, 'utf-8')
-          const { metadata, content: mdxContent } = parseFrontmatter(content)
-          const slug = path.basename(file, path.extname(file))
+          const content = await fs.promises.readFile(path.join(dir, file), 'utf8')
+          const { data: metadata, content: markdownContent } = matter(content)
           
-          if (!mdxContent) {
-            console.error(`Empty content for file: ${filePath}`)
-            return null
+          if (!markdownContent) {
+            console.warn(`Empty content in file: ${file}`)
+            continue
           }
 
-          const serializedContent = await serialize(mdxContent, {
+          // Serialize the MDX content
+          const serializedContent = await serialize(markdownContent.trim(), {
             parseFrontmatter: false,
             mdxOptions: {
-              remarkPlugins: [
-                remarkMath,
-                [remarkWikiLink, wikiLinkConfig] as any
-              ],
-              rehypePlugins: [
-                rehypeKatex
-              ],
+              remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
+              rehypePlugins: [rehypeKatex],
               format: 'mdx'
             }
           })
-
-          // Ensure metadata has required fields
-          if (!metadata.title || !metadata.publishedAt) {
-            console.error(`Missing required metadata in ${filePath}`, metadata)
-            return null
-          }
-
-          const post: BlogPost = {
-            metadata,
-            slug: slug.toLowerCase().replace(/\s+/g, '-'),
-            originalFilename: slug,
-            content: serializedContent,
-            category: path.basename(dir)
-          }
           
-          console.log(`Successfully processed post: ${post.category}/${post.slug}`)
-          return post
+          const slug = file.replace(/\.md$/, '').toLowerCase()
+          
+          allPosts.push({
+            content: serializedContent,
+            slug,
+            category,
+            metadata: {
+              title: metadata.title || slug,
+              publishedAt: metadata.publishedAt || new Date().toISOString(),
+              summary: metadata.summary,
+              image: metadata.image
+            },
+            originalFilename: file
+          })
         } catch (error) {
           console.error(`Error processing file ${file}:`, error)
-          return null
         }
-      }))
-      
-      const validPosts = posts.filter((post): post is NonNullable<typeof post> => post !== null)
-      console.log(`Valid posts from ${dir}:`, validPosts.map(p => p.slug))
-      
-      allPosts = [...allPosts, ...validPosts]
+      }
     } catch (error) {
-      console.warn(`Warning: Could not read directory ${dir}`, error)
+      console.error(`Error processing directory ${dir}:`, error)
     }
   }
+
+  // Process each directory
+  await processDirectory(path.join(process.cwd(), 'public', 'notes'), 'notes')
+  await processDirectory(path.join(process.cwd(), 'public', 'base'), 'base')
+  await processDirectory(path.join(process.cwd(), 'public', 'tutorials'), 'tutorials')
 
   console.log('All posts:', allPosts.map(p => `${p.category}/${p.slug}`))
   return allPosts
