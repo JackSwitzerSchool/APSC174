@@ -46,6 +46,10 @@ const wikiLinkConfig = {
   wikiLinkClassName: 'wiki-link'
 }
 
+function normalizeSlug(slug: string): string {
+  return slug.toLowerCase().replace(/\s+/g, '-')
+}
+
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const NOTES_DIR = path.join(process.cwd(), 'public/notes')
   const BASE_DIR = path.join(process.cwd(), 'public/base')
@@ -81,7 +85,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             }
           })
           
-          const slug = file.replace(/\.md$/, '').toLowerCase()
+          const slug = normalizeSlug(file.replace(/\.md$/, '').toLowerCase())
           
           posts.push({
             content: serializedContent,

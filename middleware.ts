@@ -4,8 +4,11 @@ import type { NextRequest } from 'next/server'
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Handle both /course-resources and encoded versions
-  if (pathname.toLowerCase() === '/course-resources') {
+  // Handle various formats of the course resources URL
+  if (
+    pathname.toLowerCase() === '/course-resources' ||
+    pathname.toLowerCase() === '/course resources'
+  ) {
     return NextResponse.redirect(
       new URL('/base/course-resources', request.url)
     )
@@ -15,5 +18,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/course-resources']
+  matcher: ['/course-resources', '/course resources']
 } 

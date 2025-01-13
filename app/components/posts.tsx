@@ -1,5 +1,6 @@
 import { formatDate, getBlogPosts } from '@/app/notes/utils'
 import type { BlogPost } from '@/app/notes/utils'
+import Link from 'next/link'
 
 interface PostsProps {
   posts: BlogPost[]
@@ -10,11 +11,24 @@ export function Posts({ posts }: PostsProps) {
     <div className="flex flex-col gap-8">
       {posts.map((post) => (
         <article key={post.slug}>
-          <a href={`/notes/${post.slug}`}>
-            <h2 className="font-medium mb-1">
-              {post.metadata.title}
-            </h2>
-          </a>
+          {post.metadata.link?.endsWith('.pdf') ? (
+            <a 
+              href={`/base/${post.metadata.link}`} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-neutral-800 dark:hover:text-neutral-200"
+            >
+              <h2 className="font-medium mb-1">
+                {post.metadata.title}
+              </h2>
+            </a>
+          ) : (
+            <Link href={`/notes/${post.slug}`}>
+              <h2 className="font-medium mb-1">
+                {post.metadata.title}
+              </h2>
+            </Link>
+          )}
           {post.metadata.summary && (
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {post.metadata.summary}

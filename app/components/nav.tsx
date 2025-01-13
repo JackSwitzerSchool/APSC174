@@ -13,7 +13,7 @@ const navItems = {
   '/videos': {
     name: 'videos',
   },
-  '/course-resources': {
+  '/base/course-resources': {
     name: 'course resources',
   }
 }
