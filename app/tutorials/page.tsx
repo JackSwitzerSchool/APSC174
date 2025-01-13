@@ -22,14 +22,8 @@ export default async function TutorialsPage() {
     )
 
     if (!tutorialHeader?.content) {
-      return (
-        <section>
-          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
-          <div className="prose prose-neutral dark:prose-invert">
-            <p>Tutorial content will be available soon.</p>
-          </div>
-        </section>
-      )
+      console.error('Tutorial header not found')
+      notFound()
     }
 
     return (
