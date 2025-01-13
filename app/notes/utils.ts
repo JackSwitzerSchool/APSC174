@@ -108,35 +108,10 @@ const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const parts = name.split('|')
     const pageName = parts[0].trim()
-    
-    // Don't transform absolute paths
-    if (pageName.startsWith('/')) {
-      return [pageName]
-    }
-    
-    // For relative paths, convert to lowercase and replace spaces with hyphens
     return [pageName.toLowerCase().replace(/\s+/g, '-')]
   },
   hrefTemplate: (permalink: string) => {
-    // Handle absolute paths (starting with /)
-    if (permalink.startsWith('/')) {
-      return permalink
-    }
-
-    // Convert spaces to hyphens and lowercase for all relative paths
-    const normalizedPermalink = permalink
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-
-    // Check if the permalink starts with a category prefix
-    if (permalink.startsWith('base/') || 
-        permalink.startsWith('tutorials/') || 
-        permalink.startsWith('notes/')) {
-      return `/${normalizedPermalink}`
-    }
-
-    // Default to notes directory
-    return `/notes/${normalizedPermalink}`
+    return permalink.startsWith('/') ? permalink : `/notes/${permalink}`
   },
   aliasDivider: '|',
   wikiLinkClassName: 'wiki-link'
@@ -156,17 +131,15 @@ export type BlogPost = {
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  const directories = [
-    path.join(process.cwd(), 'public', 'notes'),
-    path.join(process.cwd(), 'public', 'base'),
-    path.join(process.cwd(), 'public', 'tutorials')
-  ]
+  const NOTES_DIR = path.join(process.cwd(), 'public/notes')
+  const BASE_DIR = path.join(process.cwd(), 'public/base')
+  const TUTORIALS_DIR = path.join(process.cwd(), 'public/tutorials')
   
-  let allPosts: BlogPost[] = []
-  
+  const posts: BlogPost[] = []
+
   const processDirectory = async (dir: string, category: string) => {
     try {
-      const files = await fs.promises.readdir(dir)
+      const files = await fs.readdir(dir)
       const mdFiles = files.filter(file => file.endsWith('.md'))
 
       for (const file of mdFiles) {
@@ -175,7 +148,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             continue
           }
 
-          const content = await fs.promises.readFile(path.join(dir, file), 'utf8')
+          const content = await fs.readFile(path.join(dir, file), 'utf8')
           const { data: metadata, content: markdownContent } = matter(content)
           
           if (!markdownContent) {
@@ -183,7 +156,6 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             continue
           }
 
-          // Serialize the MDX content
           const serializedContent = await serialize(markdownContent.trim(), {
             parseFrontmatter: false,
             mdxOptions: {
@@ -195,7 +167,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
           
           const slug = file.replace(/\.md$/, '').toLowerCase()
           
-          allPosts.push({
+          posts.push({
             content: serializedContent,
             slug,
             category,
@@ -216,11 +188,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     }
   }
 
-  // Process each directory
-  await processDirectory(path.join(process.cwd(), 'public', 'notes'), 'notes')
-  await processDirectory(path.join(process.cwd(), 'public', 'base'), 'base')
-  await processDirectory(path.join(process.cwd(), 'public', 'tutorials'), 'tutorials')
+  await processDirectory(NOTES_DIR, 'notes')
+  await processDirectory(BASE_DIR, 'base')
+  await processDirectory(TUTORIALS_DIR, 'tutorials')
 
-  console.log('All posts:', allPosts.map(p => `${p.category}/${p.slug}`))
-  return allPosts
+  return posts
 }
