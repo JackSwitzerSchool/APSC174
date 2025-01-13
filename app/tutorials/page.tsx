@@ -1,6 +1,6 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { CustomMDX } from '@/app/components/mdx'
 import { notFound } from 'next/navigation'
+import MDXContent from '@/app/components/mdx-content'
 
 export const metadata = {
   title: 'Tutorials',
@@ -33,7 +33,7 @@ export default async function TutorialsPage() {
           {tutorialHeader.metadata.title || 'Tutorials'}
         </h1>
         <div className="prose prose-neutral dark:prose-invert">
-          <CustomMDX source={tutorialHeader.content} />
+          <MDXContent source={tutorialHeader.content} />
         </div>
       </section>
     )

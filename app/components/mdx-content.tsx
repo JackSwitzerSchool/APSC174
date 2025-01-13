@@ -35,19 +35,14 @@ const components = {
   }
 }
 
-interface CustomMDXProps {
+interface MDXContentProps {
   source: MDXRemoteSerializeResult
 }
 
-export function CustomMDX({ source }: CustomMDXProps) {
+export default function MDXContent({ source }: MDXContentProps) {
   if (!source?.compiledSource) {
     return null
   }
 
-  return (
-    <div className="prose prose-neutral dark:prose-invert">
-      <MDXRemote {...source} components={components} />
-    </div>
-  )
-}
-
+  return <MDXRemote {...source} components={components} />
+} 
