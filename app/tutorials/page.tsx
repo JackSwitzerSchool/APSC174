@@ -1,10 +1,11 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 import dynamic from 'next/dynamic'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 
 const CustomMDX = dynamic(() => import('@/app/components/mdx').then(mod => mod.CustomMDX), {
-  ssr: true,
-  loading: () => <p>Loading...</p>
+  loading: () => <div>Loading...</div>,
+  ssr: false
 })
 
 export const metadata = {
@@ -37,9 +38,11 @@ export default async function TutorialsPage() {
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
           {tutorialHeader.metadata.title || 'Tutorials'}
         </h1>
-        <div className="prose prose-neutral dark:prose-invert">
-          <CustomMDX source={tutorialHeader.content} />
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div className="prose prose-neutral dark:prose-invert">
+            <CustomMDX source={tutorialHeader.content} />
+          </div>
+        </Suspense>
       </section>
     )
   } catch (error) {
