@@ -1,4 +1,4 @@
-import { formatDate } from '@/app/notes/utils'
+import { formatDate, getBlogPosts } from '@/app/notes/utils'
 import type { BlogPost } from '@/app/notes/utils'
 
 interface PostsProps {
@@ -27,4 +27,14 @@ export function Posts({ posts }: PostsProps) {
       ))}
     </div>
   )
+}
+
+// Add BlogPosts component that fetches its own data
+export async function BlogPosts() {
+  const posts = await getBlogPosts()
+  // Sort posts by date
+  const sortedPosts = posts.sort((a, b) => 
+    new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
+  )
+  return <Posts posts={sortedPosts} />
 }
