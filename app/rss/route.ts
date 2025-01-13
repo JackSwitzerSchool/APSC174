@@ -1,16 +1,8 @@
 import { baseUrl } from '@/app/sitemap'
 import { getBlogPosts } from '@/app/notes/utils'
-import RSS from 'rss'
 
 export async function GET() {
   const posts = await getBlogPosts()
-
-  const feed = new RSS({
-    title: 'APSC 174',
-    description: 'Linear Algebra for Engineering Applications',
-    site_url: baseUrl,
-    feed_url: `${baseUrl}/feed.xml`,
-  })
 
   // Filter out reserved routes from notes
   const reservedRoutes = ['tutorials', 'course-resources']
@@ -19,16 +11,24 @@ export async function GET() {
     !reservedRoutes.includes(post.slug)
   )
 
-  notePosts.forEach((post) => {
-    feed.item({
-      title: post.metadata?.title || post.slug,
-      url: `${baseUrl}/notes/${post.slug}`,
-      date: post.metadata?.publishedAt,
-      description: post.metadata?.summary || '',
-    })
-  })
+  const rss = `<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0">
+      <channel>
+        <title>APSC 174</title>
+        <link>${baseUrl}</link>
+        <description>Linear Algebra for Engineering Applications</description>
+        ${notePosts.map(post => `
+          <item>
+            <title>${post.metadata?.title || post.slug}</title>
+            <link>${baseUrl}/notes/${post.slug}</link>
+            <description>${post.metadata?.summary || ''}</description>
+            ${post.metadata?.publishedAt ? `<pubDate>${new Date(post.metadata.publishedAt).toUTCString()}</pubDate>` : ''}
+          </item>
+        `).join('')}
+      </channel>
+    </rss>`
 
-  return new Response(feed.xml({ indent: true }), {
+  return new Response(rss, {
     headers: {
       'Content-Type': 'text/xml',
     },
