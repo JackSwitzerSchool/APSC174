@@ -164,49 +164,60 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   
   for (const dir of directories) {
     try {
-      const files = await fs.readdir(dir)
-      console.log(`Reading directory ${dir}:`, files)
+      const dirPath = path.join(process.cwd(), 'public', dir)
+      console.log(`Reading directory ${dirPath}:`, await fs.readdir(dirPath))
       
-      const mdFiles = files.filter(file => ['.md', '.mdx'].includes(path.extname(file)))
-      console.log(`Markdown files in ${dir}:`, mdFiles)
+      const files = (await fs.readdir(dirPath))
+        .filter(file => file.endsWith('.md'))
+      console.log(`Markdown files in ${dirPath}:`, files)
       
-      const posts = await Promise.all(mdFiles.map(async (file) => {
-        const filePath = path.join(dir, file)
-        console.log(`Processing file: ${filePath}`)
-        
-        // Skip processing tutorialsHeader.md as a regular post
-        if (file === 'tutorialsHeader.md') {
-          console.log('Found tutorialsHeader.md, skipping as regular post')
+      const posts = await Promise.all(files.map(async (file) => {
+        try {
+          const filePath = path.join(dir, file)
+          console.log(`Processing file: ${filePath}`)
+          
+          // Skip processing tutorialsHeader.md as a regular post
+          if (file === 'tutorialsHeader.md') {
+            console.log('Found tutorialsHeader.md, skipping as regular post')
+            return null
+          }
+
+          const content = await fs.readFile(filePath, 'utf-8')
+          const { metadata, content: mdxContent } = parseFrontmatter(content)
+          const slug = path.basename(file, path.extname(file))
+          
+          if (!mdxContent) {
+            console.error(`Empty content for file: ${filePath}`)
+            return null
+          }
+
+          const serializedContent = await serialize(mdxContent, {
+            parseFrontmatter: false,
+            mdxOptions: {
+              remarkPlugins: [
+                remarkMath,
+                [remarkWikiLink, wikiLinkConfig] as any
+              ],
+              rehypePlugins: [
+                rehypeKatex
+              ],
+              format: 'mdx'
+            }
+          })
+
+          const post: BlogPost = {
+            metadata,
+            slug: slug.toLowerCase().replace(/\s+/g, '-'),
+            originalFilename: slug,
+            content: serializedContent,
+            category: path.basename(dir)
+          }
+          
+          return post
+        } catch (error) {
+          console.error(`Error processing file ${file}:`, error)
           return null
         }
-
-        const content = await fs.readFile(filePath, 'utf-8')
-        const { metadata, content: mdxContent } = parseFrontmatter(content)
-        const slug = path.basename(file, path.extname(file))
-        
-        const serializedContent = await serialize(mdxContent, {
-          parseFrontmatter: false,
-          mdxOptions: {
-            remarkPlugins: [
-              remarkMath,
-              [remarkWikiLink, wikiLinkConfig] as any
-            ],
-            rehypePlugins: [
-              rehypeKatex
-            ],
-            format: 'mdx'
-          }
-        })
-        
-        const post: BlogPost = {
-          metadata,
-          slug: slug.toLowerCase().replace(/\s+/g, '-'),
-          originalFilename: slug,
-          content: serializedContent,
-          category: path.basename(dir)
-        }
-        
-        return post
       }))
       
       const validPosts = posts.filter((post): post is NonNullable<typeof post> => post !== null)

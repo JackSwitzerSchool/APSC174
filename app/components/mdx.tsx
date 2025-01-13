@@ -82,5 +82,5 @@ export function CustomMDX({ source }: MDXProps) {
     </article>
   )
 }
-
 export { components as MDXComponents }
+
