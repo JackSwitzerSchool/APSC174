@@ -8,7 +8,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: true, // For static exports
+    unoptimized: false, // For better performance
   },
   // Configure webpack to handle MDX
   webpack: (config) => {

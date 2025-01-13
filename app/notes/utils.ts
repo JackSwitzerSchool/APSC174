@@ -67,7 +67,7 @@ function parseFrontmatter(fileContent: string): {
 
 function getMarkdownFiles(dir) {
   try {
-    const files = fs.readdirSync(dir).filter((file) => 
+    const files = fs.readdir(dir).filter((file) => 
       ['.md', '.mdx'].includes(path.extname(file))
     )
     // Log found files for debugging
@@ -81,7 +81,7 @@ function getMarkdownFiles(dir) {
 
 function readMarkdownFile(filePath: string) {
   try {
-    let rawContent = fs.readFileSync(filePath, 'utf-8')
+    let rawContent = fs.readFile(filePath, 'utf-8')
     
     // For tutorial header, return only the content after frontmatter
     if (filePath.includes('tutorialsHeader.md')) {
