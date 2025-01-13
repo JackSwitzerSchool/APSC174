@@ -11,6 +11,8 @@ import type { ComponentProps } from 'react'
 interface CustomImageProps extends Omit<ComponentProps<'img'>, 'src'> {
   src?: string
   alt?: string
+  width?: string | number
+  height?: string | number
 }
 
 const components = {
@@ -20,14 +22,14 @@ const components = {
     }
     return <Link href={href} {...props} />
   },
-  img: ({ src, alt, ...props }: CustomImageProps) => {
+  img: ({ src, alt, width, height, ...props }: CustomImageProps) => {
     if (!src) return null
     return (
       <Image
         src={src}
         alt={alt || ''}
-        width={800}
-        height={400}
+        width={width ? Number(width) : 800}
+        height={height ? Number(height) : 400}
         className="rounded-lg"
         {...props}
       />

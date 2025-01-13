@@ -1,76 +1,35 @@
-import { getBlogPosts } from '@/app/notes/utils'
-import Link from 'next/link'
-import type { BlogPost } from '@/app/notes/utils'
+import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
+import { CustomMDX } from '@/app/components/mdx'
 
 export default async function NotesPage() {
   const posts = await getBlogPosts()
-
-  const categories = {
-    notes: 'Course Notes',
-    base: 'Course Information',
-    tutorials: 'Tutorial Materials',
-    assorted: 'Other Resources'
-  }
-
-  const groupedPosts = posts.reduce<Record<string, BlogPost[]>>((acc, post) => {
-    const category = post.category || 'notes'
-    if (!acc[category]) acc[category] = []
-    acc[category].push(post)
-    return acc
-  }, {})
-
-  const getPostHref = (post: BlogPost) => {
-    if (post.category === 'notes') {
-      return `/notes/${post.slug}`
-    }
-    if (post.category === 'tutorials' && post.slug === 'tutorialsheader') {
-      return '/notes/tutorials'
-    }
-    return `/notes/${post.category}/${post.slug}`
-  }
+  
+  // Filter for notes category and sort by date
+  const notePosts = posts
+    .filter(post => post.category === 'notes')
+    .sort((a, b) => 
+      new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
+    )
 
   return (
     <section>
-      <div className="mb-8">
-        <h1 className="font-bold text-2xl mb-4 tracking-tighter">Course Notes</h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          A collection of notes covering fundamental concepts in Linear Algebra, 
-          including Set Theory, Functions, Linear Systems, and more.
-        </p>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Notes</h1>
+      <div className="prose prose-neutral dark:prose-invert">
+        {notePosts.map((post) => (
+          <article key={post.slug} className="mb-8">
+            <h2 className="text-xl font-medium">
+              <a href={`/notes/${post.slug}`} className="text-neutral-900 dark:text-neutral-100">
+                {post.metadata.title}
+              </a>
+            </h2>
+            {post.metadata.summary && (
+              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+                {post.metadata.summary}
+              </p>
+            )}
+          </article>
+        ))}
       </div>
-
-      {Object.entries(categories).map(([category, title]) => (
-        groupedPosts[category]?.length > 0 && (
-          <div key={category} className="mb-12">
-            <h2 className="text-xl font-semibold mb-4">{title}</h2>
-            <div className="grid gap-4">
-              {groupedPosts[category]
-                .sort((a, b) => 
-                  new Date(b.metadata.publishedAt).getTime() - 
-                  new Date(a.metadata.publishedAt).getTime()
-                )
-                .map((post) => (
-                  <Link
-                    key={post.slug}
-                    className="flex flex-col space-y-1 p-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-900"
-                    href={getPostHref(post)}
-                  >
-                    <div className="w-full flex flex-col">
-                      <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                        {post.metadata.title}
-                      </h3>
-                      {post.metadata.summary && (
-                        <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                          {post.metadata.summary}
-                        </p>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </div>
-        )
-      ))}
     </section>
   )
 } 
