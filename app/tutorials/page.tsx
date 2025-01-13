@@ -1,6 +1,11 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 import { notFound } from 'next/navigation'
-import MDXContent from '@/app/components/mdx-content'
+import dynamic from 'next/dynamic'
+
+const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
+  ssr: false,
+  loading: () => <div>Loading...</div>
+})
 
 export const metadata = {
   title: 'Tutorials',
@@ -16,7 +21,7 @@ export default async function TutorialsPage() {
         post.category === 'tutorials'
     )
 
-    if (!tutorialHeader?.content?.compiledSource) {
+    if (!tutorialHeader?.content) {
       return (
         <section>
           <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
@@ -30,9 +35,9 @@ export default async function TutorialsPage() {
     return (
       <section>
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-          {tutorialHeader.metadata.title || 'Tutorials'}
+          {tutorialHeader.metadata?.title || 'Tutorials'}
         </h1>
-        <div>
+        <div className="prose prose-neutral dark:prose-invert">
           <MDXContent source={tutorialHeader.content} />
         </div>
       </section>
