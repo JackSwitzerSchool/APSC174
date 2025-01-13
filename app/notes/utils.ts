@@ -184,14 +184,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
                 [remarkWikiLink, wikiLinkConfig]
               ],
               rehypePlugins: [
-                [rehypeKatex, {
-                  strict: false,
-                  output: 'html',
-                  trust: true
-                }]
+                rehypeKatex
               ],
-              format: 'mdx',
-              development: false
+              format: 'mdx'
             }
           }),
           category: path.basename(dir)
