@@ -5,7 +5,7 @@ export default async function Page() {
   const posts = await getBlogPosts()
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Blog</h1>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Course Notes</h1>
       <Posts posts={posts} />
     </section>
   )

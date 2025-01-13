@@ -1,5 +1,5 @@
-import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { CustomMDX } from '@/app/components/mdx'
+import { getBlogPosts } from '@/app/notes/utils'
+import { Posts } from '@/app/components/posts'
 
 export default async function NotesPage() {
   const posts = await getBlogPosts()
@@ -13,23 +13,8 @@ export default async function NotesPage() {
 
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Notes</h1>
-      <div className="prose prose-neutral dark:prose-invert">
-        {notePosts.map((post) => (
-          <article key={post.slug} className="mb-8">
-            <h2 className="text-xl font-medium">
-              <a href={`/notes/${post.slug}`} className="text-neutral-900 dark:text-neutral-100">
-                {post.metadata.title}
-              </a>
-            </h2>
-            {post.metadata.summary && (
-              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-                {post.metadata.summary}
-              </p>
-            )}
-          </article>
-        ))}
-      </div>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Course Notes</h1>
+      <Posts posts={notePosts} />
     </section>
   )
 } 
