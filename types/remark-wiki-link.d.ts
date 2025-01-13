@@ -1,5 +1,6 @@
 declare module 'remark-wiki-link' {
   import type { Plugin } from 'unified'
+  import type { Root } from 'mdast'
 
   interface WikiLinkOptions {
     pageResolver?: (name: string) => string[]
@@ -9,6 +10,6 @@ declare module 'remark-wiki-link' {
     newClassName?: string
   }
 
-  const remarkWikiLink: Plugin<[WikiLinkOptions?]>
+  const remarkWikiLink: Plugin<[WikiLinkOptions?], Root>
   export = remarkWikiLink
 }

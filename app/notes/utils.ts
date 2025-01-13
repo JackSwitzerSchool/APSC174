@@ -180,11 +180,11 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             parseFrontmatter: false,
             mdxOptions: {
               remarkPlugins: [
-                [remarkMath, {}],
-                [remarkWikiLink, wikiLinkConfig]
+                remarkMath,
+                [remarkWikiLink, wikiLinkConfig] as any
               ],
               rehypePlugins: [
-                [rehypeKatex, {}]
+                rehypeKatex
               ],
               format: 'mdx'
             }
