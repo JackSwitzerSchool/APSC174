@@ -1,5 +1,5 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
 const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
@@ -7,13 +7,17 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
   loading: () => <div>Loading...</div>
 })
 
-// Add reserved slugs that should not be handled by the notes route
-const RESERVED_SLUGS = ['tutorials', 'course-resources']
+// Add reserved slugs that should redirect to their proper routes
+const RESERVED_ROUTES = {
+  'tutorials': '/tutorials',
+  'course-resources': '/course-resources'
+} as const
 
 export default async function NotePage({ params }: { params: { slug: string } }) {
-  // Redirect reserved slugs to their proper routes
-  if (RESERVED_SLUGS.includes(params.slug)) {
-    return notFound()
+  // Check if this is a reserved route and redirect if it is
+  const redirectPath = RESERVED_ROUTES[params.slug as keyof typeof RESERVED_ROUTES]
+  if (redirectPath) {
+    redirect(redirectPath)
   }
 
   try {
@@ -21,8 +25,7 @@ export default async function NotePage({ params }: { params: { slug: string } })
     const post = posts.find(
       (post): post is BlogPost => 
         post.category === 'notes' && 
-        post.slug === params.slug &&
-        !RESERVED_SLUGS.includes(post.slug) // Extra safety check
+        post.slug === params.slug
     )
 
     if (!post?.content) {
