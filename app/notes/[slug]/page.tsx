@@ -7,7 +7,15 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
   loading: () => <div>Loading...</div>
 })
 
+// Add this to prevent certain slugs from being treated as notes
+const EXCLUDED_SLUGS = ['tutorials', 'course-resources']
+
 export default async function NotePage({ params }: { params: { slug: string } }) {
+  // First check if this is an excluded slug
+  if (EXCLUDED_SLUGS.includes(params.slug)) {
+    notFound()
+  }
+
   try {
     const posts = await getBlogPosts()
     const post = posts.find(

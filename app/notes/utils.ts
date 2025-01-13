@@ -62,12 +62,19 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
   const processDirectory = async (dir: string, category: string) => {
     try {
+      console.log(`Processing directory: ${dir}`)
       const files = await fs.readdir(dir)
+      console.log(`Found files in ${category}:`, files)
+      
       const mdFiles = files.filter(file => file.endsWith('.md'))
+      console.log(`Markdown files in ${category}:`, mdFiles)
 
       for (const file of mdFiles) {
         try {
-          const content = await fs.readFile(path.join(dir, file), 'utf8')
+          const filePath = path.join(dir, file)
+          console.log(`Processing file: ${filePath}`)
+          
+          const content = await fs.readFile(filePath, 'utf8')
           const { data: metadata, content: markdownContent } = matter(content)
           
           if (!markdownContent?.trim()) {
@@ -91,7 +98,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
           const slug = normalizeSlug(file.replace(/\.md$/, '').toLowerCase())
           
-          posts.push({
+          const post = {
             content: serializedContent,
             slug,
             category,
@@ -103,19 +110,37 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
               link: metadata.link
             },
             originalFilename: file
+          }
+          
+          console.log(`Successfully processed ${category}/${file}:`, {
+            slug: post.slug,
+            title: post.metadata.title,
+            hasContent: !!post.content.compiledSource
           })
+          
+          posts.push(post)
         } catch (error) {
-          console.error(`Error processing file ${file}:`, error)
+          console.error(`Error processing file ${file} in ${category}:`, error)
         }
       }
     } catch (error) {
       console.error(`Error processing directory ${dir}:`, error)
+      if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+        console.warn(`Directory ${dir} does not exist`)
+      }
     }
   }
 
-  await processDirectory(NOTES_DIR, 'notes')
-  await processDirectory(BASE_DIR, 'base')
-  await processDirectory(TUTORIALS_DIR, 'tutorials')
+  await Promise.all([
+    processDirectory(NOTES_DIR, 'notes'),
+    processDirectory(BASE_DIR, 'base'),
+    processDirectory(TUTORIALS_DIR, 'tutorials')
+  ])
+
+  console.log('Total posts processed:', posts.length)
+  console.log('Posts by category:', 
+    Object.groupBy(posts, post => post.category)
+  )
 
   return posts
 }

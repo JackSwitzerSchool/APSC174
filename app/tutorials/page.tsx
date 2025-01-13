@@ -15,11 +15,23 @@ export const metadata = {
 export default async function TutorialsPage() {
   try {
     const posts = await getBlogPosts()
+    console.log('Available posts:', posts.map(p => ({
+      filename: p.originalFilename,
+      category: p.category,
+      slug: p.slug
+    })))
+    
     const tutorialHeader = posts.find(
       (post): post is BlogPost => 
         post.originalFilename === 'tutorialsHeader.md' && 
         post.category === 'tutorials'
     )
+
+    console.log('Found tutorial header:', tutorialHeader ? {
+      filename: tutorialHeader.originalFilename,
+      category: tutorialHeader.category,
+      hasContent: !!tutorialHeader.content
+    } : 'Not found')
 
     if (!tutorialHeader?.content) {
       console.error('Tutorial header not found')
