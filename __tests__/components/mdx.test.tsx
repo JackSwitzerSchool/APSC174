@@ -6,7 +6,8 @@ describe('CustomMDX', () => {
   it('renders markdown content correctly', () => {
     const mockSource: MDXRemoteSerializeResult = {
       compiledSource: 'Test content',
-      scope: {}
+      scope: {},
+      frontmatter: {}
     }
 
     render(<CustomMDX source={mockSource} />)

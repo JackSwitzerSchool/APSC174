@@ -1,4 +1,12 @@
-import { parseFrontmatter } from '@/app/notes/utils' // You'll need to export this
+import { parseFrontmatter } from '@/app/notes/utils'
+
+// Export parseFrontmatter in utils.ts
+export function parseFrontmatter(fileContent: string): {
+  metadata: Metadata
+  content: string
+} {
+  // ... existing implementation
+}
 
 describe('parseFrontmatter', () => {
   it('parses frontmatter correctly', () => {
