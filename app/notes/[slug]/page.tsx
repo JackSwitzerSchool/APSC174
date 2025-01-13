@@ -7,13 +7,13 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
   loading: () => <div>Loading...</div>
 })
 
-// Add this to prevent certain slugs from being treated as notes
-const EXCLUDED_SLUGS = ['tutorials', 'course-resources']
+// Add reserved slugs that should not be handled by the notes route
+const RESERVED_SLUGS = ['tutorials', 'course-resources']
 
 export default async function NotePage({ params }: { params: { slug: string } }) {
-  // First check if this is an excluded slug
-  if (EXCLUDED_SLUGS.includes(params.slug)) {
-    notFound()
+  // Redirect reserved slugs to their proper routes
+  if (RESERVED_SLUGS.includes(params.slug)) {
+    return notFound()
   }
 
   try {
@@ -21,7 +21,8 @@ export default async function NotePage({ params }: { params: { slug: string } })
     const post = posts.find(
       (post): post is BlogPost => 
         post.category === 'notes' && 
-        post.slug === params.slug
+        post.slug === params.slug &&
+        !RESERVED_SLUGS.includes(post.slug) // Extra safety check
     )
 
     if (!post?.content) {
