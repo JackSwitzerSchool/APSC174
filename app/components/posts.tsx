@@ -1,54 +1,39 @@
-import { formatDate, getBlogPosts } from '@/app/notes/utils'
-import type { BlogPost } from '@/app/notes/utils'
 import Link from 'next/link'
+import { getBlogPosts } from '@/app/notes/utils'
 
-interface PostsProps {
-  posts: BlogPost[]
-}
+export async function BlogPosts() {
+  const posts = await getBlogPosts()
+  
+  // Filter out reserved routes and group by category
+  const reservedRoutes = ['tutorials', 'course-resources']
+  const filteredPosts = posts.filter(post => !reservedRoutes.includes(post.slug))
+  
+  // Group posts by category
+  const postsByCategory = filteredPosts.reduce((acc, post) => {
+    acc[post.category] = acc[post.category] || []
+    acc[post.category].push(post)
+    return acc
+  }, {} as Record<string, typeof posts>)
 
-export function Posts({ posts }: PostsProps) {
   return (
-    <div className="flex flex-col gap-8">
-      {posts.map((post) => (
-        <article key={post.slug}>
-          {post.metadata.link?.endsWith('.pdf') ? (
-            <a 
-              href={`/base/${post.metadata.link}`} 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-neutral-800 dark:hover:text-neutral-200"
-            >
-              <h2 className="font-medium mb-1">
-                {post.metadata.title}
-              </h2>
-            </a>
-          ) : (
-            <Link href={`/notes/${post.slug}`}>
-              <h2 className="font-medium mb-1">
-                {post.metadata.title}
-              </h2>
-            </Link>
-          )}
-          {post.metadata.summary && (
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {post.metadata.summary}
-            </p>
-          )}
-          <time className="text-sm text-neutral-600 dark:text-neutral-400">
-            {formatDate(post.metadata.publishedAt)}
-          </time>
-        </article>
+    <div className="prose prose-neutral dark:prose-invert">
+      {Object.entries(postsByCategory).map(([category, categoryPosts]) => (
+        <div key={category}>
+          <h2 className="capitalize">{category}</h2>
+          <ul>
+            {categoryPosts.map((post) => (
+              <li key={post.slug}>
+                <Link 
+                  href={category === 'notes' ? `/notes/${post.slug}` : `/${post.slug}`}
+                  className="text-neutral-800 dark:text-neutral-200"
+                >
+                  {post.metadata?.title || post.slug}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   )
-}
-
-// Add BlogPosts component that fetches its own data
-export async function BlogPosts() {
-  const posts = await getBlogPosts()
-  // Sort posts by date
-  const sortedPosts = posts.sort((a, b) => 
-    new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
-  )
-  return <Posts posts={sortedPosts} />
 }
