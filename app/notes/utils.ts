@@ -1,107 +1,23 @@
-import path from 'path'
-import { promises as fs } from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import remarkWikiLink from 'remark-wiki-link'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import remarkRehype from 'remark-rehype'
 import matter from 'gray-matter'
+import path from 'path'
+import { promises as fs } from 'fs'
 
-export function formatDate(date: string, includeTime: boolean = false) {
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+export type BlogPost = {
+  content: MDXRemoteSerializeResult
+  slug: string
+  category: string
+  metadata: {
+    title: string
+    publishedAt: string
+    summary?: string
+    image?: string
   }
-  if (includeTime) {
-    options.hour = 'numeric'
-    options.minute = 'numeric'
-  }
-  return new Date(date).toLocaleDateString('en-US', options)
-}
-
-export interface Metadata {
-  title: string
-  publishedAt: string
-  summary?: string
-  image?: string
-}
-
-function parseFrontmatter(fileContent: string): {
-  metadata: Metadata
-  content: string
-} {
-  // Handle files without frontmatter by providing defaults
-  if (!fileContent.startsWith('---')) {
-    const title = fileContent.split('\n')[0].replace('#', '').trim()
-    return {
-      metadata: {
-        title,
-        publishedAt: new Date().toISOString(),
-        summary: '',
-      },
-      content: fileContent,
-    }
-  }
-
-  let frontmatterRegex = /---\s*([\s\S]*?)\s*---/
-  let match = frontmatterRegex.exec(fileContent)
-  let frontMatterBlock = match![1]
-  let content = fileContent.replace(frontmatterRegex, '').trim()
-  let frontMatterLines = frontMatterBlock.trim().split('\n')
-  let metadata: Partial<Metadata> = {}
-
-  frontMatterLines.forEach((line) => {
-    let [key, ...valueArr] = line.split(': ')
-    let value = valueArr.join(': ').trim()
-    value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value
-  })
-
-  return { metadata: metadata as Metadata, content }
-}
-
-async function getMarkdownFiles(dir: string): Promise<string[]> {
-  try {
-    const files = await fs.readdir(dir)
-    return files.filter((file) => ['.md', '.mdx'].includes(path.extname(file)))
-  } catch (error) {
-    console.warn(`Warning: Could not read directory ${dir}`, error)
-    return []
-  }
-}
-
-async function readMarkdownFile(filePath: string) {
-  try {
-    const rawContent = await fs.readFile(filePath, 'utf-8')
-    
-    // For tutorial header, return only the content after frontmatter
-    if (filePath.includes('tutorialsHeader.md')) {
-      const parts = rawContent.split('---')
-      return {
-        metadata: {
-          title: 'Tutorial Materials',
-          publishedAt: new Date().toISOString(),
-          summary: 'Tutorial materials and practice problems'
-        },
-        content: parts.length >= 3 ? parts.slice(2).join('---').trim() : rawContent.trim()
-      }
-    }
-    
-    // For all other files, parse normally
-    return parseFrontmatter(rawContent)
-  } catch (error) {
-    console.error(`Error reading file ${filePath}`, error)
-    return {
-      metadata: {
-        title: 'Error',
-        publishedAt: new Date().toISOString(),
-        summary: 'Error loading content',
-      },
-      content: 'Error loading content',
-    }
-  }
+  originalFilename: string
 }
 
 const wikiLinkConfig = {
@@ -115,19 +31,6 @@ const wikiLinkConfig = {
   },
   aliasDivider: '|',
   wikiLinkClassName: 'wiki-link'
-}
-
-export type BlogPost = {
-  content: MDXRemoteSerializeResult
-  slug: string
-  category: string
-  metadata: {
-    title: string
-    publishedAt: string
-    summary?: string
-    image?: string
-  }
-  originalFilename: string
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {

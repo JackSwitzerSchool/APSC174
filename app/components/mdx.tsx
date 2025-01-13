@@ -2,13 +2,10 @@
 
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
-import Image from 'next/image'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-import type { MDXComponents as MDXComponentsType } from 'mdx/types'
+import Image, { ImageProps } from 'next/image'
 import type { ComponentProps } from 'react'
 
-interface CustomImageProps extends Omit<ComponentProps<'img'>, 'src'> {
+interface CustomImageProps extends Omit<ImageProps, 'src'> {
   src?: string
   alt?: string
   width?: string | number
@@ -24,23 +21,17 @@ const components = {
   },
   img: ({ src, alt, width, height, ...props }: CustomImageProps) => {
     if (!src) return null
-    return (
-      <Image
-        src={src}
-        alt={alt || ''}
-        width={width ? Number(width) : 800}
-        height={height ? Number(height) : 400}
-        className="rounded-lg"
-        {...props}
-      />
-    )
-  }
-}
 
-const options = {
-  mdxOptions: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
+    const imageProps: Partial<ImageProps> = {
+      src,
+      alt: alt || '',
+      width: width ? Number(width) : 800,
+      height: height ? Number(height) : 400,
+      className: "rounded-lg",
+      ...props
+    }
+
+    return <Image {...imageProps} />
   }
 }
 
