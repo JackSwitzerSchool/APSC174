@@ -164,15 +164,15 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   
   for (const dir of directories) {
     try {
-      const dirPath = path.join(process.cwd(), 'public', dir)
-      console.log(`Reading directory ${dirPath}:`, await fs.readdir(dirPath))
+      console.log(`Reading directory ${dir}:`, await fs.readdir(dir))
       
-      const files = (await fs.readdir(dirPath))
+      const files = (await fs.readdir(dir))
         .filter(file => file.endsWith('.md'))
-      console.log(`Markdown files in ${dirPath}:`, files)
+      console.log(`Markdown files in ${dir}:`, files)
       
       const posts = await Promise.all(files.map(async (file) => {
         try {
+          // Use the full directory path when reading files
           const filePath = path.join(dir, file)
           console.log(`Processing file: ${filePath}`)
           
@@ -205,6 +205,12 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             }
           })
 
+          // Ensure metadata has required fields
+          if (!metadata.title || !metadata.publishedAt) {
+            console.error(`Missing required metadata in ${filePath}`, metadata)
+            return null
+          }
+
           const post: BlogPost = {
             metadata,
             slug: slug.toLowerCase().replace(/\s+/g, '-'),
@@ -213,6 +219,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             category: path.basename(dir)
           }
           
+          console.log(`Successfully processed post: ${post.category}/${post.slug}`)
           return post
         } catch (error) {
           console.error(`Error processing file ${file}:`, error)
