@@ -4,9 +4,15 @@ import { getBlogPosts } from '@/app/notes/utils'
 export async function BlogPosts() {
   const posts = await getBlogPosts()
   
-  // Filter out reserved routes and group by category
-  const reservedRoutes = ['tutorials', 'course-resources']
-  const filteredPosts = posts.filter(post => !reservedRoutes.includes(post.slug))
+  // Filter out posts that should have their own routes
+  const filteredPosts = posts.filter(post => {
+    // Exclude tutorials and course-resources posts completely
+    if (post.category === 'tutorials' || 
+        (post.category === 'base' && post.slug === 'course-resources')) {
+      return false
+    }
+    return true
+  })
   
   // Group posts by category
   const postsByCategory = filteredPosts.reduce((acc, post) => {
