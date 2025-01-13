@@ -1,10 +1,10 @@
-import { getBlogPosts } from '@/app/notes/utils'
+import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 import { CustomMDX } from '@/app/components/mdx'
 
 export default async function TutorialsPage() {
   const posts = await getBlogPosts()
   const tutorialHeader = posts.find(
-    post => post.slug === 'tutorialsheader' && post.category === 'tutorials'
+    (post): post is BlogPost => post.slug === 'tutorialsheader' && post.category === 'tutorials'
   )
 
   if (!tutorialHeader) {

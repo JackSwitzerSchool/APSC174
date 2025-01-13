@@ -1,8 +1,8 @@
 import { baseUrl } from '@/app/sitemap'
-import { getBlogPosts } from '@/app/notes/utils'
+import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 
 export async function GET() {
-  let allNotes = await getBlogPosts()
+  const allNotes: BlogPost[] = await getBlogPosts()
 
   const itemsXml = allNotes
     .sort((a, b) => {

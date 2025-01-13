@@ -1,5 +1,5 @@
+import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 import { CustomMDX } from '@/app/components/mdx'
-import { getBlogPosts } from '@/app/notes/utils'
 
 export const metadata = {
   title: 'Tutorials',
@@ -9,7 +9,7 @@ export const metadata = {
 export default async function TutorialsPage() {
   const posts = await getBlogPosts()
   const tutorialHeader = posts.find(
-    post => post.slug === 'tutorialsheader' && post.category === 'tutorials'
+    (post): post is BlogPost => post.slug === 'tutorialsheader' && post.category === 'tutorials'
   )
   
   if (!tutorialHeader) {
