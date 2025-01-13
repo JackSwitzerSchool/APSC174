@@ -1,3 +1,5 @@
+declare module 'remark-wiki-link'
+
 import path from 'path'
 import { promises as fs } from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
