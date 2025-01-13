@@ -82,6 +82,7 @@ async function readMarkdownFile(filePath: string) {
         metadata: {
           title: 'Tutorial Materials',
           publishedAt: new Date().toISOString(),
+          summary: 'Tutorial materials and practice problems'
         },
         content: parts.length >= 3 ? parts.slice(2).join('---').trim() : rawContent.trim()
       }
@@ -164,40 +165,57 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   for (const dir of directories) {
     try {
       const files = await fs.readdir(dir)
+      console.log(`Reading directory ${dir}:`, files) // Debug log
+      
       const mdFiles = files.filter(file => ['.md', '.mdx'].includes(path.extname(file)))
+      console.log(`Markdown files in ${dir}:`, mdFiles) // Debug log
       
       const posts = await Promise.all(mdFiles.map(async (file) => {
         const filePath = path.join(dir, file)
+        console.log(`Processing file: ${filePath}`) // Debug log
+        
         const content = await fs.readFile(filePath, 'utf-8')
         const { metadata, content: mdxContent } = parseFrontmatter(content)
         const slug = path.basename(file, path.extname(file))
+        
+        // Skip processing tutorialsHeader.md as a regular post
+        if (file === 'tutorialsHeader.md') {
+          console.log('Found tutorialsHeader.md, skipping as regular post') // Debug log
+          return null
+        }
+        
+        const serializedContent = await serialize(mdxContent, {
+          parseFrontmatter: false,
+          mdxOptions: {
+            remarkPlugins: [
+              remarkMath,
+              [remarkWikiLink, wikiLinkConfig] as any
+            ],
+            rehypePlugins: [
+              rehypeKatex
+            ],
+            format: 'mdx'
+          }
+        })
         
         return {
           metadata,
           slug: slug.toLowerCase().replace(/\s+/g, '-'),
           originalFilename: slug,
-          content: await serialize(mdxContent, {
-            parseFrontmatter: false,
-            mdxOptions: {
-              remarkPlugins: [
-                remarkMath,
-                [remarkWikiLink, wikiLinkConfig] as any
-              ],
-              rehypePlugins: [
-                rehypeKatex
-              ],
-              format: 'mdx'
-            }
-          }),
+          content: serializedContent,
           category: path.basename(dir)
         }
       }))
       
-      allPosts = [...allPosts, ...posts]
+      const validPosts = posts.filter((post): post is BlogPost => post !== null)
+      console.log(`Valid posts from ${dir}:`, validPosts.map(p => p.slug)) // Debug log
+      
+      allPosts = [...allPosts, ...validPosts]
     } catch (error) {
       console.warn(`Warning: Could not read directory ${dir}`, error)
     }
   }
 
+  console.log('All posts:', allPosts.map(p => `${p.category}/${p.slug}`)) // Debug log
   return allPosts
 }

@@ -1,21 +1,44 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
 import { CustomMDX } from '@/app/components/mdx'
+import { notFound } from 'next/navigation'
 
 export default async function TutorialsPage() {
-  const posts = await getBlogPosts()
-  const tutorialHeader = posts.find(
-    (post): post is BlogPost => post.slug === 'tutorialsheader' && post.category === 'tutorials'
-  )
+  try {
+    const posts = await getBlogPosts()
+    console.log('Found posts:', posts.map(p => `${p.category}/${p.slug}`)) // Debug log
+    
+    const tutorialHeader = posts.find(
+      (post): post is BlogPost => {
+        console.log('Checking post:', post.slug, post.category) // Debug log
+        return post.slug === 'tutorialsheader' && post.category === 'tutorials'
+      }
+    )
 
-  if (!tutorialHeader) {
-    return <div>Tutorial content not found</div>
+    if (!tutorialHeader) {
+      console.log('Tutorial header not found') // Debug log
+      return (
+        <section>
+          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
+          <p>No tutorial content found. Please check back later.</p>
+        </section>
+      )
+    }
+
+    return (
+      <section>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">{tutorialHeader.metadata.title}</h1>
+        <div className="prose prose-neutral dark:prose-invert">
+          <CustomMDX source={tutorialHeader.content} />
+        </div>
+      </section>
+    )
+  } catch (error) {
+    console.error('Error in TutorialsPage:', error)
+    return (
+      <section>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Error</h1>
+        <p>Failed to load tutorial content. Please try again later.</p>
+      </section>
+    )
   }
-
-  return (
-    <section>
-      <div className="prose prose-neutral dark:prose-invert">
-        <CustomMDX source={tutorialHeader.content} />
-      </div>
-    </section>
-  )
 } 
