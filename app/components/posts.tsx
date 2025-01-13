@@ -1,22 +1,9 @@
 import Link from 'next/link'
-import { getBlogPosts, formatDate } from '@/app/notes/utils'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-
-interface BlogPost {
-  slug: string
-  category: string
-  metadata: {
-    title: string
-    publishedAt: string
-    summary?: string
-  }
-  content: MDXRemoteSerializeResult
-  originalFilename?: string
-}
+import { getBlogPosts, formatDate, type BlogPost } from '@/app/notes/utils'
 
 export async function BlogPosts() {
   const allBlogs = await getBlogPosts()
-  const posts = allBlogs.sort((a, b) => {
+  const posts: BlogPost[] = allBlogs.sort((a, b) => {
     if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
       return -1
     }

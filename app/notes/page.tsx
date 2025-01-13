@@ -1,5 +1,6 @@
 import { getBlogPosts } from '@/app/notes/utils'
 import Link from 'next/link'
+import type { BlogPost } from '@/app/notes/utils'
 
 export default async function NotesPage() {
   const posts = await getBlogPosts()
@@ -11,15 +12,14 @@ export default async function NotesPage() {
     assorted: 'Other Resources'
   }
 
-  // Group posts by category
-  const groupedPosts = posts.reduce((acc, post) => {
+  const groupedPosts = posts.reduce<Record<string, BlogPost[]>>((acc, post) => {
     const category = post.category || 'notes'
     if (!acc[category]) acc[category] = []
     acc[category].push(post)
     return acc
   }, {})
 
-  const getPostHref = (post) => {
+  const getPostHref = (post: BlogPost) => {
     if (post.category === 'notes') {
       return `/notes/${post.slug}`
     }
