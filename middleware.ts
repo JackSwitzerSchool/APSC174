@@ -5,9 +5,9 @@ export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // Handle both /course-resources and encoded versions
-  if (pathname === '/course-resources') {
+  if (pathname.toLowerCase() === '/course-resources') {
     return NextResponse.redirect(
-      new URL('/base/Course Resources', request.url)
+      new URL('/base/course-resources', request.url)
     )
   }
 
