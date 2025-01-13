@@ -1,5 +1,5 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { CustomMDX } from '@/app/components/mdx'
+import MDXContent from '@/app/components/mdx-content'
 import { notFound } from 'next/navigation'
 
 export default async function NotePage({ params }: { params: { slug: string[] } }) {
@@ -27,7 +27,7 @@ export default async function NotePage({ params }: { params: { slug: string[] } 
           {post.metadata?.title || post.slug}
         </h1>
         <div className="prose prose-neutral dark:prose-invert">
-          <CustomMDX source={post.content} />
+          <MDXContent source={post.content} />
         </div>
       </section>
     )
