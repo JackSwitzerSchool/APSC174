@@ -1,6 +1,6 @@
 'use client'
 
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image from 'next/image'
 import remarkMath from 'remark-math'
@@ -36,13 +36,12 @@ const options = {
   }
 }
 
-export function CustomMDX({ source }: { source: string }) {
+export function CustomMDX({ source }: { source: MDXRemoteSerializeResult }) {
   return (
     <div className="prose prose-neutral dark:prose-invert">
       <MDXRemote 
-        source={source}
+        {...source}
         components={components}
-        options={options}
       />
     </div>
   )
