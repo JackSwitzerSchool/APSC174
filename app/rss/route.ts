@@ -4,11 +4,11 @@ import { getBlogPosts } from '@/app/notes/utils'
 export async function GET() {
   const posts = await getBlogPosts()
 
-  // Filter out reserved routes from notes
-  const reservedRoutes = ['tutorials', 'course-resources']
+  // Filter out posts that are in the tutorials or course-resources categories
   const notePosts = posts.filter(post => 
     post.category === 'notes' && 
-    !reservedRoutes.includes(post.slug)
+    post.slug !== 'tutorials' && 
+    post.slug !== 'course-resources'
   )
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
