@@ -29,8 +29,10 @@ const components = {
         </a>
       )
     }
+    // Filter out DOM props that Next.js Link doesn't accept
+    const { ref, ...linkProps } = props
     return (
-      <Link href={href} {...props}>
+      <Link href={href} {...linkProps}>
         {children}
       </Link>
     )
