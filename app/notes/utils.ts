@@ -82,6 +82,11 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             }
           })
           
+          if (!serializedContent) {
+            console.warn(`Failed to serialize content for file: ${file}`)
+            continue
+          }
+
           const slug = normalizeSlug(file.replace(/\.md$/, '').toLowerCase())
           
           posts.push({
