@@ -29,6 +29,7 @@ export type BlogPost = {
     publishedAt: string
     summary?: string
     image?: string
+    link?: string
   }
   originalFilename: string
 }
@@ -95,7 +96,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
               title: metadata.title || slug,
               publishedAt: metadata.publishedAt || new Date().toISOString(),
               summary: metadata.summary,
-              image: metadata.image
+              image: metadata.image,
+              link: metadata.link
             },
             originalFilename: file
           })
