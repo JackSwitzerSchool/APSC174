@@ -1,5 +1,11 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { CustomMDX } from '@/app/components/mdx'
+import dynamic from 'next/dynamic'
+import { notFound } from 'next/navigation'
+
+const CustomMDX = dynamic(() => import('@/app/components/mdx').then(mod => mod.CustomMDX), {
+  ssr: true,
+  loading: () => <p>Loading...</p>
+})
 
 export const metadata = {
   title: 'Tutorials',
@@ -12,29 +18,32 @@ export default async function TutorialsPage() {
     const tutorialHeader = posts.find(
       (post): post is BlogPost => 
         post.originalFilename === 'tutorialsHeader.md' && 
-        post.category === 'tutorials' &&
-        post.content !== undefined
+        post.category === 'tutorials'
     )
-    
+
+    if (!tutorialHeader?.content?.compiledSource) {
+      return (
+        <section>
+          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
+          <div className="prose prose-neutral dark:prose-invert">
+            <p>Tutorial content will be available soon.</p>
+          </div>
+        </section>
+      )
+    }
+
     return (
       <section>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+          {tutorialHeader.metadata.title || 'Tutorials'}
+        </h1>
         <div className="prose prose-neutral dark:prose-invert">
-          {tutorialHeader ? (
-            <CustomMDX source={tutorialHeader.content} />
-          ) : (
-            <p>Tutorial content will be available soon.</p>
-          )}
+          <CustomMDX source={tutorialHeader.content} />
         </div>
       </section>
     )
   } catch (error) {
     console.error('Error in TutorialsPage:', error)
-    return (
-      <section>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
-        <p>Error loading tutorial content. Please try again later.</p>
-      </section>
-    )
+    notFound()
   }
 } 

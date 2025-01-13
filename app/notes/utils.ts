@@ -21,7 +21,9 @@ export function formatDate(date: string, includeTime: boolean = false) {
 }
 
 export type BlogPost = {
-  content: MDXRemoteSerializeResult
+  content: MDXRemoteSerializeResult & {
+    compiledSource: string
+  }
   slug: string
   category: string
   metadata: {
@@ -68,7 +70,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
           const content = await fs.readFile(path.join(dir, file), 'utf8')
           const { data: metadata, content: markdownContent } = matter(content)
           
-          if (!markdownContent) {
+          if (!markdownContent?.trim()) {
             console.warn(`Empty content in file: ${file}`)
             continue
           }
@@ -81,8 +83,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
               format: 'mdx'
             }
           })
-          
-          if (!serializedContent) {
+
+          if (!serializedContent || !serializedContent.compiledSource) {
             console.warn(`Failed to serialize content for file: ${file}`)
             continue
           }
