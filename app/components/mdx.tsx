@@ -3,7 +3,6 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Suspense } from 'react'
 
 const components = {
   a: ({ href, children, ...props }: any) => {
@@ -40,20 +39,14 @@ interface CustomMDXProps {
   source: MDXRemoteSerializeResult
 }
 
-function MDXContent({ source }: CustomMDXProps) {
-  return <MDXRemote {...source} components={components} />
-}
-
 export function CustomMDX({ source }: CustomMDXProps) {
-  if (!source || !source.compiledSource) {
+  if (!source?.compiledSource) {
     return null
   }
 
   return (
     <div className="prose prose-neutral dark:prose-invert">
-      <Suspense fallback={<div>Loading...</div>}>
-        <MDXContent source={source} />
-      </Suspense>
+      <MDXRemote {...source} components={components} />
     </div>
   )
 }
