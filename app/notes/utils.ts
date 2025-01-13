@@ -5,6 +5,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import remarkWikiLink from 'remark-wiki-link'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import remarkRehype from 'remark-rehype'
 
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
@@ -178,9 +179,19 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
           content: await serialize(mdxContent, {
             parseFrontmatter: false,
             mdxOptions: {
-              remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
-              rehypePlugins: [rehypeKatex],
-              format: 'mdx'
+              remarkPlugins: [
+                remarkMath,
+                [remarkWikiLink, wikiLinkConfig]
+              ],
+              rehypePlugins: [
+                [rehypeKatex, {
+                  strict: false,
+                  output: 'html',
+                  trust: true
+                }]
+              ],
+              format: 'mdx',
+              development: false
             }
           }),
           category: path.basename(dir)
