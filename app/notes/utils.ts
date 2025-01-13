@@ -150,7 +150,7 @@ export interface BlogPost {
     summary?: string
   }
   content: MDXRemoteSerializeResult
-  originalFilename?: string
+  originalFilename: string
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
@@ -165,24 +165,24 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   for (const dir of directories) {
     try {
       const files = await fs.readdir(dir)
-      console.log(`Reading directory ${dir}:`, files) // Debug log
+      console.log(`Reading directory ${dir}:`, files)
       
       const mdFiles = files.filter(file => ['.md', '.mdx'].includes(path.extname(file)))
-      console.log(`Markdown files in ${dir}:`, mdFiles) // Debug log
+      console.log(`Markdown files in ${dir}:`, mdFiles)
       
       const posts = await Promise.all(mdFiles.map(async (file) => {
         const filePath = path.join(dir, file)
-        console.log(`Processing file: ${filePath}`) // Debug log
-        
-        const content = await fs.readFile(filePath, 'utf-8')
-        const { metadata, content: mdxContent } = parseFrontmatter(content)
-        const slug = path.basename(file, path.extname(file))
+        console.log(`Processing file: ${filePath}`)
         
         // Skip processing tutorialsHeader.md as a regular post
         if (file === 'tutorialsHeader.md') {
-          console.log('Found tutorialsHeader.md, skipping as regular post') // Debug log
+          console.log('Found tutorialsHeader.md, skipping as regular post')
           return null
         }
+
+        const content = await fs.readFile(filePath, 'utf-8')
+        const { metadata, content: mdxContent } = parseFrontmatter(content)
+        const slug = path.basename(file, path.extname(file))
         
         const serializedContent = await serialize(mdxContent, {
           parseFrontmatter: false,
@@ -198,17 +198,19 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
           }
         })
         
-        return {
+        const post: BlogPost = {
           metadata,
           slug: slug.toLowerCase().replace(/\s+/g, '-'),
           originalFilename: slug,
           content: serializedContent,
           category: path.basename(dir)
         }
+        
+        return post
       }))
       
-      const validPosts = posts.filter((post): post is BlogPost => post !== null)
-      console.log(`Valid posts from ${dir}:`, validPosts.map(p => p.slug)) // Debug log
+      const validPosts = posts.filter((post): post is NonNullable<typeof post> => post !== null)
+      console.log(`Valid posts from ${dir}:`, validPosts.map(p => p.slug))
       
       allPosts = [...allPosts, ...validPosts]
     } catch (error) {
@@ -216,6 +218,6 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     }
   }
 
-  console.log('All posts:', allPosts.map(p => `${p.category}/${p.slug}`)) // Debug log
+  console.log('All posts:', allPosts.map(p => `${p.category}/${p.slug}`))
   return allPosts
 }
