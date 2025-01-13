@@ -13,7 +13,7 @@ export default async function TutorialsPage() {
         (post.slug === 'tutorials' && post.category === 'base')
     )
 
-    if (!tutorialHeader) {
+    if (!tutorialHeader?.content) {
       console.log('Tutorial header not found') // Debug log
       return (
         <section>

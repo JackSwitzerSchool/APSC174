@@ -141,15 +141,16 @@ const wikiLinkConfig = {
   wikiLinkClassName: 'wiki-link'
 }
 
-export interface BlogPost {
+export type BlogPost = {
+  content: MDXRemoteSerializeResult
   slug: string
   category: string
   metadata: {
     title: string
     publishedAt: string
     summary?: string
+    image?: string
   }
-  content: MDXRemoteSerializeResult
   originalFilename: string
 }
 
