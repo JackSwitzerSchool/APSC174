@@ -3,7 +3,7 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image, { ImageProps } from 'next/image'
-import type { ComponentProps } from 'react'
+import type { ComponentProps, DetailedHTMLProps, AnchorHTMLAttributes } from 'react'
 
 // Create a base type for image props
 type BaseImageProps = Omit<ImageProps, 'src' | 'alt' | 'width' | 'height'>
@@ -17,12 +17,23 @@ interface CustomImageProps {
   [key: string]: any
 }
 
+type CustomLinkProps = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
+
 const components = {
-  a: ({ href = '', ...props }: { href: string; [key: string]: any }) => {
+  a: ({ href, children, ...props }: CustomLinkProps) => {
+    if (!href) return null
     if (href.startsWith('http')) {
-      return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+          {children}
+        </a>
+      )
     }
-    return <Link href={href} {...props} />
+    return (
+      <Link href={href} {...props}>
+        {children}
+      </Link>
+    )
   },
   img: ({ src, alt = '', width, height, ...props }: CustomImageProps) => {
     if (!src) return null
@@ -45,7 +56,7 @@ export function CustomMDX({ source }: { source: MDXRemoteSerializeResult }) {
     <div className="prose prose-neutral dark:prose-invert">
       <MDXRemote 
         {...source}
-        components={components}
+        components={components as any}
       />
     </div>
   )
