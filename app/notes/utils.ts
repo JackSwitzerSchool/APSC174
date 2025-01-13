@@ -1,3 +1,8 @@
+declare module 'remark-wiki-link' {
+  const remarkWikiLink: any
+  export default remarkWikiLink
+}
+
 import path from 'path'
 import { promises as fs } from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
