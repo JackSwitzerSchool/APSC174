@@ -7,6 +7,19 @@ import matter from 'gray-matter'
 import path from 'path'
 import { promises as fs } from 'fs'
 
+export function formatDate(date: string, includeTime: boolean = false) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+  if (includeTime) {
+    options.hour = 'numeric'
+    options.minute = 'numeric'
+  }
+  return new Date(date).toLocaleDateString('en-US', options)
+}
+
 export type BlogPost = {
   content: MDXRemoteSerializeResult
   slug: string

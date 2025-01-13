@@ -1,32 +1,29 @@
-import Link from 'next/link'
-import { getBlogPosts, formatDate, type BlogPost } from '@/app/notes/utils'
+import { formatDate } from '@/app/notes/utils'
+import type { BlogPost } from '@/app/notes/utils'
 
-export async function BlogPosts() {
-  const allBlogs = await getBlogPosts()
-  const posts: BlogPost[] = allBlogs.sort((a, b) => {
-    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-      return -1
-    }
-    return 1
-  })
+interface PostsProps {
+  posts: BlogPost[]
+}
 
+export function Posts({ posts }: PostsProps) {
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       {posts.map((post) => (
-        <Link
-          key={post.slug}
-          className="flex flex-col space-y-1 mb-4"
-          href={`/${post.category}/${post.slug}`}
-        >
-          <div className="w-full flex flex-col">
-            <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
+        <article key={post.slug}>
+          <a href={`/notes/${post.slug}`}>
+            <h2 className="font-medium mb-1">
               {post.metadata.title}
-            </p>
+            </h2>
+          </a>
+          {post.metadata.summary && (
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(post.metadata.publishedAt)}
+              {post.metadata.summary}
             </p>
-          </div>
-        </Link>
+          )}
+          <time className="text-sm text-neutral-600 dark:text-neutral-400">
+            {formatDate(post.metadata.publishedAt)}
+          </time>
+        </article>
       ))}
     </div>
   )
