@@ -1,86 +1,50 @@
 'use client'
 
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
-import Image, { ImageProps } from 'next/image'
-import type { ComponentProps } from 'react'
+import Image from 'next/image'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 import type { MDXComponents as MDXComponentsType } from 'mdx/types'
 
-// Extend the base anchor props but make href required
-interface CustomLinkProps extends Omit<ComponentProps<'a'>, 'href' | 'ref'> {
-  href: string
-}
-
-const CustomLink = ({ href, className, children, ...props }: CustomLinkProps) => {
-  if (href.startsWith('/')) {
+const components = {
+  a: ({ href = '', ...props }) => {
+    if (href.startsWith('http')) {
+      return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />
+    }
+    return <Link href={href} {...props} />
+  },
+  img: ({ src, alt, ...props }) => {
+    if (!src) return null
     return (
-      <Link 
-        href={href} 
-        className={className}
+      <Image
+        src={src}
+        alt={alt || ''}
+        width={800}
+        height={400}
+        className="rounded-lg"
         {...props}
-      >
-        {children}
-      </Link>
+      />
     )
   }
-
-  return (
-    <a 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      href={href} 
-      className={className}
-      {...props}
-    >
-      {children}
-    </a>
-  )
 }
 
-interface CustomImageProps extends Omit<ImageProps, 'src'> {
-  src?: string
-  source?: string
+const options = {
+  mdxOptions: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
+  }
 }
 
-const CustomImage = (props: CustomImageProps) => {
-  const width = props.width || 800
-  const height = props.height || 600
-  const src = props.src || props.source || ''
-  
+export function CustomMDX({ source }: { source: string }) {
   return (
-    <div className="my-6">
-      <Image 
-        {...props}
-        src={src}
-        width={Number(width)}
-        height={Number(height)}
-        alt={props.alt || 'Image'}
-        className="rounded-lg mx-auto"
-        style={{
-          maxWidth: '100%',
-          height: 'auto'
-        }}
-        unoptimized
+    <div className="prose prose-neutral dark:prose-invert">
+      <MDXRemote 
+        source={source}
+        components={components}
+        options={options}
       />
     </div>
   )
 }
-
-const components = {
-  a: CustomLink,
-  Image: CustomImage,
-} as MDXComponentsType
-
-interface MDXProps {
-  source: MDXRemoteSerializeResult
-}
-
-export function CustomMDX({ source }: MDXProps) {
-  return (
-    <article className="prose prose-neutral dark:prose-invert max-w-none">
-      <MDXRemote {...source} components={components} />
-    </article>
-  )
-}
-export { components as MDXComponents }
 

@@ -5,13 +5,12 @@ import { notFound } from 'next/navigation'
 export default async function TutorialsPage() {
   try {
     const posts = await getBlogPosts()
-    console.log('Found posts:', posts.map(p => `${p.category}/${p.slug}`)) // Debug log
     
+    // Look for tutorials header in both tutorials and base directories
     const tutorialHeader = posts.find(
-      (post): post is BlogPost => {
-        console.log('Checking post:', post.slug, post.category) // Debug log
-        return post.slug === 'tutorialsheader' && post.category === 'tutorials'
-      }
+      (post) => 
+        (post.slug === 'tutorialsheader' && post.category === 'tutorials') ||
+        (post.slug === 'tutorials' && post.category === 'base')
     )
 
     if (!tutorialHeader) {
@@ -26,7 +25,9 @@ export default async function TutorialsPage() {
 
     return (
       <section>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">{tutorialHeader.metadata.title}</h1>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+          {tutorialHeader.metadata?.title || 'Tutorials'}
+        </h1>
         <div className="prose prose-neutral dark:prose-invert">
           <CustomMDX source={tutorialHeader.content} />
         </div>
