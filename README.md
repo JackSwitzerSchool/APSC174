@@ -7,7 +7,6 @@
 - Allow more points of contact between students and ta for closer to optimal learning
 
 ## Next Steps:
-- MD note integration
 - Consensum Populi -> ??
 
 ## Future Ideas:
@@ -16,7 +15,7 @@
 - The Button
 - Some discussion board: slack / discord
 - question submission -> Poll
-- Cool loading logo
+- logo
 - Midterm / Final Prep Solutions
 - Midterm / Final Full Notes
 - Other: ??
@@ -31,6 +30,7 @@
 - final onboarding html compiled
 - week 1 tutorial
 - Week 1 notes
+- website running...
 
 
 template from: https://portfolio-blog-starter.vercel.app
