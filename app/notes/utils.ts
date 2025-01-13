@@ -1,8 +1,3 @@
-declare module 'remark-wiki-link' {
-  const remarkWikiLink: any
-  export default remarkWikiLink
-}
-
 import path from 'path'
 import { promises as fs } from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -65,23 +60,19 @@ function parseFrontmatter(fileContent: string): {
   return { metadata: metadata as Metadata, content }
 }
 
-function getMarkdownFiles(dir) {
+async function getMarkdownFiles(dir: string): Promise<string[]> {
   try {
-    const files = fs.readdir(dir).filter((file) => 
-      ['.md', '.mdx'].includes(path.extname(file))
-    )
-    // Log found files for debugging
-    console.log('Found files in', dir, ':', files)
-    return files
+    const files = await fs.readdir(dir)
+    return files.filter((file) => ['.md', '.mdx'].includes(path.extname(file)))
   } catch (error) {
     console.warn(`Warning: Could not read directory ${dir}`, error)
     return []
   }
 }
 
-function readMarkdownFile(filePath: string) {
+async function readMarkdownFile(filePath: string) {
   try {
-    let rawContent = fs.readFile(filePath, 'utf-8')
+    const rawContent = await fs.readFile(filePath, 'utf-8')
     
     // For tutorial header, return only the content after frontmatter
     if (filePath.includes('tutorialsHeader.md')) {
@@ -91,14 +82,12 @@ function readMarkdownFile(filePath: string) {
           title: 'Tutorial Materials',
           publishedAt: new Date().toISOString(),
         },
-        // Take everything after the second '---' and trim whitespace
         content: parts.length >= 3 ? parts.slice(2).join('---').trim() : rawContent.trim()
       }
     }
     
     // For all other files, parse normally
-    const parsed = parseFrontmatter(rawContent)
-    return parsed
+    return parseFrontmatter(rawContent)
   } catch (error) {
     console.error(`Error reading file ${filePath}`, error)
     return {
@@ -169,7 +158,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     path.join(process.cwd(), 'public', 'tutorials')
   ]
   
-  let allPosts = []
+  let allPosts: BlogPost[] = []
   
   for (const dir of directories) {
     try {
