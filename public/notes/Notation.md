@@ -7,9 +7,7 @@ summary: 'Essential mathematical symbols and conventions used throughout the cou
 ## Sets
 [[Sets|Set]]: 
 
-$$
-\{ x : P(x) \}
-$$
+$\{ x : P(x) \}$
 
 Where $x$ is an element and $P(x)$ is a condition on $x$.
 
