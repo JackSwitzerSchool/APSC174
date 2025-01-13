@@ -98,10 +98,13 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
           const slug = normalizeSlug(file.replace(/\.md$/, '').toLowerCase())
           
+          // Category is inferred from directory, can be overridden by frontmatter
+          const fileCategory = metadata.category || category
+          
           const post = {
             content: serializedContent,
             slug,
-            category,
+            category: fileCategory,
             metadata: {
               title: metadata.title || slug,
               publishedAt: metadata.publishedAt || new Date().toISOString(),
@@ -112,7 +115,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
             originalFilename: file
           }
           
-          console.log(`Successfully processed ${category}/${file}:`, {
+          console.log(`Successfully processed ${fileCategory}/${file}:`, {
             slug: post.slug,
             title: post.metadata.title,
             hasContent: !!post.content.compiledSource
@@ -131,15 +134,26 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     }
   }
 
-  await Promise.all([
-    processDirectory(NOTES_DIR, 'notes'),
-    processDirectory(BASE_DIR, 'base'),
-    processDirectory(TUTORIALS_DIR, 'tutorials')
-  ])
+  // Process directories sequentially to avoid any race conditions
+  await processDirectory(NOTES_DIR, 'notes')
+  await processDirectory(BASE_DIR, 'base')
+  await processDirectory(TUTORIALS_DIR, 'tutorials')
 
   console.log('Total posts processed:', posts.length)
+  
+  // Group posts by category in a more compatible way
+  const postsByCategory = posts.reduce((acc, post) => {
+    acc[post.category] = acc[post.category] || []
+    acc[post.category].push(post)
+    return acc
+  }, {} as Record<string, BlogPost[]>)
+  
   console.log('Posts by category:', 
-    Object.groupBy(posts, post => post.category)
+    Object.fromEntries(
+      Object.entries(postsByCategory).map(([category, posts]) => 
+        [category, posts.length]
+      )
+    )
   )
 
   return posts
