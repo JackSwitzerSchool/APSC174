@@ -9,7 +9,8 @@ export const metadata = {
 export default async function TutorialsPage() {
   const posts = await getBlogPosts()
   const tutorialHeader = posts.find(
-    (post): post is BlogPost => post.slug === 'tutorialsheader' && post.category === 'tutorials'
+    (post): post is BlogPost => 
+      post.originalFilename === 'tutorialsHeader.md' && post.category === 'tutorials'
   )
   
   if (!tutorialHeader) {
@@ -24,7 +25,7 @@ export default async function TutorialsPage() {
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Tutorials</h1>
-      <div className="prose dark:prose-invert">
+      <div className="prose prose-neutral dark:prose-invert">
         <CustomMDX source={tutorialHeader.content} />
       </div>
     </section>

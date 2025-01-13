@@ -65,10 +65,6 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
       for (const file of mdFiles) {
         try {
-          if (file === 'tutorialsHeader.md') {
-            continue
-          }
-
           const content = await fs.readFile(path.join(dir, file), 'utf8')
           const { data: metadata, content: markdownContent } = matter(content)
           
