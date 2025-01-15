@@ -5,8 +5,9 @@ summary: 'Weekly tutorial questions and solutions.'
 ---
 
 Week 1: 
-- [Tutorial Questions](/tutorials/Week1/Tutorial1Questions.pdf)
-- [Tutorial Solutions](/tutorials/Week1/Tutorial1Solutions.pdf)
+- [Tutorial Questions](/tutorials/Week1/tutorial1questions.pdf)
+- [Tutorial Solutions](/tutorials/Week1/tutorial1solutions.pdf)
 
 Week 2:
-- Coming soon...
+- [Tutorial Questions](/tutorials/Week1/tutorial2questions.pdf)
+- [Tutorial Solutions](/tutorials/Week1/tutorial2solutions.pdf)

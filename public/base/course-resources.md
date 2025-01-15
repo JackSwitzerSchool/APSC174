@@ -6,17 +6,17 @@ summary: 'Course materials and PDF resources.'
 
 ## Course Material
 
-- Syllabus: [Link](/base/Syllabus2025.pdf)
-- Mansouri Notes: [Link](/base/Mansouri-Notes.pdf)
-- First Year Resources: [Link](/base/First-Year-Resources.pdf)
+- Syllabus: [Link](/base/syllabus2025.pdf)
+- Mansouri Notes: [Link](/base/mansouri-notes.pdf)
+- First Year Resources: [Link](/base/first-year-resources.pdf)
 - Textbook: Email Me
 
 ## Course Calendar
 
-- [[/base/Webwork|Webwork]] - Due Thursday's @3:00 pm; Starting on January 16
-- [[/base/Midterm-1|Midterm 1]] - February 11 @6:30 pm
-- [[/base/Midterm-2|Midterm 2]] - March 25 @6:30 pm
-- [[/base/Final-Exam|Final Exam]] - (tentative?) April 18th @2:00 pm
+- [Webwork](/base/webwork.md) - Due Thursday's @3:00 pm; Starting on January 16
+- [Midterm 1](/base/midterm-1.md) - February 11 @6:30 pm
+- [Midterm 2](/base/midterm-2.md) - March 25 @6:30 pm
+- [Final Exam](/base/final-exam.md) - (tentative?) April 18th @2:00 pm
 
 ## Tutorial Sessions
 

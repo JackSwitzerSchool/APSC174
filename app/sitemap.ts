@@ -6,12 +6,14 @@ export const baseUrl = 'https://apsc174.jackswitzer.ca'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getBlogPosts()
   
-  // Filter out reserved routes from notes
-  const reservedRoutes = ['tutorials', 'course-resources']
-  const notePosts = posts.filter(post => 
-    post.category === 'notes' && 
-    !reservedRoutes.includes(post.slug)
-  )
+  // Filter out posts that should have their own routes
+  const filteredPosts = posts.filter(post => {
+    if (post.category === 'tutorials' || 
+        (post.category === 'base' && post.slug === 'course-resources')) {
+      return false
+    }
+    return true
+  })
 
   return [
     {
@@ -30,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/course-resources`,
       lastModified: new Date(),
     },
-    ...notePosts.map((post) => ({
+    ...filteredPosts.map((post) => ({
       url: `${baseUrl}/notes/${post.slug}`,
       lastModified: new Date(),
     })),
