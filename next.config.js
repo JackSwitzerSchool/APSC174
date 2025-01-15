@@ -19,15 +19,20 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Handle tutorial PDFs
+      // Handle PDFs
+      {
+        source: '/:file*.pdf',
+        destination: '/base/:file*.pdf',
+      },
+      // Handle markdown files
+      {
+        source: '/:file((?!notes|tutorials|course-resources).*)',
+        destination: '/base/:file',
+      },
+      // Keep tutorials path
       {
         source: '/tutorials/QandS/:file*',
         destination: '/tutorials/QandS/:file*',
-      },
-      // Handle base directory files
-      {
-        source: '/base/:path*',
-        destination: '/base/:path*', 
       }
     ]
   }
