@@ -21,13 +21,15 @@ const nextConfig = {
   // Add async rewrites for static files
   async rewrites() {
     return [
+      // Handle tutorial PDFs
       {
-        source: '/:path*.pdf',
-        destination: '/base/:path*.pdf',
+        source: '/tutorials/QandS/:file*',
+        destination: '/tutorials/QandS/:file*',
       },
+      // Handle base PDFs and markdown
       {
-        source: '/:path*.md',
-        destination: '/base/:path*.md',
+        source: '/base/:path*',
+        destination: '/base/:path*',
       }
     ]
   }
