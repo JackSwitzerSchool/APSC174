@@ -19,12 +19,12 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Handle PDFs
+      // Handle PDFs - fixed pattern
       {
-        source: '/:file*.pdf',
-        destination: '/base/:file*.pdf',
+        source: '/:filename(.*).pdf',
+        destination: '/base/:filename.pdf',
       },
-      // Handle markdown files
+      // Handle markdown files without extension
       {
         source: '/:file((?!notes|tutorials|course-resources).*)',
         destination: '/base/:file',
