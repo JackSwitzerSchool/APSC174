@@ -8,9 +8,8 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: false, // For better performance
+    unoptimized: false,
   },
-  // Configure webpack to handle MDX
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -18,7 +17,6 @@ const nextConfig = {
     }
     return config
   },
-  // Add async rewrites for static files
   async rewrites() {
     return [
       // Handle tutorial PDFs
@@ -26,10 +24,10 @@ const nextConfig = {
         source: '/tutorials/QandS/:file*',
         destination: '/tutorials/QandS/:file*',
       },
-      // Handle base PDFs and markdown
+      // Handle base directory files
       {
         source: '/base/:path*',
-        destination: '/base/:path*',
+        destination: '/base/:path*', 
       }
     ]
   }
