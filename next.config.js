@@ -18,6 +18,19 @@ const nextConfig = {
     }
     return config
   },
+  // Add async rewrites for static files
+  async rewrites() {
+    return [
+      {
+        source: '/:path*.pdf',
+        destination: '/base/:path*.pdf',
+      },
+      {
+        source: '/:path*.md',
+        destination: '/base/:path*.md',
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig 
