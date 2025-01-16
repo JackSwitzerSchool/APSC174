@@ -5,7 +5,7 @@ summary: 'Understanding and solving systems of linear equations, with geometric 
 ---
 
 ## Definition
-A system of linear equations is a collection of equations that are of a particular form.
+A system of linear equations is a collection of equations that have some [[linearity]] property...
 
 More generally, a linear equation is in the form ( * ):
 
