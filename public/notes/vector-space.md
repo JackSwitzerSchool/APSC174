@@ -5,7 +5,7 @@ summary: 'How does one define a space, what about vectors within that space?'
 ---
 
 ## Definition
-A Vector Space is a [[set]] with two operations, "+" and "·"
+A Vector Space is a [[set]] $\mathbb{V}$ with two operations, "+" and "·"
 
 ### "+"
 The addition map takes 2 [[vectors]] and maps to another vector. 
@@ -14,12 +14,12 @@ Formally: $+:\mathbb{V} \times \mathbb{V} \rightarrow \mathbb{V}$
           $(v,w) \rightarrow v + w$
 
 This is a generalization of the familiar addition and vector addition that you've seen until this point. You can simply add a vector componentwise
-and recieve an output vector. However, due to this generalization, you start to pick up other valid "additions" that still work under the [[vector-space-axioms|axioms of a vector space]]. 
+and recieve another vector. However, due to this generalization, you start to pick up other valid "additions" that still work under the [[vector-space-axioms|axioms of a vector space]]. 
 
 ### "·"
 The scalar multiplication map takes a vector and a scalar and maps to another vector.
 
-Formally: $+:\mathbb{F} \times \mathbb{V} \rightarrow \mathbb{V}$
+Formally: $·:\mathbb{F} \times \mathbb{V} \rightarrow \mathbb{V}$
           $(a,w) \rightarrow a · w$
 
 Where $\mathbb{F}$ is some field often $\mathbb{R}$ or $\mathbb{C}$, and $\mathbb{V}$ is your Vector Space.

@@ -38,15 +38,16 @@ export type BlogPost = {
 
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
-    const parts = name.split('|')
-    const pageName = parts[0].trim()
-    return [pageName.toLowerCase().replace(/\s+/g, '-')]
+    const cleanName = name.replace(/^!/, '').split('|')[0].trim()
+    return [cleanName.toLowerCase().replace(/\s+/g, '-')]
   },
   hrefTemplate: (permalink: string) => {
     return permalink.startsWith('/') ? permalink : `/notes/${permalink}`
   },
   aliasDivider: '|',
-  wikiLinkClassName: 'wiki-link'
+  wikiLinkClassName: (embedded: boolean) => {
+    return embedded ? 'embedded-note' : 'wiki-link'
+  }
 }
 
 function normalizeSlug(slug: string): string {
