@@ -6,9 +6,9 @@ summary: 'Course materials and PDF resources.'
 
 ## Course Material
 
-- Syllabus: [Link](/syllabus2025.pdf)
-- Mansouri Notes: [Link](/mansouri-notes.pdf)
-- First Year Resources: [Link](/first-year-resources.pdf)
+- Syllabus: [Link](https://onq.queensu.ca/content/enforced/992465-APSC174W25/2025%20Winter/APSC174%20Syllabus%202025.pdf)
+- Mansouri Notes: [Link](https://onq.queensu.ca/content/enforced/992465-APSC174W25/2025%20Winter/LectureNotes_Abdol-Reza%20Mansouri.pdf)
+- First Year Resources: [Link](https://onq.queensu.ca/d2l/le/content/992465/viewContent/5872232/View)
 - Textbook: Email Me
 
 ## Course Calendar

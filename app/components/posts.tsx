@@ -39,11 +39,6 @@ export async function BlogPosts({ category }: { category?: string }) {
                   className="text-neutral-800 dark:text-neutral-200"
                 >
                   {post.metadata?.title || post.slug}
-                  {post.metadata?.publishedAt && (
-                    <span className="text-neutral-500 dark:text-neutral-400 ml-2">
-                      {formatDate(post.metadata.publishedAt)}
-                    </span>
-                  )}
                 </Link>
               </li>
             ))}
