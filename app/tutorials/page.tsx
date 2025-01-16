@@ -9,11 +9,18 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
 export default async function TutorialsPage() {
   const posts = await getBlogPosts()
   const tutorialHeader = posts.find(
-    post => post.category === 'tutorials' && post.slug === 'tutorialsheader'
+    post => post.category === 'tutorials' && post.slug === 'tutorialsHeader'
   )
 
   if (!tutorialHeader?.content) {
-    throw new Error('Tutorial header content not found')
+    return (
+      <section>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+          Tutorial Materials
+        </h1>
+        <p>No tutorial materials available yet.</p>
+      </section>
+    )
   }
 
   return (
