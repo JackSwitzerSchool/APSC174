@@ -8,7 +8,7 @@ summary: 'Core concepts of sets, including definitions, operations, and properti
 A set is an unordered collection of objects. 
 
 [[Notation|Notationally]], a set $\mathbb{X}$ is a collection of objects, where these objects "belong" to the set.
-An object "a" being in a set $\mathbb{X}$ is often said "a is an element of $\mathbb{X}$" or: $a \in \mathbb{X}$
+An object "a" being in a set "$\mathbb{X}$" is often said "a is an element of $\mathbb{X}$" or: $a \in \mathbb{X}$
 
 ## How to Define a Set
 A set is described by squiggly brackets $\{\}$ and must be unambiguously defined. 

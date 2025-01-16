@@ -1,5 +1,5 @@
 ---
-title: Week 1 Summary
+title: Week 2 Summary
 publishedAt: '2025-01-11'
 summary: 'Introduction to Vector Spaces and their axioms.'
 ---
