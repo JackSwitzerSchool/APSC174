@@ -1,7 +1,7 @@
 ---
 title: Tutorial Materials
 publishedAt: '2025-01-11'
-summary: 'Weekly tutorial questions and solutions.'
+category: 'tutorials'
 ---
 
 Week 1: 

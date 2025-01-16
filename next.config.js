@@ -24,13 +24,13 @@ const nextConfig = {
         source: '/:file((?!notes|tutorials|course-resources).*)',
         destination: '/base/:file',
       },
-      // Keep tutorials path
+      // Handle all tutorial content including Q&S
       {
-        source: '/tutorials/QandS/:file*',
-        destination: '/tutorials/QandS/:file*',
+        source: '/tutorials/:path*',
+        destination: '/tutorials/:path*',
       }
     ]
   }
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig

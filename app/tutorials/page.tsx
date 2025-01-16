@@ -9,7 +9,7 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
 export default async function TutorialsPage() {
   const posts = await getBlogPosts()
   const tutorialHeader = posts.find(
-    post => post.category === 'tutorials' && post.slug === 'tutorialsHeader'
+    post => post.category === 'tutorials' && post.slug === 'tutorialsheader'
   )
 
   if (!tutorialHeader?.content) {
