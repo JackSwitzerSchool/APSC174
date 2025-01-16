@@ -15,7 +15,7 @@ Linear Algebra is a formalization of many similiar forms of math; It acts as a g
 seen up until this point. 
 
 From the familiar geometry, cartesian plane, and thus undefined space in which we do calculus that you're
-used to; To solutions of polynomial equations, matrices; Ideas of mappings, functions and distance; signal processing, and endless others. 
+used to; To solutions of polynomial equations, and matrices; Ideas of mappings, functions and distance; signal processing, and endless others. 
 
 You can think of this class as a slight preview to the world of math theory. Learning the unifying ideas between different types of math 
 allows endless problem solving in the domain of your chosing.
