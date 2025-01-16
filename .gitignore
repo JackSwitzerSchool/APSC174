@@ -38,3 +38,5 @@ next-env.d.ts
 
 # KaTeX cache
 .katex-cache/
+
+/public/base/Linear Algebra 5th edition.pdf

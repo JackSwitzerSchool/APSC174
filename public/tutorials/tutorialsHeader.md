@@ -1,12 +1,13 @@
 ---
 title: Tutorial Materials
 publishedAt: '2025-01-11'
-summary: 'Weekly tutorial questions and solutions.'
+category: 'tutorials'
 ---
 
 Week 1: 
-- [Tutorial Questions](/tutorials/Week1/Tutorial1Questions.pdf)
-- [Tutorial Solutions](/tutorials/Week1/Tutorial1Solutions.pdf)
+- [Tutorial Questions](/tutorials/QandS/tutorial1questions.pdf)
+- [Tutorial Solutions](/tutorials/QandS/tutorial1solutions.pdf)
 
 Week 2:
-- Coming soon...
+- [Tutorial Questions](/tutorials/QandS/tutorial2questions.pdf)
+- [Tutorial Solutions](/tutorials/QandS/tutorial2solutions.pdf)

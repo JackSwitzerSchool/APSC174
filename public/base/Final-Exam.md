@@ -4,7 +4,7 @@ publishedAt: '2025-01-11'
 summary: 'Information about the final examination, including date, format, and topics covered.'
 ---
 
-As per the course [syllabus](https://onq.queensu.ca/content/enforced/992465-APSC174W25/APSC174-Syllabus-W21.pdf?ou=992465):
+As per the course [syllabus](https://onq.queensu.ca/content/enforced/992465-APSC174W25/2025%20Winter/APSC174%20Syllabus%202025.pdf):
 
 The final exam date, set by the Exams Office, is **Monday April 18th, 2-5 PM.** For students with accommodations, any alternate arrangements will be emailed to you from the Exams Office.
 

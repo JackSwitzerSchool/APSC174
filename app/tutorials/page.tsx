@@ -13,7 +13,14 @@ export default async function TutorialsPage() {
   )
 
   if (!tutorialHeader?.content) {
-    throw new Error('Tutorial header content not found')
+    return (
+      <section>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+          Tutorial Materials
+        </h1>
+        <p>No tutorial materials available yet.</p>
+      </section>
+    )
   }
 
   return (
