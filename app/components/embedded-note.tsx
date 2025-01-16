@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import MDXContent from './mdx-content'
-import { getBlogPosts } from '@/app/notes/utils'
 
 interface EmbeddedNoteProps {
   slug: string
@@ -15,10 +14,13 @@ export default function EmbeddedNote({ slug }: EmbeddedNoteProps) {
   useEffect(() => {
     async function loadContent() {
       try {
-        const posts = await getBlogPosts()
-        const post = posts.find(p => p.slug === slug)
-        if (post?.content) {
-          setContent(post.content)
+        const response = await fetch(`/api/notes?slug=${encodeURIComponent(slug)}`)
+        if (!response.ok) {
+          throw new Error('Failed to fetch note')
+        }
+        const data = await response.json()
+        if (data.content) {
+          setContent(data.content)
         } else {
           setError(`Note "${slug}" not found`)
         }
