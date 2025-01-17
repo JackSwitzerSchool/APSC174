@@ -20,7 +20,7 @@ export default async function Page() {
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-        APSC 174: Linear Algebra for Engineering Applications
+        APSC 174: Linear Algebra for Engineers
       </h1>
       
       <div className="prose prose-neutral dark:prose-invert mb-8">
