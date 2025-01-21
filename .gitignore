@@ -39,4 +39,10 @@ next-env.d.ts
 # KaTeX cache
 .katex-cache/
 
-/public/base/Linear Algebra 5th edition.pdf
+# Tutorial PDFs
+/public/tutorials/tut_content/*.pdf
+
+# But keep the directory structure
+!/public/tutorials/tut_content/.gitkeep
+
+public/base/linear-algebra-5th-edition.pdf

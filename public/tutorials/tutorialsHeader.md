@@ -4,10 +4,14 @@ publishedAt: '2025-01-11'
 category: 'tutorials'
 ---
 
-Week 1: 
-- [Tutorial Questions](/tutorials/QandS/tutorial1questions.pdf)
-- [Tutorial Solutions](/tutorials/QandS/tutorial1solutions.pdf)
+## Week 1
+- [Tutorial Questions](/tutorials/tut_content/Tutorial1Questions.pdf)
+- [Tutorial Solutions](/tutorials/tut_content/Tutorial1Solutions.pdf)
 
-Week 2:
-- [Tutorial Questions](/tutorials/QandS/tutorial2questions.pdf)
-- [Tutorial Solutions](/tutorials/QandS/tutorial2solutions.pdf)
+## Week 2
+- [Tutorial Questions](/tutorials/tut_content/Tutorial2Questions.pdf)
+- [Tutorial Solutions](/tutorials/tut_content/Tutorial2Solutions.pdf)
+
+## Week 3
+- [Tutorial Questions](/tutorials/tut_content/Tutorial3Questions.pdf)
+- [Tutorial Solutions](/tutorials/tut_content/Tutorial3Solutions.pdf)
