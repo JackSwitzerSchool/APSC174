@@ -5,9 +5,9 @@ summary: 'Axioms of a Vector Space'
 ---
 
 ## Axioms:
-A Vector Space is defined as a set $\mathbb{V}$, alongside two operations: "+" and "·"
+A [[vector-space|Vector Space]] is defined as a set $\mathbb{V}$, alongside two operations: "+" and "·"
 
-Consider arbitrary: vectors: $x,y,z \in \mathbb{V}$ and scalears: $a,b,c \in \mathbb{F}$
+Consider arbitrary: vectors: $x,y,z \in \mathbb{V}$ and scalars: $a,b,c \in \mathbb{F}$ (The field of scalars is often $\mathbb{R}$ or $\mathbb{C}$)
 
 1) Associativity of "+"
 - Associativity is define by the ability to group sequential operations in any order. denoted: $$(x+y)+z=x+(y+z)$$
