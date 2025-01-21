@@ -12,7 +12,12 @@ Formally:$$\forall y\in \mathbb{Y}, \exists x \in \mathbb{X} \text{ s.t. } f(x)=
 or "For all elements $y$ in $\mathbb{Y}$, there exists an $x$ in $\mathbb{X}$ such that $f$ at $x$ is equal to $y$
 
 
-![[assets/Surjective.png]]
+<img 
+  src="/assets/Surjective.png" 
+  alt="Mapping Surjectivity Example" 
+  width={600} 
+  height={400} 
+/>
 
 ## Exercise
 Show that if two functions f and g are surjective so is $g \bullet f$
