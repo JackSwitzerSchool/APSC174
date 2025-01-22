@@ -10,4 +10,6 @@ This has useful "annihilation" properties similar to other identity elements suc
 NOTE: This does not mean $0=\emptyset$
 
 ## Fun Fact:
-The empty set $\emptyset$ isn't just "nothing" — it's the building block of all natural numbers! Using a clever definition in set theory, mathematicians construct numbers like $0 = \emptyset$, $1=\{ \emptyset \}$ , $2 = \{\emptyset, \{\emptyset\}\}$, and so on. So, in a sense, every number is made of nothing—just organized differently!
+Constructing the Counting numbers from simply empty set's and successor functions (a notion of 0+1=1 or 1+1=2...)
+
+<YouTube id="3gBoP8jZ1Is" title="Constructing Natural Numbers" />
