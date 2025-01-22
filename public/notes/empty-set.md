@@ -4,6 +4,8 @@ publishedAt: '2025-01-21'
 summary: 'Nothing? What is nothing? Everything'
 ---
 
+import { YouTube } from '@/components/youtube'
+
 The empty set or the null set denoted $\emptyset = \{\}$ is the set containing *no* elements
 
 This has useful "annihilation" properties similar to other identity elements such as the additive identify 0. 
