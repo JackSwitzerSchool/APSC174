@@ -10,7 +10,7 @@ This has useful "annihilation" properties similar to other identity elements suc
 NOTE: This does not mean $0=\emptyset$
 
 ## Fun Fact:
-Constructing the Counting numbers from simply empty set's and successor functions (a notion of 0+1=1 or 1+1=2...)
+Constructing the Counting numbers from simple empty set's and successor functions (a notion of 0+1=1 or 1+1=2...)
 
 <iframe 
   width="100%" 
