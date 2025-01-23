@@ -26,14 +26,15 @@ const wikiLinkConfig = {
     return [slug]
   },
   hrefTemplate: (permalink: string) => {
-    const href = permalink.startsWith('/') ? permalink : `/notes/${permalink}`
+    const href = `/notes/${permalink.toLowerCase()}`
     console.log(`WikiLink hrefTemplate: ${permalink} -> ${href}`)
     return href
   },
   aliasDivider: '|',
   wikiLinkClassName: 'wiki-link',
   validate: (permalink: string) => {
-    console.log(`WikiLink validate: ${permalink}`)
+    const posts = getBlogPosts()
+    console.log(`WikiLink validate: checking ${permalink}`)
     return true
   }
 }
@@ -43,11 +44,16 @@ const mdxOptions = {
   parseFrontmatter: false,
   mdxOptions: {
     remarkPlugins: [
-      remarkMath, 
-      [remarkWikiLink, wikiLinkConfig]
+      remarkMath,
+      [(options: any) => {
+        const plugin = remarkWikiLink(options)
+        return (tree: any) => {
+          console.log('Processing wiki links in tree:', tree)
+          return plugin(tree)
+        }
+      }, wikiLinkConfig]
     ],
     rehypePlugins: [rehypeKatex],
-    format: 'mdx',
     development: process.env.NODE_ENV === 'development'
   }
 }

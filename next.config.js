@@ -47,17 +47,9 @@ const nextConfig = {
     ]
   },
   experimental: {
-    // Enable parallel routes
-    parallelRoutes: true,
-    
-    // Optimize images at build time
-    optimizeImages: true,
-    
-    // Enable server components
-    serverComponents: true,
-    
-    // Enable granular chunks
-    granularChunks: true
+    // Only use supported experimental features
+    mdxRs: true,
+    serverActions: true
   }
 }
 
