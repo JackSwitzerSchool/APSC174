@@ -27,7 +27,7 @@ export default async function InternshipsPage() {
     return (
       <section>
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-          Finding an Internship
+          {internshipPost.metadata.title}
         </h1>
         <div className="prose prose-neutral dark:prose-invert">
           <MDXContent source={internshipPost.content} />

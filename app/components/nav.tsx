@@ -17,7 +17,7 @@ const navItems = {
   '/base/course-resources': {
     name: 'course resources',
   },
-  '/internships/intern-v1': {
+  '/internships': {
     name: 'internships',
   }
 }

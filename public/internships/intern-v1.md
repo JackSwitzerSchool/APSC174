@@ -74,7 +74,7 @@ Identify any learning gaps and start building your own portfolio of experience. 
 
 ## Step 4 – Building Your General Toolkit
 
-### The Resume (and Cover Letter)
+### The Resume (and Cover Letter) 
 
 Keep it simple and easy to read (tip: recruiters only spend 15 to 20 seconds glancing at your resume)
 Make it action and results oriented
@@ -89,6 +89,9 @@ Learn how to connect with the interviewer like asking some questions like " How 
 Practice how to answer general questions like " tell me about yourself" (hint: make it relevant to the job)
 Learn about behavioral interview questions and review possible answers from your experience (example: how did you handle a difficult person; use the SAR method - Situation, Action, Resume)
 Find out about technical interviews and determine how to prepare for them
+
+#### Resume Sample - COMING SOON
+Find a nice template online or use overleaf for simple LaTeX formatting that still looks great
 
 ## Step 5 – Building Connections
 
