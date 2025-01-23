@@ -22,10 +22,22 @@ const mdxProcessingCache = new Map<string, MDXRemoteSerializeResult>()
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const cleanName = name.replace(/^!/, '').split('|')[0].trim()
-    const slug = cleanName.toLowerCase().replace(/\s+/g, '-')
-    return [slug]
+    const slug = cleanName.toLowerCase().replace(/[^a-z0-9-]/g, '-')
+    
+    // Handle special cases
+    const specialRoutes: Record<string, string[]> = {
+      'webwork': ['base/webwork'],
+      'notation': ['notes/notation'],
+      'intern-v1': ['internships/intern-v1']
+    }
+    
+    return specialRoutes[slug] || [slug]
   },
   hrefTemplate: (permalink: string) => {
+    // Check if the permalink includes a category prefix
+    if (permalink.includes('/')) {
+      return `/${permalink}`
+    }
     return `/notes/${permalink}`
   },
   aliasDivider: '|',

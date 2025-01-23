@@ -2,13 +2,21 @@ import Link from 'next/link'
 import EmbeddedNote from './embedded-note'
 
 export default function WikiLink({ href, children, embedded }: any) {
-  console.log('WikiLink render:', { href, children, embedded })
+  // Clean up the href by removing special characters and converting to lowercase
+  const cleanHref = href.toLowerCase().replace(/[^a-z0-9-]/g, '-')
   
-  // Handle special case for course resources
-  if (href.toLowerCase() === 'course-resources') {
+  // Handle special cases
+  const specialRoutes: Record<string, string> = {
+    'course-resources': '/course-resources',
+    'webwork': '/base/webwork',
+    'notation': '/notes/notation',
+    'intern-v1': '/internships/intern-v1'
+  }
+
+  if (specialRoutes[cleanHref]) {
     return (
       <Link 
-        href="/course-resources"
+        href={specialRoutes[cleanHref]}
         prefetch={false}
         className="text-blue-500 hover:text-blue-600 hover:underline"
       >
@@ -17,12 +25,14 @@ export default function WikiLink({ href, children, embedded }: any) {
     )
   }
   
-  // Ensure href is properly formatted for other cases
-  const formattedHref = href.startsWith('/') ? href : `/notes/${href}`
-  
+  // For embedded notes
   if (embedded) {
-    return <EmbeddedNote slug={href} />
+    return <EmbeddedNote slug={cleanHref} />
   }
+
+  // Default case - assume it's a note
+  const formattedHref = `/notes/${cleanHref}`
+  
   return (
     <Link 
       href={formattedHref}
