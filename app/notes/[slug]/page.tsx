@@ -14,6 +14,8 @@ const RESERVED_ROUTES = {
 } as const
 
 export default async function NotePage({ params }: { params: { slug: string } }) {
+  console.log('NotePage params:', params)
+  
   // Check if this is a reserved route and redirect if it is
   const redirectPath = RESERVED_ROUTES[params.slug as keyof typeof RESERVED_ROUTES]
   if (redirectPath) {
@@ -22,11 +24,16 @@ export default async function NotePage({ params }: { params: { slug: string } })
 
   try {
     const posts = await getBlogPosts()
+    console.log('Available posts:', posts.map(p => ({ 
+      slug: p.slug, 
+      category: p.category 
+    })))
+    
     const post = posts.find(
-      (post): post is BlogPost => 
-        post.category === 'notes' && 
-        post.slug === params.slug
+      post => post.category === 'notes' && post.slug === params.slug
     )
+    
+    console.log('Found post:', post?.slug)
 
     if (!post?.content) {
       console.error(`Post not found for slug: ${params.slug}`)

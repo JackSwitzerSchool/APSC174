@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const TerserPlugin = require('terser-webpack-plugin')
+
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
@@ -10,10 +12,23 @@ const nextConfig = {
     ],
     unoptimized: false,
   },
-  webpack: (config) => {
+  webpack: (config, { dev, isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': process.cwd(),
+    }
+    // Only run optimization for production builds
+    if (!dev) {
+      config.optimization.minimize = true
+      config.optimization.minimizer = config.optimization.minimizer || []
+      config.optimization.minimizer.push(
+        new TerserPlugin({
+          terserOptions: {
+            compress: true,
+            mangle: true
+          }
+        })
+      )
     }
     return config
   },
@@ -30,6 +45,10 @@ const nextConfig = {
         destination: '/tutorials/:path*',
       }
     ]
+  },
+  experimental: {
+    // Only use supported experimental features
+    mdxRs: true
   }
 }
 

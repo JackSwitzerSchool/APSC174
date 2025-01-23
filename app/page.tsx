@@ -9,19 +9,10 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
 
 export default async function Page() {
   const posts = await getBlogPosts()
-  const week1Post = posts.find(
-    post => post.category === 'notes' && post.slug === 'week-1'
-  )
-  const week2Post = posts.find(
-    post => post.category === 'notes' && post.slug === 'week-2'
-  )
-  const week3Post = posts.find(
-    post => post.category === 'notes' && post.slug === 'week-3'
-  )
-
-  if (!week3Post?.content || !week2Post?.content || !week1Post?.content) {
-    throw new Error('Weekly content not found')
-  }
+  const weeklyPosts = posts
+    .filter(post => post.category === 'notes' && post.slug.startsWith('week-'))
+    .sort((a, b) => b.slug.localeCompare(a.slug))
+    .slice(0, 3) // Only get latest 3 weeks
 
   return (
     <section>
@@ -30,9 +21,9 @@ export default async function Page() {
       </h1>
       
       <div className="prose prose-neutral dark:prose-invert mb-8">
-        <MDXContent source={week3Post.content} />
-        <MDXContent source={week2Post.content} />
-        <MDXContent source={week1Post.content} />
+        {weeklyPosts.map(post => (
+          <MDXContent key={post.slug} source={post.content} />
+        ))}
       </div>
     </section>
   )
