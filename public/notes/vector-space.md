@@ -5,7 +5,7 @@ summary: 'How does one define a space, what about vectors within that space?'
 ---
 
 ## Definition
-A Vector Space is a [[set]] $\mathbb{V}$ with two operations, "+" and "·"
+A Vector Space is a [[sets|set]] $\mathbb{V}$ with two operations, "+" and "·"
 
 ### "+"
 The addition map takes 2 [[vectors]] and maps to another vector. 
