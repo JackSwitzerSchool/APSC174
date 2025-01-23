@@ -60,6 +60,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   const NOTES_DIR = path.join(process.cwd(), 'public/notes')
   const BASE_DIR = path.join(process.cwd(), 'public/base')
   const TUTORIALS_DIR = path.join(process.cwd(), 'public/tutorials')
+  const INTERNSHIPS_DIR = path.join(process.cwd(), 'public/internships')
   
   const posts: BlogPost[] = []
 
@@ -141,6 +142,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   await processDirectory(NOTES_DIR, 'notes')
   await processDirectory(BASE_DIR, 'base')
   await processDirectory(TUTORIALS_DIR, 'tutorials')
+  await processDirectory(INTERNSHIPS_DIR, 'internships')
 
   console.log('Total posts processed:', posts.length)
   
