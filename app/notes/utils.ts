@@ -17,11 +17,35 @@ const CACHE_INVALIDATION_TIME = 1000 * 60 * 60 // 1 hour
 // Memoize MDX processing results
 const mdxProcessingCache = new Map<string, MDXRemoteSerializeResult>()
 
+// Move wikiLinkConfig before it's used in mdxOptions
+const wikiLinkConfig = {
+  pageResolver: (name: string) => {
+    const cleanName = name.replace(/^!/, '').split('|')[0].trim()
+    const slug = cleanName.toLowerCase().replace(/\s+/g, '-')
+    console.log(`WikiLink pageResolver: ${name} -> ${slug}`)
+    return [slug]
+  },
+  hrefTemplate: (permalink: string) => {
+    const href = permalink.startsWith('/') ? permalink : `/notes/${permalink}`
+    console.log(`WikiLink hrefTemplate: ${permalink} -> ${href}`)
+    return href
+  },
+  aliasDivider: '|',
+  wikiLinkClassName: 'wiki-link',
+  validate: (permalink: string) => {
+    console.log(`WikiLink validate: ${permalink}`)
+    return true
+  }
+}
+
 // Optimize MDX serialization by reusing remark/rehype plugins
 const mdxOptions = {
   parseFrontmatter: false,
   mdxOptions: {
-    remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
+    remarkPlugins: [
+      remarkMath, 
+      [remarkWikiLink, wikiLinkConfig]
+    ],
     rehypePlugins: [rehypeKatex],
     format: 'mdx',
     development: process.env.NODE_ENV === 'development'
@@ -93,22 +117,10 @@ export type BlogPost = {
   originalFilename: string
 }
 
-const wikiLinkConfig = {
-  pageResolver: (name: string) => {
-    const cleanName = name.replace(/^!/, '').split('|')[0].trim()
-    return [cleanName.toLowerCase().replace(/\s+/g, '-')]
-  },
-  hrefTemplate: (permalink: string) => {
-    return permalink.startsWith('/') ? permalink : `/notes/${permalink}`
-  },
-  aliasDivider: '|',
-  wikiLinkClassName: (embedded: boolean) => {
-    return embedded ? 'embedded-note' : 'wiki-link'
-  }
-}
-
 function normalizeSlug(slug: string): string {
-  return slug.toLowerCase().replace(/\s+/g, '-')
+  const normalized = slug.toLowerCase().replace(/\.md$/, '').replace(/\s+/g, '-')
+  console.log(`Normalizing slug: ${slug} -> ${normalized}`)
+  return normalized
 }
 
 // Add caching for processed MDX content
