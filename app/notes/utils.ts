@@ -36,7 +36,7 @@ const mdxOptions = {
   parseFrontmatter: false,
   mdxOptions: {
     remarkPlugins: [
-      [remarkMath],
+      remarkMath,
       [remarkWikiLink, wikiLinkConfig as any]
     ],
     rehypePlugins: [rehypeKatex],
