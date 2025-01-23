@@ -6,6 +6,7 @@ import remarkWikiLink from 'remark-wiki-link'
 import matter from 'gray-matter'
 import path from 'path'
 import { promises as fs } from 'fs'
+import type { Plugin } from 'unified'
 
 const ALLOWED_CATEGORIES = ['notes', 'tutorials', 'base', 'internships']
 
@@ -37,8 +38,8 @@ const mdxOptions = {
   mdxOptions: {
     remarkPlugins: [
       remarkMath,
-      [remarkWikiLink, wikiLinkConfig as any]
-    ],
+      [remarkWikiLink, wikiLinkConfig]
+    ] as Array<[Plugin, any] | Plugin>,
     rehypePlugins: [rehypeKatex],
     development: process.env.NODE_ENV === 'development'
   }
