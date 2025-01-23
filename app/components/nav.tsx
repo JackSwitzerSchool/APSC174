@@ -15,9 +15,6 @@ const navItems = {
   },
   '/base/course-resources': {
     name: 'course resources',
-  },
-  '/outro': {
-    name: 'feedback',
   }
 }
 
