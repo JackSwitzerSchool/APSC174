@@ -5,7 +5,7 @@ summary: 'How does one define being within another space, what properties would 
 ---
 
 ## Definition
-A subspace of a [[vector-space|Vector Space]] $\mathbb{V}$ is a subset $\mathbb{W} \subseteq \mathbb{V}$ that is itself a vector space under the same operations.
+A subspace of a [[vector-space|Vector Space]] $\mathbb{V}$ is a [[subset]] $\mathbb{W} \subseteq \mathbb{V}$ that is itself a vector space under the same operations.
 
 For $\mathbb{W}$ to be a subspace, it must satisfy three properties:
 1. **Closed under addition**: If $v,w \in \mathbb{W}$, then $v + w \in \mathbb{W}$
