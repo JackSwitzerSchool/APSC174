@@ -1,10 +1,10 @@
 ---
-title: Finding an Internship by Anne Raymond
+title: Finding an Internship v1
 publishedAt: '2025-01-11'
 category: 'internships'
 ---
 
-# Finding an Internship v1
+# Finding an Internship
 By Anne Raymond (my mom), former career coach/consultant
 
 [Feedback](https://forms.gle/fDA8cQ4NrGj9ZXT89)
