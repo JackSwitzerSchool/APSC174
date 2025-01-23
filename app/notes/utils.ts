@@ -1,4 +1,4 @@
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize, SerializeOptions } from 'next-mdx-remote/serialize'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -35,12 +35,12 @@ const wikiLinkConfig = {
 }
 
 // Optimize MDX serialization by reusing remark/rehype plugins
-const mdxOptions = {
+const mdxOptions: SerializeOptions = {
   parseFrontmatter: false,
   mdxOptions: {
     remarkPlugins: [
-      remarkMath,
-      [remarkWikiLink, wikiLinkConfig]
+      [remarkMath],
+      [remarkWikiLink, wikiLinkConfig as any]
     ],
     rehypePlugins: [rehypeKatex],
     development: process.env.NODE_ENV === 'development'
