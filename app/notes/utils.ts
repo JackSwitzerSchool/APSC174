@@ -14,6 +14,32 @@ const CACHE_FILE = path.join(process.cwd(), '.next/cache/mdx-cache.json')
 // Add cache invalidation time
 const CACHE_INVALIDATION_TIME = 1000 * 60 * 60 // 1 hour
 
+// Memoize MDX processing results
+const mdxProcessingCache = new Map<string, MDXRemoteSerializeResult>()
+
+// Optimize MDX serialization by reusing remark/rehype plugins
+const mdxOptions = {
+  parseFrontmatter: false,
+  mdxOptions: {
+    remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
+    rehypePlugins: [rehypeKatex],
+    format: 'mdx',
+    development: process.env.NODE_ENV === 'development'
+  }
+}
+
+async function serializeMDX(content: string, filePath: string): Promise<MDXRemoteSerializeResult> {
+  const cacheKey = `${filePath}:${content}`
+  
+  if (mdxProcessingCache.has(cacheKey)) {
+    return mdxProcessingCache.get(cacheKey)!
+  }
+
+  const serialized = await serialize(content.trim(), mdxOptions)
+  mdxProcessingCache.set(cacheKey, serialized)
+  return serialized
+}
+
 async function loadFromCache() {
   try {
     const cache = await fs.readFile(CACHE_FILE, 'utf8')
@@ -99,108 +125,65 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     return mdxCache.get(cacheKey)!
   }
 
-  const NOTES_DIR = path.join(process.cwd(), 'public/notes')
-  const BASE_DIR = path.join(process.cwd(), 'public/base')
-  const TUTORIALS_DIR = path.join(process.cwd(), 'public/tutorials')
-  const INTERNSHIPS_DIR = path.join(process.cwd(), 'public/internships')
-  
   const posts: BlogPost[] = []
-
-  const processDirectory = async (dir: string, category: string) => {
-    try {
-      console.log(`Processing directory: ${dir}`)
-      const files = await fs.readdir(dir)
-      console.log(`Found files in ${category}:`, files)
-      
-      const mdFiles = files.filter(file => file.endsWith('.md'))
-      console.log(`Markdown files in ${category}:`, mdFiles)
-
-      for (const file of mdFiles) {
-        try {
-          const filePath = path.join(dir, file)
-          console.log(`Processing file: ${filePath}`)
-          
-          const content = await fs.readFile(filePath, 'utf8')
-          const { data: metadata, content: markdownContent } = matter(content)
-          
-          if (!markdownContent?.trim()) {
-            console.warn(`Empty content in file: ${file}`)
-            continue
-          }
-
-          const serializedContent = await serialize(markdownContent.trim(), {
-            parseFrontmatter: false,
-            mdxOptions: {
-              remarkPlugins: [remarkMath, [remarkWikiLink, wikiLinkConfig]],
-              rehypePlugins: [rehypeKatex],
-              format: 'mdx'
-            }
-          })
-
-          if (!serializedContent || !serializedContent.compiledSource) {
-            console.warn(`Failed to serialize content for file: ${file}`)
-            continue
-          }
-
-          const slug = normalizeSlug(file.replace(/\.md$/, '').toLowerCase())
-          
-          // Category is inferred from directory, can be overridden by frontmatter
-          const fileCategory = metadata.category || category
-          
-          const post = {
-            content: serializedContent,
-            slug,
-            category: fileCategory,
-            metadata: {
-              title: metadata.title || slug,
-              publishedAt: metadata.publishedAt || new Date().toISOString(),
-              summary: metadata.summary,
-              image: metadata.image,
-              link: metadata.link
-            },
-            originalFilename: file
-          }
-          
-          console.log(`Successfully processed ${fileCategory}/${file}:`, {
-            slug: post.slug,
-            title: post.metadata.title,
-            hasContent: !!post.content.compiledSource
-          })
-          
-          posts.push(post)
-        } catch (error) {
-          console.error(`Error processing file ${file} in ${category}:`, error)
-        }
-      }
-    } catch (error) {
-      console.error(`Error processing directory ${dir}:`, error)
-      if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
-        console.warn(`Directory ${dir} does not exist`)
-      }
-    }
+  const directories = {
+    notes: path.join(process.cwd(), 'public/notes'),
+    base: path.join(process.cwd(), 'public/base'),
+    tutorials: path.join(process.cwd(), 'public/tutorials'),
+    internships: path.join(process.cwd(), 'public/internships')
   }
 
-  // Process directories sequentially to avoid any race conditions
-  await processDirectory(NOTES_DIR, 'notes')
-  await processDirectory(BASE_DIR, 'base')
-  await processDirectory(TUTORIALS_DIR, 'tutorials')
-  await processDirectory(INTERNSHIPS_DIR, 'internships')
+  // Process all directories in parallel
+  await Promise.all(
+    Object.entries(directories).map(async ([category, dir]) => {
+      try {
+        const files = await fs.readdir(dir)
+        const mdFiles = files.filter(file => file.endsWith('.md'))
 
-  console.log('Total posts processed:', posts.length)
-  
-  // Group posts by category in a more compatible way
-  const postsByCategory = posts.reduce((acc, post) => {
-    acc[post.category] = acc[post.category] || []
-    acc[post.category].push(post)
-    return acc
-  }, {} as Record<string, BlogPost[]>)
-  
-  console.log('Posts by category:', 
-    Object.fromEntries(
-      Object.entries(postsByCategory).map(([category, posts]) => 
-        [category, posts.length]
-      )
-    )
+        await Promise.all(
+          mdFiles.map(async file => {
+            try {
+              const filePath = path.join(dir, file)
+              const content = await fs.readFile(filePath, 'utf8')
+              const { data: metadata, content: markdownContent } = matter(content)
+
+              if (!markdownContent?.trim()) {
+                console.warn(`Empty content in file: ${file}`)
+                return
+              }
+
+              const serializedContent = await serializeMDX(markdownContent, filePath)
+
+              if (!serializedContent || !serializedContent.compiledSource) {
+                console.warn(`Failed to serialize content for file: ${file}`)
+                return
+              }
+
+              const slug = normalizeSlug(file.replace(/\.md$/, ''))
+              const fileCategory = metadata.category || category
+
+              posts.push({
+                content: serializedContent,
+                slug,
+                category: fileCategory,
+                metadata: {
+                  title: metadata.title || slug,
+                  publishedAt: metadata.publishedAt || new Date().toISOString(),
+                  summary: metadata.summary,
+                  image: metadata.image,
+                  link: metadata.link
+                },
+                originalFilename: file
+              })
+            } catch (error) {
+              console.error(`Error processing file ${file} in ${category}:`, error)
+            }
+          })
+        )
+      } catch (error) {
+        console.error(`Error processing directory ${dir}:`, error)
+      }
+    })
   )
 
   // Cache the results
