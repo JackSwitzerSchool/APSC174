@@ -6,17 +6,17 @@ summary: 'Course materials and PDF resources.'
 
 ## Course Material
 
-- Syllabus: [Link](/base/Syllabus2025.pdf)
-- Mansouri Notes: [Link](/base/Mansouri-Notes.pdf)
-- First Year Resources: [Link](/base/First-Year-Resources.pdf)
+- Syllabus: [Link](https://onq.queensu.ca/content/enforced/992465-APSC174W25/2025%20Winter/APSC174%20Syllabus%202025.pdf)
+- Mansouri Notes: [Link](https://onq.queensu.ca/content/enforced/992465-APSC174W25/2025%20Winter/LectureNotes_Abdol-Reza%20Mansouri.pdf)
+- First Year Resources: [Link](https://onq.queensu.ca/d2l/le/content/992465/viewContent/5872232/View)
 - Textbook: Email Me
 
 ## Course Calendar
 
-- [[/base/Webwork|Webwork]] - Due Thursday's @3:00 pm; Starting on January 16
-- [[/base/Midterm-1|Midterm 1]] - February 11 @6:30 pm
-- [[/base/Midterm-2|Midterm 2]] - March 25 @6:30 pm
-- [[/base/Final-Exam|Final Exam]] - (tentative?) April 18th @2:00 pm
+- [Webwork](/webwork) - Due Thursday's @3:00 pm; Starting on January 16
+- [Midterm 1](/midterm-1) - February 11 @6:30 pm
+- [Midterm 2](/midterm-2) - March 25 @6:30 pm
+- [Final Exam](/final-exam) - (tentative?) April 18th @2:00 pm
 
 ## Tutorial Sessions
 

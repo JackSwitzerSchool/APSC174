@@ -12,9 +12,15 @@ export default async function Page() {
   const week1Post = posts.find(
     post => post.category === 'notes' && post.slug === 'week-1'
   )
+  const week2Post = posts.find(
+    post => post.category === 'notes' && post.slug === 'week-2'
+  )
+  const week3Post = posts.find(
+    post => post.category === 'notes' && post.slug === 'week-3'
+  )
 
-  if (!week1Post?.content) {
-    throw new Error('Week 1 content not found')
+  if (!week3Post?.content || !week2Post?.content || !week1Post?.content) {
+    throw new Error('Weekly content not found')
   }
 
   return (
@@ -24,13 +30,10 @@ export default async function Page() {
       </h1>
       
       <div className="prose prose-neutral dark:prose-invert mb-8">
+        <MDXContent source={week3Post.content} />
+        <MDXContent source={week2Post.content} />
         <MDXContent source={week1Post.content} />
       </div>
-
-      <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-        All Course Materials
-      </h2>
-      <BlogPosts />
     </section>
   )
 }

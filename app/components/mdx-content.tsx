@@ -4,6 +4,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import EmbeddedNote from './embedded-note'
 
 const components = {
   a: ({ href, children, ...props }: any) => {
@@ -32,6 +33,16 @@ const components = {
         className="rounded-lg"
         {...props}
       />
+    )
+  },
+  WikiLink: ({ href, children, embedded }: any) => {
+    if (embedded) {
+      return <EmbeddedNote slug={href} />
+    }
+    return (
+      <Link href={href}>
+        {children}
+      </Link>
     )
   }
 }

@@ -16,7 +16,7 @@ $$
 This notion of "or" is foundational to computer programming and logic gates.
 
 ## Properties
-For arbitrary sets: $\mathbb{X}, \mathbb{Y}, \mathbb{Z}$ and the [[Empty Set|empty set]] $\emptyset$:
+For arbitrary sets: $\mathbb{X}, \mathbb{Y}, \mathbb{Z}$, and the [[Empty Set|empty set]] $\emptyset$:
 
 i) $\mathbb{X} \cup \mathbb{X} = \mathbb{X}$
 

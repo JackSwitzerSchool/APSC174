@@ -8,9 +8,8 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: false, // For better performance
+    unoptimized: false,
   },
-  // Configure webpack to handle MDX
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -18,6 +17,20 @@ const nextConfig = {
     }
     return config
   },
+  async rewrites() {
+    return [
+      // Handle markdown files without extension
+      {
+        source: '/:file((?!notes|tutorials|course-resources).*)',
+        destination: '/base/:file',
+      },
+      // Handle all tutorial content including Q&S
+      {
+        source: '/tutorials/:path*',
+        destination: '/tutorials/:path*',
+      }
+    ]
+  }
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig
