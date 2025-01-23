@@ -1,35 +1,44 @@
 ---
-title: Vector Spaces Axioms
+title: Vector Space Axioms
 publishedAt: '2025-01-16'
 summary: 'Axioms of a Vector Space'
 ---
 
-## Axioms:
-A [[vector-space|Vector Space]] is defined as a set $\mathbb{V}$, alongside two operations: "+" and "·"
+## Axioms
+A [[vector-space|Vector Space]] is defined as a set $\mathbb{V}$, together with two operations:
+1. Vector addition: $+: \mathbb{V} \times \mathbb{V} \to \mathbb{V}$
+2. Scalar multiplication: $\cdot: \mathbb{F} \times \mathbb{V} \to \mathbb{V}$
 
-Consider arbitrary: vectors: $x,y,z \in \mathbb{V}$ and scalars: $a,b,c \in \mathbb{F}$ (The field of scalars is often $\mathbb{R}$ or $\mathbb{C}$)
+where $\mathbb{F}$ is a field (typically $\mathbb{R}$ or $\mathbb{C}$).
 
-1) Associativity of "+"
-- Associativity is define by the ability to group sequential operations in any order. denoted: $$(x+y)+z=x+(y+z)$$
+For arbitrary vectors $u,v,w \in \mathbb{V}$ and scalars $a,b \in \mathbb{F}$, the following axioms must hold:
 
-2) Existence of the Zero Vector - Additive Identity
-- There is some "Zero Vector" in $\mathbb{V}$ that acts as an "additive identity".
-- Or, adding "Zero" to any element will end up with the same element. denoted: $$\forall v \in \mathbb{V}, \exists "0" \text{ s.t. } v+0=0+v=v$$
+### Vector Addition Axioms
 
-3) Existence of the Additive Inverse
-- All vectors $v$ in your space has a corresponding "-v" in the space such that: $$v+(-v)=(-v)+v=0$$
+1) **Associativity**
+   $$(u + v) + w = u + (v + w)$$
 
-4) Commutitivity of "+"
-- Simply, the "+" operation is symmetric: $$x+y=y+x$$
+2) **Additive Identity**
+   - There exists a zero vector $\mathbf{0} \in \mathbb{V}$ such that:
+   $$v + \mathbf{0} = \mathbf{0} + v = v \text{ for all } v \in \mathbb{V}$$
 
-5) Associativity of "·"
-- $$(x·y)·z=x·(y·z)$$
+3) **Additive Inverse**
+   - For each $v \in \mathbb{V}$, there exists an element $-v \in \mathbb{V}$ such that:
+   $$v + (-v) = (-v) + v = \mathbf{0}$$
 
-6) Distributive Laws of "·" and "+"
-- $$a·(x+y)=(a·x)+(a·y)$$
+4) **Commutativity**
+   $$u + v = v + u$$
 
-7) Distributive Laws of "+" and "·"
-- $$v·(a+b)=(v·a)+(v·b)$$
+### Scalar Multiplication Axioms
 
-8) Existence of the 1 Vector - Multiplicitive Identity
-- $$\forall v \in \mathbb{V}, \exists "1" \text{ s.t. } 1·v=v·1=v$$
+5) **Scalar Multiplication Identity**
+   $$1v = v \text{ for all } v \in \mathbb{V}$$
+
+6) **Scalar Multiplication Associativity**
+   $$a(bv) = (ab)v$$
+
+7) **Distribution over Vector Addition**
+   $$a(u + v) = au + av$$
+
+8) **Distribution over Scalar Addition**
+   $$(a + b)v = av + bv$$
