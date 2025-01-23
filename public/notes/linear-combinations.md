@@ -5,7 +5,7 @@ summary: 'How can vectors be combined linearly? A foundation for understanding l
 ---
 
 ## Definition
-A linear combination of vectors $v_1, v_2, \dots, v_n$ from a [[vector-space|Vector Space]] $\mathbb{V}$ is any vector of the form:
+A linear combination of [[vectors]] $v_1, v_2, \dots, v_n$ from a [[vector-space|Vector Space]] $\mathbb{V}$ is any vector of the form:
 
 $$
 c_1v_1 + c_2v_2 + \dots + c_nv_n
