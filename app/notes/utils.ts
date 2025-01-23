@@ -1,4 +1,4 @@
-import { serialize, SerializeOptions } from 'next-mdx-remote/serialize'
+import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -22,20 +22,17 @@ const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const cleanName = name.replace(/^!/, '').split('|')[0].trim()
     const slug = cleanName.toLowerCase().replace(/\s+/g, '-')
-    console.log(`WikiLink pageResolver: ${name} -> ${slug}`)
     return [slug]
   },
   hrefTemplate: (permalink: string) => {
-    const href = `/notes/${permalink.toLowerCase()}`
-    console.log(`WikiLink hrefTemplate: ${permalink} -> ${href}`)
-    return href
+    return `/notes/${permalink}`
   },
   aliasDivider: '|',
   wikiLinkClassName: 'wiki-link'
 }
 
 // Optimize MDX serialization by reusing remark/rehype plugins
-const mdxOptions: SerializeOptions = {
+const mdxOptions = {
   parseFrontmatter: false,
   mdxOptions: {
     remarkPlugins: [
