@@ -10,10 +10,22 @@ const nextConfig = {
     ],
     unoptimized: false,
   },
-  webpack: (config) => {
+  webpack: (config, { dev, isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': process.cwd(),
+    }
+    // Only run optimization for production builds
+    if (!dev) {
+      config.optimization.minimize = true
+      config.optimization.minimizer.push(
+        new TerserPlugin({
+          terserOptions: {
+            compress: true,
+            mangle: true
+          }
+        })
+      )
     }
     return config
   },
@@ -30,6 +42,19 @@ const nextConfig = {
         destination: '/tutorials/:path*',
       }
     ]
+  },
+  experimental: {
+    // Enable parallel routes
+    parallelRoutes: true,
+    
+    // Optimize images at build time
+    optimizeImages: true,
+    
+    // Enable server components
+    serverComponents: true,
+    
+    // Enable granular chunks
+    granularChunks: true
   }
 }
 

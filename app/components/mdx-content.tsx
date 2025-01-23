@@ -1,13 +1,12 @@
 'use client'
 
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import EmbeddedNote from './embedded-note'
+import { memo } from 'react'
+import dynamic from 'next/dynamic'
 
+// Memoize components to prevent unnecessary re-renders
 const components = {
-  a: ({ href, children, ...props }: any) => {
+  a: memo(({ href, children, ...props }: any) => {
     if (!href) return null
     if (href.startsWith('http')) {
       return (
@@ -16,49 +15,30 @@ const components = {
         </a>
       )
     }
+    const Link = dynamic(() => import('next/link'))
     return (
       <Link href={href} {...props}>
         {children}
       </Link>
     )
-  },
-  img: ({ src, alt = '', ...props }: any) => {
-    if (!src) return null
-    return (
-      <Image
-        src={src}
-        alt={alt}
-        width={800}
-        height={400}
-        className="rounded-lg"
-        {...props}
-      />
-    )
-  },
-  WikiLink: ({ href, children, embedded }: any) => {
-    if (embedded) {
-      return <EmbeddedNote slug={href} />
-    }
-    return (
-      <Link href={href}>
-        {children}
-      </Link>
-    )
-  }
+  }),
+  img: dynamic(() => import('./mdx-image'), {
+    loading: () => <div>Loading image...</div>,
+    ssr: false
+  }),
+  WikiLink: dynamic(() => import('./wiki-link'), {
+    loading: () => <div>Loading link...</div>,
+    ssr: false
+  })
 }
 
 interface MDXContentProps {
   source: MDXRemoteSerializeResult
 }
 
-export default function MDXContent({ source }: MDXContentProps) {
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted || !source?.compiledSource) {
+// Memoize the entire component
+export default memo(function MDXContent({ source }: MDXContentProps) {
+  if (!source?.compiledSource) {
     return <div>Loading...</div>
   }
 
@@ -67,4 +47,4 @@ export default function MDXContent({ source }: MDXContentProps) {
       <MDXRemote {...source} components={components} />
     </div>
   )
-} 
+}) 

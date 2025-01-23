@@ -9,6 +9,35 @@ import { promises as fs } from 'fs'
 
 const ALLOWED_CATEGORIES = ['notes', 'tutorials', 'base', 'internships']
 
+const CACHE_FILE = path.join(process.cwd(), '.next/cache/mdx-cache.json')
+
+// Add cache invalidation time
+const CACHE_INVALIDATION_TIME = 1000 * 60 * 60 // 1 hour
+
+async function loadFromCache() {
+  try {
+    const cache = await fs.readFile(CACHE_FILE, 'utf8')
+    const { data, timestamp } = JSON.parse(cache)
+    
+    // Check if cache is still valid
+    if (Date.now() - timestamp < CACHE_INVALIDATION_TIME) {
+      return data
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+async function saveToCache(data: any) {
+  const cacheData = {
+    data,
+    timestamp: Date.now()
+  }
+  await fs.mkdir(path.dirname(CACHE_FILE), { recursive: true })
+  await fs.writeFile(CACHE_FILE, JSON.stringify(cacheData))
+}
+
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -56,7 +85,20 @@ function normalizeSlug(slug: string): string {
   return slug.toLowerCase().replace(/\s+/g, '-')
 }
 
+// Add caching for processed MDX content
+const mdxCache = new Map<string, BlogPost[]>()
+
 export async function getBlogPosts(): Promise<BlogPost[]> {
+  // Try loading from cache first
+  const cached = await loadFromCache()
+  if (cached) return cached
+
+  // Check if we have cached results
+  const cacheKey = 'all-posts'
+  if (mdxCache.has(cacheKey)) {
+    return mdxCache.get(cacheKey)!
+  }
+
   const NOTES_DIR = path.join(process.cwd(), 'public/notes')
   const BASE_DIR = path.join(process.cwd(), 'public/base')
   const TUTORIALS_DIR = path.join(process.cwd(), 'public/tutorials')
@@ -161,5 +203,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     )
   )
 
+  // Cache the results
+  mdxCache.set(cacheKey, posts)
+
+  // Save to cache
+  await saveToCache(posts)
   return posts
 }
