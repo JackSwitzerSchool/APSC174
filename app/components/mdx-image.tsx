@@ -1,16 +1,24 @@
 import Image from 'next/image'
+import { memo } from 'react'
 
-export default function MDXImage({ src, alt = '', ...props }: any) {
-  if (!src) return null
+interface MDXImageProps {
+  src: string
+  alt?: string
+  width?: number
+  height?: number
+}
+
+export default memo(function MDXImage({ src, alt = '', width = 800, height = 400 }: MDXImageProps) {
   return (
-    <Image
-      src={src}
-      alt={alt}
-      width={800}
-      height={400}
-      className="rounded-lg"
-      loading="lazy"
-      {...props}
-    />
+    <div className="relative w-full h-auto my-4">
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className="rounded-lg"
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
+    </div>
   )
-} 
+}) 
