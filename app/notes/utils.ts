@@ -7,6 +7,8 @@ import matter from 'gray-matter'
 import path from 'path'
 import { promises as fs } from 'fs'
 
+const ALLOWED_CATEGORIES = ['notes', 'tutorials', 'base', 'internships']
+
 export function formatDate(date: string, includeTime: boolean = false) {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
