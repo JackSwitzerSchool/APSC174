@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const TerserPlugin = require('terser-webpack-plugin')
+
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
@@ -18,6 +20,7 @@ const nextConfig = {
     // Only run optimization for production builds
     if (!dev) {
       config.optimization.minimize = true
+      config.optimization.minimizer = config.optimization.minimizer || []
       config.optimization.minimizer.push(
         new TerserPlugin({
           terserOptions: {
