@@ -17,7 +17,7 @@ const CACHE_INVALIDATION_TIME = 1000 * 60 * 60 // 1 hour
 // Memoize MDX processing results
 const mdxProcessingCache = new Map<string, MDXRemoteSerializeResult>()
 
-// Move wikiLinkConfig before it's used in mdxOptions
+// Define wiki link configuration
 const wikiLinkConfig = {
   pageResolver: (name: string) => {
     const cleanName = name.replace(/^!/, '').split('|')[0].trim()
@@ -31,12 +31,7 @@ const wikiLinkConfig = {
     return href
   },
   aliasDivider: '|',
-  wikiLinkClassName: 'wiki-link',
-  validate: (permalink: string) => {
-    const posts = getBlogPosts()
-    console.log(`WikiLink validate: checking ${permalink}`)
-    return true
-  }
+  wikiLinkClassName: 'wiki-link'
 }
 
 // Optimize MDX serialization by reusing remark/rehype plugins
@@ -45,13 +40,7 @@ const mdxOptions = {
   mdxOptions: {
     remarkPlugins: [
       remarkMath,
-      [(options: any) => {
-        const plugin = remarkWikiLink(options)
-        return (tree: any) => {
-          console.log('Processing wiki links in tree:', tree)
-          return plugin(tree)
-        }
-      }, wikiLinkConfig]
+      [remarkWikiLink, wikiLinkConfig]
     ],
     rehypePlugins: [rehypeKatex],
     development: process.env.NODE_ENV === 'development'

@@ -48,8 +48,7 @@ const nextConfig = {
   },
   experimental: {
     // Only use supported experimental features
-    mdxRs: true,
-    serverActions: true
+    mdxRs: true
   }
 }
 
