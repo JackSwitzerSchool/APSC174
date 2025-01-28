@@ -28,27 +28,10 @@ export async function getNotes(): Promise<Note[]> {
       const content = await fs.readFile(filePath, 'utf8')
       const { data } = matter(content)
       
-      // Map the frontmatter category to a route category
-      if (data.category) {
-        data.category = categoryMap[data.category] || data.category
-      }
-      
-      // If no category is specified, determine it based on filename
-      if (!data.category) {
-        if (file.startsWith('tutorial') || file.includes('week-')) {
-          data.category = 'tutorials'
-        } else if (file === 'course-resources.md' || file.match(/midterm|final|webwork/i)) {
-          data.category = 'resources'
-        } else if (file === 'intern-v1.md') {
-          data.category = 'internships'
-        } else {
-          data.category = 'notes'
-        }
-      }
-      
       return {
         ...data,
         slug: file.replace(/\.mdx?$/, ''),
+        category: 'notes'
       } as Note
     })
   )
@@ -61,9 +44,7 @@ export async function getNotes(): Promise<Note[]> {
 }
 
 export async function getNote(slug: string): Promise<Note & { content: string }> {
-  const extensions = ['.mdx', '.md']
   const notesDir = path.join(process.cwd(), 'content/notes')
-  let lastError: Error | null = null
   
   // Normalize the slug to kebab-case
   const normalizedSlug = slug.toLowerCase().replace(/\s+/g, '-')
@@ -86,19 +67,6 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
     const content = await fs.readFile(filePath, 'utf8')
     const { data, content: markdown } = matter(content)
     
-    // If no category is specified, determine it based on filename
-    if (!data.category) {
-      if (matchingFile.startsWith('tutorial') || matchingFile.includes('week-')) {
-        data.category = 'tutorials'
-      } else if (matchingFile === 'course-resources.md' || matchingFile.match(/midterm|final|webwork/i)) {
-        data.category = 'resources'
-      } else if (matchingFile === 'intern-v1.md') {
-        data.category = 'internships'
-      } else {
-        data.category = 'notes'
-      }
-    }
-
     // Ensure required fields are present
     if (!data.title) {
       data.title = normalizedSlug.split('-').map(word => 
@@ -110,6 +78,7 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
       ...data,
       content: markdown,
       slug: normalizedSlug,
+      category: 'notes'
     } as Note & { content: string }
   } catch (error) {
     console.error(`Error reading file: ${filePath}`, error)
