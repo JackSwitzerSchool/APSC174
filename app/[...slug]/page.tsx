@@ -39,10 +39,12 @@ export default async function DynamicPage({ params }: Props) {
       return (
         // Direct category/slug match (e.g., /content/notes/vector-spaces)
         (params.slug[0] === 'content' && note.category === params.slug[1] && note.slug === lastSlug) ||
-        // Pages in root (e.g., /about)
-        (params.slug.length === 1 && note.category === 'pages' && note.slug === params.slug[0]) ||
-        // Tutorial materials (e.g., /content/tutorials/week-1)
-        (params.slug[0] === 'content' && params.slug[1] === 'tutorials' && note.category === 'tutorials' && note.slug === lastSlug)
+        // Legacy direct note match (e.g., /notes/vector-spaces)
+        (params.slug[0] === 'notes' && note.category === 'notes' && note.slug === lastSlug) ||
+        // Legacy tutorial match (e.g., /tutorials/week-1)
+        (params.slug[0] === 'tutorials' && note.category === 'tutorials' && note.slug === lastSlug) ||
+        // Single slug match for root pages
+        (params.slug.length === 1 && note.slug === params.slug[0])
       )
     })
 
