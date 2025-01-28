@@ -9,6 +9,15 @@ interface Note {
   [key: string]: any
 }
 
+// Map frontmatter categories to route categories
+const categoryMap: Record<string, string> = {
+  'course-content': 'notes',
+  'reference': 'notes',
+  'tutorial': 'tutorials',
+  'resource': 'resources',
+  'internship': 'internships'
+}
+
 export async function getNotes(): Promise<Note[]> {
   const notesDirectory = path.join(process.cwd(), 'content/notes')
   const files = await fs.readdir(notesDirectory)
@@ -19,7 +28,12 @@ export async function getNotes(): Promise<Note[]> {
       const content = await fs.readFile(filePath, 'utf8')
       const { data } = matter(content)
       
-      // If no category is specified in frontmatter, determine it based on filename or content
+      // Map the frontmatter category to a route category
+      if (data.category) {
+        data.category = categoryMap[data.category] || data.category
+      }
+      
+      // If no category is specified, determine it based on filename
       if (!data.category) {
         if (file.startsWith('tutorial') || file.includes('week-')) {
           data.category = 'tutorials'

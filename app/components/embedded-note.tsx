@@ -3,13 +3,18 @@
 import { useEffect, useState } from 'react'
 import MDXContent from './mdx-content'
 import type { Content } from '@/lib/content-types'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 interface EmbeddedNoteProps {
   slug: string
 }
 
+interface EmbeddedContent extends Content {
+  content: MDXRemoteSerializeResult
+}
+
 export default function EmbeddedNote({ slug }: EmbeddedNoteProps) {
-  const [content, setContent] = useState<Content | null>(null)
+  const [content, setContent] = useState<EmbeddedContent | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -20,9 +25,12 @@ export default function EmbeddedNote({ slug }: EmbeddedNoteProps) {
           throw new Error('Failed to fetch content')
         }
         const data = await response.json()
+        
+        // The API already returns serialized MDX content
         setContent(data)
       } catch (err) {
         setError('Failed to load content')
+        console.error('Error loading embedded note:', err)
       }
     }
 

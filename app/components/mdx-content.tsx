@@ -2,7 +2,7 @@
 
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { memo } from 'react'
-import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
 // Memoize components to prevent unnecessary re-renders
 const components = {
@@ -11,12 +11,11 @@ const components = {
 
     // Handle PDF links
     if (href?.endsWith('.pdf')) {
-      // Keep the path as-is for PDFs, they're served from /public
       const formattedHref = href.startsWith('http') 
         ? href 
         : href.startsWith('/') 
           ? href 
-          : `/${href}`
+          : `/content/assets/pdfs/${href}`
 
       return (
         <a 
@@ -40,20 +39,45 @@ const components = {
       )
     }
 
-    const Link = dynamic(() => import('next/link'))
+    // Handle wiki-style links (converted by remark-wiki-link)
+    if (href.startsWith('/content/')) {
+      return (
+        <Link 
+          href={href}
+          className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+          {...props}
+        >
+          {children}
+        </Link>
+      )
+    }
+
+    // Default case - treat as internal link
     return (
       <Link href={href} {...props}>
         {children}
       </Link>
     )
   }),
-  img: dynamic(() => import('./mdx-image'), {
-    loading: () => <div>Loading image...</div>,
-    ssr: false
-  }),
-  WikiLink: dynamic(() => import('./wiki-link'), {
-    loading: () => <div>Loading link...</div>,
-    ssr: false
+  img: memo(({ src, alt = '', ...props }: any) => {
+    if (!src) return null
+
+    // Handle image paths
+    const formattedSrc = src.startsWith('http') 
+      ? src 
+      : src.startsWith('/') 
+        ? src 
+        : `/content/assets/images/${src}`
+
+    return (
+      <img 
+        src={formattedSrc}
+        alt={alt}
+        className="max-w-full h-auto rounded-lg"
+        loading="lazy"
+        {...props}
+      />
+    )
   })
 }
 

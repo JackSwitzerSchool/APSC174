@@ -2,7 +2,7 @@ import { getNotes, getNote } from '@/app/notes/utils'
 import { notFound } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { serializeMDX } from '@/lib/mdx'
 
 const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
   ssr: false,
@@ -53,7 +53,7 @@ export default async function DynamicPage({ params }: Props) {
 
     // Fetch the full note content
     const fullNote = await getNote(noteMatch.slug)
-    const mdxSource = await serialize(fullNote.content)
+    const mdxSource = await serializeMDX(fullNote.content)
 
     return (
       <article>

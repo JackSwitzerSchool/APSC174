@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getContentBySlug, getAllContent, filterContent } from '@/lib/content'
-import { ContentNotFoundError } from '@/lib/content-types'
+import { ContentNotFoundError, Content, ContentList } from '@/lib/content-types'
 import type { ContentFilter } from '@/lib/content-types'
+import { serializeMDX } from '@/lib/mdx'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -11,7 +12,12 @@ export async function GET(request: Request) {
   if (slug) {
     try {
       const content = await getContentBySlug(slug)
-      return NextResponse.json(content)
+      // Serialize MDX content before sending
+      const serializedContent = {
+        ...content,
+        content: await serializeMDX(content.content.toString())
+      }
+      return NextResponse.json(serializedContent)
     } catch (error) {
       if (error instanceof ContentNotFoundError) {
         return NextResponse.json(
@@ -19,6 +25,7 @@ export async function GET(request: Request) {
           { status: 404 }
         )
       }
+      console.error('Error processing content:', error)
       return NextResponse.json(
         { error: 'Failed to fetch content' },
         { status: 500 }
@@ -42,15 +49,25 @@ export async function GET(request: Request) {
   if (displayInNotes) filter.displayInNotes = displayInNotes === 'true'
 
   try {
+    let contentItems: Content[];
     // If no filters, return all content
     if (Object.keys(filter).length === 0) {
-      const content = await getAllContent()
-      return NextResponse.json(content)
+      const allContent = await getAllContent()
+      contentItems = [...allContent.notes, ...allContent.pages]
+    } else {
+      // Return filtered content
+      contentItems = await filterContent(filter)
     }
 
-    // Return filtered content
-    const content = await filterContent(filter)
-    return NextResponse.json(content)
+    // Serialize MDX content for all items
+    const serializedContent = await Promise.all(
+      contentItems.map(async (item: Content) => ({
+        ...item,
+        content: await serializeMDX(item.content.toString())
+      }))
+    )
+
+    return NextResponse.json(serializedContent)
   } catch (error) {
     console.error('Error fetching content:', error)
     return NextResponse.json(
