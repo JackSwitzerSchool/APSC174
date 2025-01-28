@@ -49,6 +49,7 @@ export async function getNotes(): Promise<Note[]> {
 export async function getNote(slug: string): Promise<Note & { content: string }> {
   const extensions = ['.mdx', '.md']
   const notesDir = path.join(process.cwd(), 'content/notes')
+  let lastError: Error | null = null
   
   for (const ext of extensions) {
     const filePath = path.join(notesDir, `${slug}${ext}`)
@@ -68,6 +69,13 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
           data.category = 'notes'
         }
       }
+
+      // Ensure required fields are present
+      if (!data.title) {
+        data.title = slug.split('-').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ')
+      }
       
       return {
         ...data,
@@ -75,6 +83,7 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
         slug,
       } as Note & { content: string }
     } catch (error) {
+      lastError = error as Error
       // Continue to next extension if file not found
       if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
         continue
@@ -83,5 +92,6 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
     }
   }
   
+  console.error(`Failed to find note: ${slug}`, lastError)
   throw new Error(`Note not found: ${slug}`)
 } 

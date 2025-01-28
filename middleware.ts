@@ -30,8 +30,8 @@ export default function middleware(request: NextRequest) {
 
   // Handle PDF files
   if (pathname.endsWith('.pdf')) {
-    // If it's already in the assets directory, serve it
-    if (pathname.startsWith('/content/assets/')) {
+    // If it's already in the assets directory or starts with /, serve it
+    if (pathname.startsWith('/content/assets/') || pathname.startsWith('/')) {
       return NextResponse.next()
     }
     // Otherwise, redirect to assets directory

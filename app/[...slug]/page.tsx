@@ -60,9 +60,7 @@ export default async function DynamicPage({ params }: Props) {
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
           {fullNote.title}
         </h1>
-        <div className="prose prose-neutral dark:prose-invert">
-          <MDXContent source={mdxSource} />
-        </div>
+        <MDXContent source={mdxSource} />
       </article>
     )
   } catch (error) {
