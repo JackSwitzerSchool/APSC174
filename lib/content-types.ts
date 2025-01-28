@@ -15,6 +15,7 @@ export interface ContentMeta {
   displayInNotes?: boolean
   order?: number
   summary?: string
+  relatedContent?: string[]
 }
 
 export interface Content {
