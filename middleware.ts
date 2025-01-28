@@ -14,8 +14,13 @@ export default function middleware(request: NextRequest) {
     }
   }
 
-  // Handle PDF files in base directory
-  if (pathname.endsWith('.pdf') && !pathname.startsWith('/base/')) {
+  // Handle PDF files
+  if (pathname.endsWith('.pdf')) {
+    // If it's already in the base directory, serve it
+    if (pathname.startsWith('/base/')) {
+      return NextResponse.next()
+    }
+    // Otherwise, redirect to base directory
     return NextResponse.redirect(
       new URL(`/base${pathname}`, request.url)
     )
@@ -31,6 +36,7 @@ export const config = {
     '/midterm-2', 
     '/webwork', 
     '/final-exam',
-    '/((?!api|_next/static|_next/image|favicon.ico).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/*.pdf'
   ]
 } 
