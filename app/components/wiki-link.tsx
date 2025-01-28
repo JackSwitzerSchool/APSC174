@@ -10,7 +10,9 @@ export default function WikiLink({ href, children, embedded }: any) {
     'course-resources': '/course-resources',
     'webwork': '/base/webwork',
     'notation': '/notes/notation',
-    'intern-v1': '/internships/intern-v1'
+    'intern-v1': '/internships/intern-v1',
+    'midterm-1': '/base/midterm-1',
+    'midterm-2': '/base/midterm-2'
   }
 
   if (specialRoutes[cleanHref]) {
