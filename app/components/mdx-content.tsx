@@ -11,12 +11,12 @@ const components = {
 
     // Handle PDF links
     if (href?.endsWith('.pdf')) {
-      // Remove leading slash if present to avoid double slashes
-      const cleanHref = href.startsWith('/') ? href.slice(1) : href
-      // Always prefix with /base/ unless it's an external link
+      // Keep the path as-is for PDFs, they're served from /public
       const formattedHref = href.startsWith('http') 
         ? href 
-        : `/base/${cleanHref}`
+        : href.startsWith('/') 
+          ? href 
+          : `/${href}`
 
       return (
         <a 
