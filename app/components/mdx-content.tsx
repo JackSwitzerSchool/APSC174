@@ -8,6 +8,22 @@ import dynamic from 'next/dynamic'
 const components = {
   a: memo(({ href, children, ...props }: any) => {
     if (!href) return null
+    // Handle PDF links
+    if (href.endsWith('.pdf')) {
+      const formattedHref = href.startsWith('/') ? href : `/${href}`
+      return (
+        <a 
+          href={formattedHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+          {...props}
+        >
+          {children}
+        </a>
+      )
+    }
+    // Handle external links
     if (href.startsWith('http')) {
       return (
         <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
