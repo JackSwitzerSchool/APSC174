@@ -65,47 +65,54 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
   const notesDir = path.join(process.cwd(), 'content/notes')
   let lastError: Error | null = null
   
-  for (const ext of extensions) {
-    const filePath = path.join(notesDir, `${slug}${ext}`)
-    try {
-      const content = await fs.readFile(filePath, 'utf8')
-      const { data, content: markdown } = matter(content)
-      
-      // If no category is specified, determine it based on filename
-      if (!data.category) {
-        if (slug.startsWith('tutorial') || slug.includes('week-')) {
-          data.category = 'tutorials'
-        } else if (slug === 'course-resources' || slug.match(/midterm|final|webwork/i)) {
-          data.category = 'resources'
-        } else if (slug === 'intern-v1') {
-          data.category = 'internships'
-        } else {
-          data.category = 'notes'
-        }
-      }
-
-      // Ensure required fields are present
-      if (!data.title) {
-        data.title = slug.split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ')
-      }
-      
-      return {
-        ...data,
-        content: markdown,
-        slug,
-      } as Note & { content: string }
-    } catch (error) {
-      lastError = error as Error
-      // Continue to next extension if file not found
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-        continue
-      }
-      throw error
-    }
+  // Normalize the slug to kebab-case
+  const normalizedSlug = slug.toLowerCase().replace(/\s+/g, '-')
+  
+  // Get all files in the directory
+  const files = await fs.readdir(notesDir)
+  
+  // Find a case-insensitive match
+  const matchingFile = files.find(file => 
+    file.toLowerCase().replace(/\.mdx?$/, '') === normalizedSlug
+  )
+  
+  if (!matchingFile) {
+    console.error(`No matching file found for slug: ${slug}`)
+    throw new Error(`Note not found: ${slug}`)
   }
   
-  console.error(`Failed to find note: ${slug}`, lastError)
-  throw new Error(`Note not found: ${slug}`)
+  const filePath = path.join(notesDir, matchingFile)
+  try {
+    const content = await fs.readFile(filePath, 'utf8')
+    const { data, content: markdown } = matter(content)
+    
+    // If no category is specified, determine it based on filename
+    if (!data.category) {
+      if (matchingFile.startsWith('tutorial') || matchingFile.includes('week-')) {
+        data.category = 'tutorials'
+      } else if (matchingFile === 'course-resources.md' || matchingFile.match(/midterm|final|webwork/i)) {
+        data.category = 'resources'
+      } else if (matchingFile === 'intern-v1.md') {
+        data.category = 'internships'
+      } else {
+        data.category = 'notes'
+      }
+    }
+
+    // Ensure required fields are present
+    if (!data.title) {
+      data.title = normalizedSlug.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ')
+    }
+    
+    return {
+      ...data,
+      content: markdown,
+      slug: normalizedSlug,
+    } as Note & { content: string }
+  } catch (error) {
+    console.error(`Error reading file: ${filePath}`, error)
+    throw error
+  }
 } 
