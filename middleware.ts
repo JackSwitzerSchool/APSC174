@@ -37,6 +37,6 @@ export const config = {
     '/webwork', 
     '/final-exam',
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
-    '/*.pdf'
+    '/:path*.pdf'
   ]
 } 
