@@ -5,6 +5,7 @@ export default function WikiLink({ href, children, embedded }: any) {
   // Clean up the href by removing special characters and converting to lowercase
   const cleanHref = href.toLowerCase().replace(/[^a-z0-9-]/g, '-')
   
+  
   // Handle special cases
   const specialRoutes: Record<string, string> = {
     'course-resources': '/course-resources',
