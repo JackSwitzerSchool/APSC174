@@ -26,19 +26,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/notes`,
+      url: `${baseUrl}/content/notes`,
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/tutorials`,
+      url: `${baseUrl}/content/tutorials`,
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/course-resources`,
+      url: `${baseUrl}/content/course-resources`,
       lastModified: new Date(),
     },
     ...filteredPosts.map((note: Note) => ({
-      url: `${baseUrl}/notes/${note.slug}`,
+      url: `${baseUrl}/content/notes/${note.slug}`,
       lastModified: new Date(),
     })),
   ]

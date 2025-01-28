@@ -16,7 +16,7 @@ interface WikiLinkProps {
 
 type LinkType = 'asset' | 'note' | 'external' | 'embed'
 
-function getLinkType(href: string): { type: LinkType; path: string } {
+function getLinkType(href: string): { type: LinkType; path: string; category?: string } {
   // Check if it's an embed (starts with !)
   if (href.startsWith('!')) {
     return { type: 'embed', path: href.slice(1) }
@@ -32,8 +32,17 @@ function getLinkType(href: string): { type: LinkType; path: string } {
     return { type: 'external', path: href }
   }
 
+  // Check for specific content types
+  if (href.startsWith('tutorials/')) {
+    return { type: 'note', path: href.slice(10), category: 'tutorials' }
+  }
+
+  if (href.startsWith('resources/')) {
+    return { type: 'note', path: href.slice(10), category: 'resources' }
+  }
+
   // Default case - it's a note link
-  return { type: 'note', path: href }
+  return { type: 'note', path: href, category: 'notes' }
 }
 
 function processEmbedLink(path: string): { type: string; id: string } {
@@ -105,9 +114,10 @@ export default function WikiLink({ href, children, embedded = false }: WikiLinkP
 
   // Handle note links
   const cleanPath = linkInfo.path.toLowerCase().replace(/[^a-z0-9-]/g, '-')
+  const category = linkInfo.category || 'notes'
   return (
     <Link
-      href={`/content/notes/${cleanPath}`}
+      href={`/content/${category}/${cleanPath}`}
       prefetch={false}
       className="text-blue-500 hover:text-blue-600 hover:underline"
     >

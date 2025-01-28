@@ -30,7 +30,7 @@ Intuitively, in a 2 dimensional system of linear equations, you are looking at l
 In a 3 dimensional system of linear equations, each individual equation describes a 2D slice, also called a plane. Similarly in the above case, a solution to this system is essentially finding locations of intersection of the plane. 
 
 <img 
-  src="/assets/LinearSystemSolution.png" 
+  src="/assets/images/LinearSystemSolutions.png" 
   alt="System of Linear Equations showing intersection of planes" 
   width={800} 
   height={600} 

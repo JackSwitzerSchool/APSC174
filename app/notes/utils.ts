@@ -33,13 +33,27 @@ export async function getNotes(): Promise<Note[]> {
 }
 
 export async function getNote(slug: string): Promise<Note & { content: string }> {
-  const filePath = path.join(process.cwd(), 'content/notes', `${slug}.mdx`)
-  const content = await fs.readFile(filePath, 'utf8')
-  const { data, content: markdown } = matter(content)
-  
-  return {
-    ...data,
-    content: markdown,
-    slug,
-  } as Note & { content: string }
+  // Try to find the note in the notes directory
+  const notePath = path.join(process.cwd(), 'content/notes', `${slug}.mdx`)
+  try {
+    const content = await fs.readFile(notePath, 'utf8')
+    const { data, content: markdown } = matter(content)
+    
+    return {
+      ...data,
+      content: markdown,
+      slug,
+    } as Note & { content: string }
+  } catch (error) {
+    // If not found in notes, try other content directories
+    const contentPath = path.join(process.cwd(), 'content', `${slug}.mdx`)
+    const content = await fs.readFile(contentPath, 'utf8')
+    const { data, content: markdown } = matter(content)
+    
+    return {
+      ...data,
+      content: markdown,
+      slug,
+    } as Note & { content: string }
+  }
 } 

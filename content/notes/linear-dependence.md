@@ -22,6 +22,22 @@ $$
 
 If no such scalars exist (or equivalently, if $c_1v_1 + c_2v_2 + \dots + c_nv_n = \mathbf{0}$ implies all $c_i = 0$), then the vectors are linearly independent.
 
+### Visual Examples
+
+<img 
+  src="/assets/images/LinDep.png" 
+  alt="Linearly Dependent Vectors Example" 
+  width={600} 
+  height={400} 
+/>
+
+<img 
+  src="/assets/images/LinIndep.png" 
+  alt="Linearly Independent Vectors Example" 
+  width={600} 
+  height={400} 
+/>
+
 ## Examples
 ### In $\mathbb{R}^2$
 Consider the vectors:

@@ -5,10 +5,26 @@ export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // Handle legacy routes
-  if (pathname.startsWith('/notes/') || pathname.startsWith('/base/')) {
+  if (pathname.startsWith('/notes/')) {
     const slug = pathname.split('/').slice(2).join('/')
     return NextResponse.redirect(
-      new URL(`/content/${slug}`, request.url)
+      new URL(`/content/notes/${slug}`, request.url)
+    )
+  }
+
+  // Handle base routes
+  if (pathname.startsWith('/base/')) {
+    const slug = pathname.split('/').slice(2).join('/')
+    return NextResponse.redirect(
+      new URL(`/content/pages/${slug}`, request.url)
+    )
+  }
+
+  // Handle tutorial routes
+  if (pathname.startsWith('/tutorials/')) {
+    const slug = pathname.split('/').slice(2).join('/')
+    return NextResponse.redirect(
+      new URL(`/content/tutorials/${slug}`, request.url)
     )
   }
 

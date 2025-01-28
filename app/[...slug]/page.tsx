@@ -37,14 +37,12 @@ export default async function DynamicPage({ params }: Props) {
     const note = notes.find((note): note is Note => {
       // Check various path patterns
       return (
-        // Direct category/slug match (e.g., /notes/vector-spaces)
-        (note.category === params.slug[0] && note.slug === lastSlug) ||
+        // Direct category/slug match (e.g., /content/notes/vector-spaces)
+        (params.slug[0] === 'content' && note.category === params.slug[1] && note.slug === lastSlug) ||
         // Pages in root (e.g., /about)
-        (note.category === 'pages' && note.slug === lastSlug) ||
-        // Tutorial materials (e.g., /tutorials/week-1)
-        (note.category === 'tutorials' && note.slug === lastSlug) ||
-        // Single slug match for root pages
-        (params.slug.length === 1 && note.slug === params.slug[0])
+        (params.slug.length === 1 && note.category === 'pages' && note.slug === params.slug[0]) ||
+        // Tutorial materials (e.g., /content/tutorials/week-1)
+        (params.slug[0] === 'content' && params.slug[1] === 'tutorials' && note.category === 'tutorials' && note.slug === lastSlug)
       )
     })
 

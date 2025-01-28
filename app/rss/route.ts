@@ -14,9 +14,9 @@ export async function GET() {
       .map((note) => `
         <entry>
           <title>${note.title}</title>
-          <link href="https://apsc174.vercel.app/notes/${note.slug}"/>
+          <link href="https://apsc174.vercel.app/content/notes/${note.slug}"/>
           <updated>${new Date().toISOString()}</updated>
-          <id>https://apsc174.vercel.app/notes/${note.slug}</id>
+          <id>https://apsc174.vercel.app/content/notes/${note.slug}</id>
           <content type="html"><![CDATA[${note.description || ''}]]></content>
         </entry>
       `)
