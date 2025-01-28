@@ -9,5 +9,8 @@ export const routes = {
   'outro': '/pages/outro',
   'videos': '/pages/videos',
   'tutorials': '/tutorials',
-  'course resources': '/base/course-resources'
+  'course resources': '/base/course-resources',
+  'syllabus.pdf': '/base/syllabus.pdf',
+  'mansouri-notes.pdf': '/base/mansouri-notes.pdf',
+  'first-year-resources.pdf': '/base/first-year-resources.pdf'
 } as const 

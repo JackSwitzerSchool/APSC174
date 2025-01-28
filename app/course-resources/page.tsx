@@ -1,5 +1,5 @@
 import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { notFound } from 'next/navigation'
+import { redirect, notFound } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
 const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
@@ -9,28 +9,9 @@ const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
 
 export default async function CourseResourcesPage() {
   try {
-    const posts = await getBlogPosts()
-    const courseResources = posts.find(
-      (post): post is BlogPost => 
-        post.originalFilename === 'course-resources.md' && 
-        post.category === 'base'
-    )
-
-    if (!courseResources?.content) {
-      console.error('Course resources content not found')
-      notFound()
-    }
-
-    return (
-      <section>
-        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-          {courseResources.metadata?.title || 'Course Resources'}
-        </h1>
-        <div className="prose prose-neutral dark:prose-invert">
-          <MDXContent source={courseResources.content} />
-        </div>
-      </section>
-    )
+    // Redirect to the base version of course-resources
+    redirect('/base/course-resources')
+    
   } catch (error) {
     console.error('Error in CourseResourcesPage:', error)
     notFound()

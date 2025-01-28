@@ -14,9 +14,23 @@ export default function middleware(request: NextRequest) {
     }
   }
 
+  // Handle PDF files in base directory
+  if (pathname.endsWith('.pdf') && !pathname.startsWith('/base/')) {
+    return NextResponse.redirect(
+      new URL(`/base${pathname}`, request.url)
+    )
+  }
+
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/course-resources', '/midterm-1', '/midterm-2', '/webwork', '/final-exam']
+  matcher: [
+    '/course-resources',
+    '/midterm-1', 
+    '/midterm-2', 
+    '/webwork', 
+    '/final-exam',
+    '/((?!api|_next/static|_next/image|favicon.ico).*)'
+  ]
 } 
