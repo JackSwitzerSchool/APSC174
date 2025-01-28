@@ -5,18 +5,27 @@ export default function WikiLink({ href, children, embedded }: any) {
   // Clean up the href by removing special characters and converting to lowercase
   const cleanHref = href.toLowerCase().replace(/[^a-z0-9-]/g, '-')
   
-  
-  // Handle special cases
+  // Handle special cases - base pages and other special routes
+  const basePages = ['midterm-1', 'midterm-2', 'webwork', 'final-exam', 'course-resources']
   const specialRoutes: Record<string, string> = {
-    'course-resources': '/base/course-resources',
-    'webwork': '/base/webwork',
     'notation': '/notes/notation',
-    'intern-v1': '/internships/intern-v1',
-    'midterm-1': '/base/midterm-1',
-    'midterm-2': '/base/midterm-2',
-    'final-exam': '/base/final-exam'
+    'intern-v1': '/internships/intern-v1'
   }
 
+  // Check if it's a base page first
+  if (basePages.includes(cleanHref)) {
+    return (
+      <Link 
+        href={`/base/${cleanHref}`}
+        prefetch={false}
+        className="text-blue-500 hover:text-blue-600 hover:underline"
+      >
+        {children || href}
+      </Link>
+    )
+  }
+
+  // Then check other special routes
   if (specialRoutes[cleanHref]) {
     return (
       <Link 
