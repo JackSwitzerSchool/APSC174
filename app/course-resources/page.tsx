@@ -1,19 +1,21 @@
-import { getBlogPosts, type BlogPost } from '@/app/notes/utils'
-import { redirect, notFound } from 'next/navigation'
-import dynamic from 'next/dynamic'
+import { getNotes } from '@/app/notes/utils'
+import Notes from '@/app/components/notes'
 
-const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>
-})
+export const metadata = {
+  title: 'Course Resources',
+  description: 'Additional course resources and materials.',
+}
 
 export default async function CourseResourcesPage() {
-  try {
-    // Redirect to the base version of course-resources
-    redirect('/base/course-resources')
-    
-  } catch (error) {
-    console.error('Error in CourseResourcesPage:', error)
-    notFound()
-  }
+  const notes = await getNotes()
+  const resources = notes.filter(note => note.category === 'resources')
+  
+  return (
+    <section>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+        Course Resources
+      </h1>
+      <Notes notes={resources} />
+    </section>
+  )
 }

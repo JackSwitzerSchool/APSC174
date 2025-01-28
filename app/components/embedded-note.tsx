@@ -2,30 +2,27 @@
 
 import { useEffect, useState } from 'react'
 import MDXContent from './mdx-content'
+import type { Content } from '@/lib/content-types'
 
 interface EmbeddedNoteProps {
   slug: string
 }
 
 export default function EmbeddedNote({ slug }: EmbeddedNoteProps) {
-  const [content, setContent] = useState<any>(null)
+  const [content, setContent] = useState<Content | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch(`/api/notes?slug=${encodeURIComponent(slug)}`)
+        const response = await fetch(`/api/content?slug=${encodeURIComponent(slug)}`)
         if (!response.ok) {
-          throw new Error('Failed to fetch note')
+          throw new Error('Failed to fetch content')
         }
         const data = await response.json()
-        if (data.content) {
-          setContent(data.content)
-        } else {
-          setError(`Note "${slug}" not found`)
-        }
+        setContent(data)
       } catch (err) {
-        setError('Failed to load note content')
+        setError('Failed to load content')
       }
     }
 
@@ -37,7 +34,8 @@ export default function EmbeddedNote({ slug }: EmbeddedNoteProps) {
 
   return (
     <div className="embedded-note border-l-4 border-gray-200 pl-4 my-4">
-      <MDXContent source={content} />
+      <h3 className="font-semibold text-lg mb-2">{content.meta.title}</h3>
+      <MDXContent source={content.content} />
     </div>
   )
 } 

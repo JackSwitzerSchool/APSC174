@@ -4,25 +4,24 @@ import type { NextRequest } from 'next/server'
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Handle base pages
-  const basePages = ['course-resources', 'midterm-1', 'midterm-2', 'webwork', 'final-exam']
-  for (const page of basePages) {
-    if (pathname.toLowerCase() === `/${page}`) {
-      return NextResponse.redirect(
-        new URL(`/base/${page}`, request.url)
-      )
-    }
+  // Handle legacy routes
+  if (pathname.startsWith('/notes/') || pathname.startsWith('/base/')) {
+    const slug = pathname.split('/').slice(2).join('/')
+    return NextResponse.redirect(
+      new URL(`/content/${slug}`, request.url)
+    )
   }
 
   // Handle PDF files
   if (pathname.endsWith('.pdf')) {
-    // If it's already in the base directory or past-exams, serve it
-    if (pathname.startsWith('/base/')) {
+    // If it's already in the assets directory, serve it
+    if (pathname.startsWith('/content/assets/')) {
       return NextResponse.next()
     }
-    // Otherwise, redirect to base directory
+    // Otherwise, redirect to assets directory
+    const pdfName = pathname.split('/').pop()
     return NextResponse.redirect(
-      new URL(`/base${pathname}`, request.url)
+      new URL(`/content/assets/pdfs/${pdfName}`, request.url)
     )
   }
 
@@ -31,12 +30,9 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/course-resources',
-    '/midterm-1', 
-    '/midterm-2', 
-    '/webwork', 
-    '/final-exam',
+    // Match all paths except static files and API routes
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
-    '/:path*/:file*.pdf'  // Handle nested PDF paths
+    // Match PDF files specifically
+    '/:path*/:file*.pdf'
   ]
 } 

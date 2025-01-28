@@ -1,212 +1,45 @@
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-import remarkWikiLink from 'remark-wiki-link'
-import matter from 'gray-matter'
-import path from 'path'
 import { promises as fs } from 'fs'
-import type { Plugin } from 'unified'
+import path from 'path'
+import matter from 'gray-matter'
 
-const ALLOWED_CATEGORIES = ['notes', 'tutorials', 'base', 'internships']
-
-const CACHE_FILE = path.join(process.cwd(), '.next/cache/mdx-cache.json')
-
-// Add cache invalidation time
-const CACHE_INVALIDATION_TIME = 1000 * 60 * 60 // 1 hour
-
-// Memoize MDX processing results
-const mdxProcessingCache = new Map<string, MDXRemoteSerializeResult>()
-
-// Define wiki link configuration
-const wikiLinkConfig = {
-  pageResolver: (name: string) => {
-    const cleanName = name.replace(/^!/, '').split('|')[0].trim()
-    const slug = cleanName.toLowerCase().replace(/[^a-z0-9-]/g, '-')
-    
-    // Handle special cases
-    const specialRoutes: Record<string, string[]> = {
-      'webwork': ['base/webwork'],
-      'notation': ['notes/notation'],
-      'intern-v1': ['internships/intern-v1']
-    }
-    
-    return specialRoutes[slug] || [slug]
-  },
-  hrefTemplate: (permalink: string) => {
-    // Check if the permalink includes a category prefix
-    if (permalink.includes('/')) {
-      return `/${permalink}`
-    }
-    return `/notes/${permalink}`
-  },
-  aliasDivider: '|',
-  wikiLinkClassName: 'wiki-link'
-}
-
-// Optimize MDX serialization by reusing remark/rehype plugins
-const mdxOptions = {
-  parseFrontmatter: false,
-  mdxOptions: {
-    remarkPlugins: [
-      remarkMath,
-      [remarkWikiLink, wikiLinkConfig]
-    ] as Array<[Plugin, any] | Plugin>,
-    rehypePlugins: [rehypeKatex],
-    development: process.env.NODE_ENV === 'development'
-  }
-}
-
-async function serializeMDX(content: string, filePath: string): Promise<MDXRemoteSerializeResult> {
-  const cacheKey = `${filePath}:${content}`
-  
-  if (mdxProcessingCache.has(cacheKey)) {
-    return mdxProcessingCache.get(cacheKey)!
-  }
-
-  const serialized = await serialize(content.trim(), mdxOptions)
-  mdxProcessingCache.set(cacheKey, serialized)
-  return serialized
-}
-
-async function loadFromCache() {
-  try {
-    const cache = await fs.readFile(CACHE_FILE, 'utf8')
-    const { data, timestamp } = JSON.parse(cache)
-    
-    // Check if cache is still valid
-    if (Date.now() - timestamp < CACHE_INVALIDATION_TIME) {
-      return data
-    }
-    return null
-  } catch {
-    return null
-  }
-}
-
-async function saveToCache(data: any) {
-  const cacheData = {
-    data,
-    timestamp: Date.now()
-  }
-  await fs.mkdir(path.dirname(CACHE_FILE), { recursive: true })
-  await fs.writeFile(CACHE_FILE, JSON.stringify(cacheData))
-}
-
-export function formatDate(date: string, includeTime: boolean = false) {
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }
-  if (includeTime) {
-    options.hour = 'numeric'
-    options.minute = 'numeric'
-  }
-  return new Date(date).toLocaleDateString('en-US', options)
-}
-
-export type BlogPost = {
-  content: MDXRemoteSerializeResult & {
-    compiledSource: string
-  }
+interface Note {
+  title: string
   slug: string
-  category: string
-  metadata: {
-    title: string
-    publishedAt: string
-    summary?: string
-    image?: string
-    link?: string
-  }
-  originalFilename: string
+  [key: string]: any
 }
 
-function normalizeSlug(slug: string): string {
-  const normalized = slug.toLowerCase().replace(/\.md$/, '').replace(/\s+/g, '-')
-  console.log(`Normalizing slug: ${slug} -> ${normalized}`)
-  return normalized
-}
-
-// Add caching for processed MDX content
-const mdxCache = new Map<string, BlogPost[]>()
-
-export async function getBlogPosts(): Promise<BlogPost[]> {
-  // Try loading from cache first
-  const cached = await loadFromCache()
-  if (cached) return cached
-
-  // Check if we have cached results
-  const cacheKey = 'all-posts'
-  if (mdxCache.has(cacheKey)) {
-    return mdxCache.get(cacheKey)!
-  }
-
-  const posts: BlogPost[] = []
-  const directories = {
-    notes: path.join(process.cwd(), 'public/notes'),
-    base: path.join(process.cwd(), 'public/base'),
-    tutorials: path.join(process.cwd(), 'public/tutorials'),
-    internships: path.join(process.cwd(), 'public/internships')
-  }
-
-  // Process all directories in parallel
-  await Promise.all(
-    Object.entries(directories).map(async ([category, dir]) => {
-      try {
-        const files = await fs.readdir(dir)
-        const mdFiles = files.filter(file => file.endsWith('.md'))
-
-        await Promise.all(
-          mdFiles.map(async file => {
-            try {
-              const filePath = path.join(dir, file)
-              const content = await fs.readFile(filePath, 'utf8')
-              const { data: metadata, content: markdownContent } = matter(content)
-
-              if (!markdownContent?.trim()) {
-                console.warn(`Empty content in file: ${file}`)
-                return
-              }
-
-              const serializedContent = await serializeMDX(markdownContent, filePath)
-
-              if (!serializedContent || !serializedContent.compiledSource) {
-                console.warn(`Failed to serialize content for file: ${file}`)
-                return
-              }
-
-              const slug = normalizeSlug(file.replace(/\.md$/, ''))
-              const fileCategory = metadata.category || category
-
-              posts.push({
-                content: serializedContent,
-                slug,
-                category: fileCategory,
-                metadata: {
-                  title: metadata.title || slug,
-                  publishedAt: metadata.publishedAt || new Date().toISOString(),
-                  summary: metadata.summary,
-                  image: metadata.image,
-                  link: metadata.link
-                },
-                originalFilename: file
-              })
-            } catch (error) {
-              console.error(`Error processing file ${file} in ${category}:`, error)
-            }
-          })
-        )
-      } catch (error) {
-        console.error(`Error processing directory ${dir}:`, error)
-      }
+export async function getNotes(): Promise<Note[]> {
+  const notesDirectory = path.join(process.cwd(), 'content/notes')
+  const files = await fs.readdir(notesDirectory)
+  
+  const notes = await Promise.all(
+    files.map(async (file) => {
+      const filePath = path.join(notesDirectory, file)
+      const content = await fs.readFile(filePath, 'utf8')
+      const { data } = matter(content)
+      
+      return {
+        ...data,
+        slug: file.replace(/\.mdx?$/, ''),
+      } as Note
     })
   )
 
-  // Cache the results
-  mdxCache.set(cacheKey, posts)
-
-  // Save to cache
-  await saveToCache(posts)
-  return posts
+  return notes.sort((a, b) => {
+    if (a.title < b.title) return -1
+    if (a.title > b.title) return 1
+    return 0
+  })
 }
+
+export async function getNote(slug: string): Promise<Note & { content: string }> {
+  const filePath = path.join(process.cwd(), 'content/notes', `${slug}.mdx`)
+  const content = await fs.readFile(filePath, 'utf8')
+  const { data, content: markdown } = matter(content)
+  
+  return {
+    ...data,
+    content: markdown,
+    slug,
+  } as Note & { content: string }
+} 

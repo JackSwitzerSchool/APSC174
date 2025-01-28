@@ -1,15 +1,20 @@
-import { getBlogPosts } from './notes/utils'
+import { getNotes } from '@/app/notes/utils'
 import { MetadataRoute } from 'next'
 
-export const baseUrl = 'https://apsc174.jackswitzer.ca'
+interface Note {
+  slug: string
+  category?: string
+}
+
+export const baseUrl = 'https://apsc174.vercel.app'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getBlogPosts()
+  const notes = await getNotes()
   
   // Filter out posts that should have their own routes
-  const filteredPosts = posts.filter(post => {
-    if (post.category === 'tutorials' || 
-        (post.category === 'base' && post.slug === 'course-resources')) {
+  const filteredPosts = notes.filter((note: Note) => {
+    if (note.category === 'tutorials' || 
+        (note.category === 'base' && note.slug === 'course-resources')) {
       return false
     }
     return true
@@ -32,8 +37,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/course-resources`,
       lastModified: new Date(),
     },
-    ...filteredPosts.map((post) => ({
-      url: `${baseUrl}/notes/${post.slug}`,
+    ...filteredPosts.map((note: Note) => ({
+      url: `${baseUrl}/notes/${note.slug}`,
       lastModified: new Date(),
     })),
   ]

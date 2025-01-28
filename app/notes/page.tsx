@@ -1,17 +1,20 @@
-import { BlogPosts } from '@/app/components/posts'
+import Notes from '@/app/components/notes'
+import { getNotes } from './utils'
 
 export const metadata = {
   title: 'Notes',
   description: 'Course notes and materials.',
 }
 
-export default function NotesPage() {
+export default async function NotesPage() {
+  const notes = await getNotes()
+  
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
         Course Notes
       </h1>
-      <BlogPosts category="notes" />
+      <Notes notes={notes} />
     </section>
   )
 } 

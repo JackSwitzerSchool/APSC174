@@ -1,36 +1,31 @@
-import { baseUrl } from '@/app/sitemap'
-import { getBlogPosts } from '@/app/notes/utils'
+import { getNotes } from '@/app/notes/utils'
 
 export async function GET() {
-  const posts = await getBlogPosts()
+  const notes = await getNotes()
+  const feed = `<?xml version="1.0" encoding="utf-8"?>
+  <feed xmlns="http://www.w3.org/2005/Atom">
+    <title>APSC 174 Notes</title>
+    <subtitle>Course notes and materials for APSC 174: Linear Algebra for Engineers</subtitle>
+    <link href="https://apsc174.vercel.app/atom" rel="self"/>
+    <link href="https://apsc174.vercel.app"/>
+    <updated>${new Date().toISOString()}</updated>
+    <id>https://apsc174.vercel.app</id>
+    ${notes
+      .map((note) => `
+        <entry>
+          <title>${note.title}</title>
+          <link href="https://apsc174.vercel.app/notes/${note.slug}"/>
+          <updated>${new Date().toISOString()}</updated>
+          <id>https://apsc174.vercel.app/notes/${note.slug}</id>
+          <content type="html"><![CDATA[${note.description || ''}]]></content>
+        </entry>
+      `)
+      .join('')}
+  </feed>`
 
-  // Filter out posts that are in the tutorials or course-resources categories
-  const notePosts = posts.filter(post => 
-    post.category === 'notes' && 
-    post.slug !== 'tutorials' && 
-    post.slug !== 'course-resources'
-  )
-
-  const rss = `<?xml version="1.0" encoding="UTF-8" ?>
-    <rss version="2.0">
-      <channel>
-        <title>APSC 174</title>
-        <link>${baseUrl}</link>
-        <description>Linear Algebra for Engineering Applications</description>
-        ${notePosts.map(post => `
-          <item>
-            <title>${post.metadata?.title || post.slug}</title>
-            <link>${baseUrl}/notes/${post.slug}</link>
-            <description>${post.metadata?.summary || ''}</description>
-            ${post.metadata?.publishedAt ? `<pubDate>${new Date(post.metadata.publishedAt).toUTCString()}</pubDate>` : ''}
-          </item>
-        `).join('')}
-      </channel>
-    </rss>`
-
-  return new Response(rss, {
+  return new Response(feed, {
     headers: {
-      'Content-Type': 'text/xml',
+      'Content-Type': 'application/atom+xml; charset=utf-8',
     },
   })
 }
