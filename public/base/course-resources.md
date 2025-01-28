@@ -6,9 +6,9 @@ summary: 'Course materials and PDF resources.'
 
 ## Course Material
 
-- Syllabus: [Download](/course-materials/syllabus.pdf)
-- Mansouri Notes: [Download](/course-materials/mansouri-notes.pdf)
-- First Year Resources: [Download](/course-materials/first-year-resources.pdf)
+- Syllabus: [Download](/base/course-materials/syllabus.pdf)
+- Mansouri Notes: [Download](/base/course-materials/mansouri-notes.pdf)
+- First Year Resources: [Download](/base/course-materials/first-year-resources.pdf)
 - Textbook: Email Me
 
 ## Course Calendar
