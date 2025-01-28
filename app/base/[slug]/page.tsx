@@ -11,9 +11,12 @@ export default async function BasePage({ params }: { params: { slug: string } })
   try {
     const posts = await getBlogPosts()
     const post = posts.find(
-      (post): post is BlogPost => 
-        post.category === 'base' && 
-        post.slug === params.slug
+      (post): post is BlogPost => {
+        // Check both base category and direct slug match
+        return (post.category === 'base' && post.slug === params.slug) ||
+               // Also check for files directly in base directory
+               (post.slug === `base/${params.slug}`)
+      }
     )
 
     if (!post?.content) {
