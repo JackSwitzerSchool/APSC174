@@ -16,7 +16,7 @@ export default function middleware(request: NextRequest) {
 
   // Handle PDF files
   if (pathname.endsWith('.pdf')) {
-    // If it's already in the base directory, serve it
+    // If it's already in the base directory or past-exams, serve it
     if (pathname.startsWith('/base/')) {
       return NextResponse.next()
     }
@@ -37,6 +37,6 @@ export const config = {
     '/webwork', 
     '/final-exam',
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
-    '/:path*.pdf'
+    '/:path*/:file*.pdf'  // Handle nested PDF paths
   ]
 } 

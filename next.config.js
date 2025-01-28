@@ -34,7 +34,11 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Handle PDF files in base directory
+      // Handle PDF files in base directory and subdirectories
+      {
+        source: '/base/:path*/:file*.pdf',
+        destination: '/base/:path*/:file*.pdf',
+      },
       {
         source: '/base/:file*.pdf',
         destination: '/base/:file*.pdf',
