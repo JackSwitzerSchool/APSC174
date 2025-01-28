@@ -15,49 +15,26 @@ const staticNavItems = {
     name: 'notes',
     order: 1
   },
+  '/content/course-resources': {
+    name: 'course resources',
+    order: 2
+  },
+  '/content/videos': {
+    name: 'videos',
+    order: 3
+  },
   '/content/tutorials': {
     name: 'tutorials',
-    order: 2
+    order: 4
+  },
+  '/content/internships': {
+    name: 'internships',
+    order: 5
   }
 }
 
 export function Navbar() {
   const pathname = usePathname() || '/'
-  const [dynamicNavItems, setDynamicNavItems] = useState<Record<string, { name: string, order: number }>>({})
-
-  useEffect(() => {
-    // Fetch navigation items from content API
-    async function loadNavItems() {
-      try {
-        const response = await fetch('/api/content?type=page&displayInNotes=true')
-        if (!response.ok) throw new Error('Failed to fetch navigation items')
-        
-        const data: Content[] = await response.json()
-        
-        // Convert content items to nav items
-        const items = data.reduce((acc, item) => {
-          acc[`/content/${item.meta.slug}`] = {
-            name: item.meta.title.toLowerCase(),
-            order: item.meta.order || 99 // Default to end if no order specified
-          }
-          return acc
-        }, {} as Record<string, { name: string, order: number }>)
-
-        setDynamicNavItems(items)
-      } catch (error) {
-        console.error('Error loading navigation items:', error)
-      }
-    }
-
-    loadNavItems()
-  }, [])
-
-  // Combine static and dynamic nav items
-  const allNavItems = { ...staticNavItems, ...dynamicNavItems }
-
-  // Sort nav items by order
-  const sortedNavItems = Object.entries(allNavItems)
-    .sort(([, a], [, b]) => a.order - b.order)
 
   return (
     <aside className="-ml-[8px] mb-16 tracking-tight">
@@ -67,7 +44,7 @@ export function Navbar() {
           id="nav"
         >
           <div className="flex flex-row space-x-0 pr-10">
-            {sortedNavItems.map(([path, { name }]) => {
+            {Object.entries(staticNavItems).map(([path, { name }]) => {
               const isActive = pathname === path ||
                 (path !== '/' && pathname.startsWith(path))
 

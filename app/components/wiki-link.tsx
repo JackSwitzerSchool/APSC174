@@ -107,7 +107,7 @@ export default function WikiLink({ href, children, embedded = false }: WikiLinkP
   const cleanPath = linkInfo.path.toLowerCase().replace(/[^a-z0-9-]/g, '-')
   return (
     <Link
-      href={`/notes/${cleanPath}`}
+      href={`/content/${cleanPath}`}
       prefetch={false}
       className="text-blue-500 hover:text-blue-600 hover:underline"
     >

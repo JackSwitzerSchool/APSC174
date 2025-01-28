@@ -4,7 +4,7 @@ interface YouTubeEmbedProps {
 
 export default function YouTubeEmbed({ videoId }: YouTubeEmbedProps) {
   return (
-    <div className="relative pb-[56.25%] h-0 overflow-hidden max-w-full my-4">
+    <div className="relative pb-[56.25%] h-0 overflow-hidden max-w-full">
       <iframe
         src={`https://www.youtube.com/embed/${videoId}`}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
