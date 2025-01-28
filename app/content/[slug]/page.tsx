@@ -34,7 +34,7 @@ export default async function ContentPage({ params }: { params: { slug: string }
               {content.meta.relatedContent.map(slug => (
                 <li key={slug}>
                   <a 
-                    href={`/content/${slug}`}
+                    href={`/content/notes/${slug}`}
                     className="text-blue-500 hover:text-blue-600 hover:underline"
                   >
                     {slug}

@@ -15,7 +15,7 @@ export default function EmbeddedNote({ slug }: EmbeddedNoteProps) {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch(`/api/content?slug=${encodeURIComponent(slug)}`)
+        const response = await fetch(`/api/content?type=note&slug=${encodeURIComponent(slug)}`)
         if (!response.ok) {
           throw new Error('Failed to fetch content')
         }
