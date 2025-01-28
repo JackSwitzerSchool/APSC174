@@ -47,26 +47,41 @@ export async function getNotes(): Promise<Note[]> {
 }
 
 export async function getNote(slug: string): Promise<Note & { content: string }> {
-  const notePath = path.join(process.cwd(), 'content/notes', `${slug}.mdx`)
-  const mdPath = path.join(process.cwd(), 'content/notes', `${slug}.md`)
+  const extensions = ['.mdx', '.md']
+  const notesDir = path.join(process.cwd(), 'content/notes')
   
-  try {
-    // Try MDX first
-    const content = await fs.readFile(notePath, 'utf8')
-    const { data, content: markdown } = matter(content)
-    return {
-      ...data,
-      content: markdown,
-      slug,
-    } as Note & { content: string }
-  } catch {
-    // Try MD if MDX doesn't exist
-    const content = await fs.readFile(mdPath, 'utf8')
-    const { data, content: markdown } = matter(content)
-    return {
-      ...data,
-      content: markdown,
-      slug,
-    } as Note & { content: string }
+  for (const ext of extensions) {
+    const filePath = path.join(notesDir, `${slug}${ext}`)
+    try {
+      const content = await fs.readFile(filePath, 'utf8')
+      const { data, content: markdown } = matter(content)
+      
+      // If no category is specified, determine it based on filename
+      if (!data.category) {
+        if (slug.startsWith('tutorial') || slug.includes('week-')) {
+          data.category = 'tutorials'
+        } else if (slug === 'course-resources' || slug.match(/midterm|final|webwork/i)) {
+          data.category = 'resources'
+        } else if (slug === 'intern-v1') {
+          data.category = 'internships'
+        } else {
+          data.category = 'notes'
+        }
+      }
+      
+      return {
+        ...data,
+        content: markdown,
+        slug,
+      } as Note & { content: string }
+    } catch (error) {
+      // Continue to next extension if file not found
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        continue
+      }
+      throw error
+    }
   }
+  
+  throw new Error(`Note not found: ${slug}`)
 } 

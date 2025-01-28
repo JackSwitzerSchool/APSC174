@@ -1,7 +1,8 @@
-import { getNotes } from '@/app/notes/utils'
+import { getNotes, getNote } from '@/app/notes/utils'
 import { notFound } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
 
 const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
   ssr: false,
@@ -13,9 +14,6 @@ interface Note {
   title: string
   category?: string
   content?: MDXRemoteSerializeResult
-  metadata?: {
-    title?: string
-  }
 }
 
 interface Props {
@@ -34,7 +32,7 @@ export default async function DynamicPage({ params }: Props) {
     const lastSlug = params.slug[params.slug.length - 1]
     
     const notes = await getNotes()
-    const note = notes.find((note): note is Note => {
+    const noteMatch = notes.find((note) => {
       // Check various path patterns
       return (
         // Direct category/slug match (e.g., /content/notes/vector-spaces)
@@ -48,18 +46,22 @@ export default async function DynamicPage({ params }: Props) {
       )
     })
 
-    if (!note?.content) {
+    if (!noteMatch) {
       console.error(`Note not found for path: ${fullPath}`)
       notFound()
     }
 
+    // Fetch the full note content
+    const fullNote = await getNote(noteMatch.slug)
+    const mdxSource = await serialize(fullNote.content)
+
     return (
       <article>
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-          {note.metadata?.title || note.title}
+          {fullNote.title}
         </h1>
         <div className="prose prose-neutral dark:prose-invert">
-          <MDXContent source={note.content} />
+          <MDXContent source={mdxSource} />
         </div>
       </article>
     )
