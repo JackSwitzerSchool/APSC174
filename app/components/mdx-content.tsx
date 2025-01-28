@@ -8,9 +8,16 @@ import dynamic from 'next/dynamic'
 const components = {
   a: memo(({ href, children, ...props }: any) => {
     if (!href) return null
+
     // Handle PDF links
-    if (href.endsWith('.pdf')) {
-      const formattedHref = href.startsWith('/') ? href : `/${href}`
+    if (href?.endsWith('.pdf')) {
+      // Handle both absolute and relative PDF paths
+      const formattedHref = href.startsWith('http') 
+        ? href 
+        : href.startsWith('/') 
+          ? href 
+          : `/base/${href}`
+
       return (
         <a 
           href={formattedHref}
@@ -23,6 +30,7 @@ const components = {
         </a>
       )
     }
+
     // Handle external links
     if (href.startsWith('http')) {
       return (
@@ -31,6 +39,7 @@ const components = {
         </a>
       )
     }
+
     const Link = dynamic(() => import('next/link'))
     return (
       <Link href={href} {...props}>
