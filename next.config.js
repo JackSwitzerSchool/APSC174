@@ -34,6 +34,11 @@ const nextConfig = {
   },
   async rewrites() {
     return [
+      // Handle PDF files in base directory
+      {
+        source: '/base/:file*.pdf',
+        destination: '/base/:file*.pdf',
+      },
       // Handle markdown files without extension
       {
         source: '/:file((?!notes|tutorials|course-resources).*)',

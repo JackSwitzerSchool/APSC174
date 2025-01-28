@@ -7,9 +7,22 @@ export default function WikiLink({ href, children, embedded }: any) {
   
   // Handle PDF files
   if (cleanHref.endsWith('.pdf')) {
+    // If the href already includes /base/, use it as is
+    if (href.startsWith('/base/')) {
+      return (
+        <Link 
+          href={href}
+          prefetch={false}
+          className="text-blue-500 hover:text-blue-600 hover:underline"
+        >
+          {children || href}
+        </Link>
+      )
+    }
+    // Otherwise, add /base/ prefix
     return (
       <Link 
-        href={`/base/${cleanHref}`}
+        href={`/base/${href}`}
         prefetch={false}
         className="text-blue-500 hover:text-blue-600 hover:underline"
       >
