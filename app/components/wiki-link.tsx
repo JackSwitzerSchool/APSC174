@@ -9,7 +9,9 @@ export default function WikiLink({ href, children, embedded }: any) {
   const basePages = ['midterm-1', 'midterm-2', 'webwork', 'final-exam', 'course-resources']
   const specialRoutes: Record<string, string> = {
     'notation': '/notes/notation',
-    'intern-v1': '/internships/intern-v1'
+    'intern-v1': '/internships/intern-v1',
+    // Add route from week-4 to midterm-1
+    'midterm-1': '/base/midterm-1'
   }
 
   // Check if it's a base page first
