@@ -65,7 +65,7 @@ const components = {
     // Handle image paths
     const formattedSrc = src.startsWith('http') 
       ? src 
-      : src.startsWith('/') 
+      : src.startsWith('/content/assets/') 
         ? src 
         : `/content/assets/images/${src}`
 
@@ -73,7 +73,7 @@ const components = {
       <img 
         src={formattedSrc}
         alt={alt}
-        className="max-w-full h-auto rounded-lg"
+        className="max-w-full h-auto rounded-lg mx-auto my-4"
         loading="lazy"
         {...props}
       />

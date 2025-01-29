@@ -34,21 +34,27 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Handle PDF files in base directory and subdirectories
+      // Handle static assets
       {
-        source: '/base/:path*/:file*.pdf',
-        destination: '/base/:path*/:file*.pdf',
+        source: '/content/assets/:path*',
+        destination: '/content/assets/:path*',
       },
+      // Handle PDF files
       {
-        source: '/base/:file*.pdf',
-        destination: '/base/:file*.pdf',
+        source: '/content/assets/pdf/:path*',
+        destination: '/content/assets/pdf/:path*',
+      },
+      // Handle images
+      {
+        source: '/content/assets/images/:path*',
+        destination: '/content/assets/images/:path*',
       },
       // Handle markdown files without extension
       {
         source: '/:file((?!notes|tutorials|course-resources).*)',
         destination: '/base/:file',
       },
-      // Handle all tutorial content including Q&S
+      // Handle all tutorial content
       {
         source: '/tutorials/:path*',
         destination: '/tutorials/:path*',

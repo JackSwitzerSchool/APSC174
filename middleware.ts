@@ -4,6 +4,11 @@ import type { NextRequest } from 'next/server'
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
+  // Skip middleware for static assets
+  if (pathname.startsWith('/content/assets/')) {
+    return NextResponse.next()
+  }
+
   // Handle legacy routes
   if (pathname.startsWith('/content/notes/')) {
     const slug = pathname.split('/').slice(3).join('/')
@@ -47,7 +52,5 @@ export const config = {
   matcher: [
     // Match all paths except static files, API routes, and assets
     '/((?!api|_next/static|_next/image|favicon.ico|content/assets).*)',
-    // Match PDF files specifically
-    '/:path*/:file*.pdf'
   ]
 } 
