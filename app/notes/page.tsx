@@ -6,12 +6,21 @@ export const metadata = {
   description: 'All course notes and materials organized by topic.',
 }
 
+// Category display names
+const categoryDisplayNames: Record<string, string> = {
+  'foundations': 'Foundations',
+  'operations': 'Operations',
+  'functions': 'Functions',
+  'applications': 'Applications',
+  'weekly-content': 'Weekly Content'
+}
+
 export default async function NotesPage() {
   const notes = await getNotes()
   
   // Group notes by subcategory
   const notesByCategory = notes.reduce((acc, note) => {
-    const category = note.subcategory || 'Uncategorized'
+    const category = note.subcategory || 'foundations'
     if (!acc[category]) {
       acc[category] = []
     }
@@ -35,15 +44,17 @@ export default async function NotesPage() {
     })
   })
   
-  // Sort categories by weight first, then alphabetically
-  const sortedCategories = Object.keys(notesByCategory).sort((a, b) => {
-    const aWeight = notesByCategory[a][0]?.weight || 0
-    const bWeight = notesByCategory[b][0]?.weight || 0
-    if (aWeight !== bWeight) {
-      return aWeight - bWeight
-    }
-    return a.localeCompare(b)
-  })
+  // Get categories in the defined order
+  const sortedCategories = Object.keys(notesByCategory)
+    .filter(category => notesByCategory[category].length > 0) // Only show categories with notes
+    .sort((a, b) => {
+      const aIndex = Object.keys(categoryDisplayNames).indexOf(a)
+      const bIndex = Object.keys(categoryDisplayNames).indexOf(b)
+      if (aIndex === -1 && bIndex === -1) return a.localeCompare(b)
+      if (aIndex === -1) return 1
+      if (bIndex === -1) return -1
+      return aIndex - bIndex
+    })
   
   return (
     <section className="max-w-4xl mx-auto">
@@ -53,8 +64,10 @@ export default async function NotesPage() {
       <div className="grid gap-8">
         {sortedCategories.map((category) => (
           <div key={category} className="space-y-4">
-            <h2 className="font-medium text-xl tracking-tighter capitalize">
-              {category.replace(/-/g, ' ')}
+            <h2 className="font-medium text-xl tracking-tighter">
+              {categoryDisplayNames[category] || category.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+              ).join(' ')}
             </h2>
             <div className="pl-4 border-l-2 border-neutral-200 dark:border-neutral-800">
               <Notes notes={notesByCategory[category]} />

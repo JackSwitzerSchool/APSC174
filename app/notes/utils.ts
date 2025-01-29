@@ -11,6 +11,7 @@ interface Note {
   weight?: number
   isPublished?: boolean
   type?: string
+  displayInNotes?: boolean
   [key: string]: any
 }
 
@@ -30,7 +31,17 @@ const excludedSlugs = [
   'tutorialsHeader',
   'internships',
   'weekly-summary',
-  'weekly-reviews'
+  'weekly-reviews',
+  'finding-an-internship-v1'
+]
+
+// Main categories in preferred order
+const mainCategories = [
+  'foundations',
+  'operations',
+  'functions',
+  'applications',
+  'weekly-content'
 ]
 
 export async function getNotes(): Promise<Note[]> {
@@ -53,14 +64,21 @@ export async function getNotes(): Promise<Note[]> {
       // Map category if it exists in categoryMap
       const mappedCategory = data.category ? categoryMap[data.category] || data.category : 'notes'
       
+      // Handle weekly content subcategory
+      let subcategory = data.subcategory
+      if (data.subcategory?.startsWith('week-') || data.subcategory?.startsWith('Week')) {
+        subcategory = 'weekly-content'
+      }
+      
       return {
         ...data,
         slug: file.replace(/\.mdx?$/, ''),
         category: mappedCategory,
-        subcategory: data.subcategory || 'Uncategorized',
+        subcategory: subcategory || 'foundations',
         order: data.order || 0,
         weight: data.weight || 0,
-        isPublished: data.isPublished !== false // default to true if not specified
+        isPublished: data.isPublished !== false, // default to true if not specified
+        displayInNotes: data.displayInNotes !== false // default to true if not specified
       } as Note
     })
   )
@@ -70,17 +88,28 @@ export async function getNotes(): Promise<Note[]> {
     .filter(note => 
       !excludedSlugs.includes(note.slug) && 
       note.isPublished !== false &&
-      note.type !== 'page'
+      note.type !== 'page' &&
+      note.displayInNotes !== false &&
+      !note.slug.toLowerCase().includes('page') // Exclude any page.tsx files
     )
     .sort((a, b) => {
-      // First sort by order if available
+      // First sort by category order
+      const aCatIndex = mainCategories.indexOf(a.subcategory || '')
+      const bCatIndex = mainCategories.indexOf(b.subcategory || '')
+      if (aCatIndex !== -1 && bCatIndex !== -1 && aCatIndex !== bCatIndex) {
+        return aCatIndex - bCatIndex
+      }
+      
+      // Then by order if available
       if (a.order !== undefined && b.order !== undefined) {
         return a.order - b.order
       }
+      
       // Then by weight if available
       if (a.weight !== undefined && b.weight !== undefined) {
         return a.weight - b.weight
       }
+      
       // Finally by title
       return (a.title || '').localeCompare(b.title || '')
     })
