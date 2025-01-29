@@ -7,10 +7,7 @@ export const metadata = {
 }
 
 export default async function NotesPage() {
-  const allNotes = await getNotes()
-  
-  // Filter out weekly summaries and organize remaining notes by category
-  const notes = allNotes.filter(note => note.category !== 'weekly-summary')
+  const notes = await getNotes()
   
   // Group notes by subcategory
   const notesByCategory = notes.reduce((acc, note) => {
@@ -33,13 +30,20 @@ export default async function NotesPage() {
       if (a.weight !== undefined && b.weight !== undefined) {
         return a.weight - b.weight
       }
-      // Finally by title (safely)
+      // Finally by title
       return (a.title || '').localeCompare(b.title || '')
     })
   })
   
-  // Sort categories alphabetically
-  const sortedCategories = Object.keys(notesByCategory).sort()
+  // Sort categories by weight first, then alphabetically
+  const sortedCategories = Object.keys(notesByCategory).sort((a, b) => {
+    const aWeight = notesByCategory[a][0]?.weight || 0
+    const bWeight = notesByCategory[b][0]?.weight || 0
+    if (aWeight !== bWeight) {
+      return aWeight - bWeight
+    }
+    return a.localeCompare(b)
+  })
   
   return (
     <section className="max-w-4xl mx-auto">

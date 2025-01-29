@@ -9,6 +9,8 @@ interface Note {
   subcategory?: string
   order?: number
   weight?: number
+  isPublished?: boolean
+  type?: string
   [key: string]: any
 }
 
@@ -20,6 +22,16 @@ const categoryMap: Record<string, string> = {
   'resource': 'resources',
   'internship': 'internships'
 }
+
+// List of special pages to exclude from general notes listing
+const excludedSlugs = [
+  'page',
+  'course-resources',
+  'tutorialsHeader',
+  'internships',
+  'weekly-summary',
+  'weekly-reviews'
+]
 
 export async function getNotes(): Promise<Note[]> {
   const notesDirectory = path.join(process.cwd(), 'content/notes')
@@ -47,23 +59,31 @@ export async function getNotes(): Promise<Note[]> {
         category: mappedCategory,
         subcategory: data.subcategory || 'Uncategorized',
         order: data.order || 0,
-        weight: data.weight || 0
+        weight: data.weight || 0,
+        isPublished: data.isPublished !== false // default to true if not specified
       } as Note
     })
   )
 
-  return notes.sort((a, b) => {
-    // First sort by order if available
-    if (a.order !== undefined && b.order !== undefined) {
-      return a.order - b.order
-    }
-    // Then by weight if available
-    if (a.weight !== undefined && b.weight !== undefined) {
-      return a.weight - b.weight
-    }
-    // Finally by title
-    return (a.title || '').localeCompare(b.title || '')
-  })
+  // Filter out excluded pages, unpublished content, and special types
+  return notes
+    .filter(note => 
+      !excludedSlugs.includes(note.slug) && 
+      note.isPublished !== false &&
+      note.type !== 'page'
+    )
+    .sort((a, b) => {
+      // First sort by order if available
+      if (a.order !== undefined && b.order !== undefined) {
+        return a.order - b.order
+      }
+      // Then by weight if available
+      if (a.weight !== undefined && b.weight !== undefined) {
+        return a.weight - b.weight
+      }
+      // Finally by title
+      return (a.title || '').localeCompare(b.title || '')
+    })
 }
 
 export async function getNote(slug: string): Promise<Note & { content: string }> {
