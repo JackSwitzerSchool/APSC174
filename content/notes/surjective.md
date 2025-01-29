@@ -13,7 +13,7 @@ isPublished: true
 weight: 17
 ---
 
-Function surjectivity is when all elements of the co-domain are mapped to.
+A [[mapping|Function]] is surjective when all elements of the co-domain are mapped to.
 
 This is also called "Onto"
 
@@ -31,5 +31,5 @@ or "For all elements $y$ in $\mathbb{Y}$, there exists an $x$ in $\mathbb{X}$ su
 />
 
 ## Exercise
-Show that if two functions f and g are surjective so is $g \bullet f$
-Show an example of where $g \bullet f$ is surjective but $f$ is not
+Show that if two functions $f$ and $g$ are [[surjective|Surjective]] so is $g \bullet f$.
+Show an example of where $g \bullet f$ is [[surjective|Surjective]] but $f$ is not.

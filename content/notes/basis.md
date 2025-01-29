@@ -15,10 +15,10 @@ weight: 28
 
 ## Definition
 A basis for a [[vector-space|Vector Space]] $\mathbb{V}$ is a set of vectors that is:
-1. [[linear-dependence|Linearly independent]]
+1. [[linear-dependence|Linearly Independent]]
 2. [[vector-spans|Spans]] the entire space $\mathbb{V}$
 
-In other words, a basis is a minimal set of vectors that can generate the entire space through [[linear-combinations|linear combinations]].
+In other words, a basis is a minimal set of vectors that can generate the entire space through [[linear-combinations|Linear Combinations]].
 
 ## Standard Bases
 ### In $\mathbb{R}^n$
@@ -33,7 +33,7 @@ $$\{1, x, x^2, \dots, x^n\}$$
 
 ## Properties
 1. Every vector in the space has a unique representation as a linear combination of basis vectors
-2. All bases of a finite-dimensional vector space have the same size (called the dimension)
+2. All bases of a finite-dimensional vector space have the same size (called the [[vector-space|Dimension]])
 3. Any linearly independent set can be extended to a basis
 4. Any spanning set contains a basis
 

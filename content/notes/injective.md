@@ -13,7 +13,7 @@ isPublished: true
 weight: 16
 ---
 
-Function injectivity is when different elements of the domain are mapped to different elements of the codomain.
+A [[mapping|Function]] is injective when different elements of the domain are mapped to different elements of the codomain.
 
 This is also called "One-to-One"
 
@@ -30,5 +30,5 @@ or "For all elements $x_1, x_2$ in $\mathbb{X}$. If $f$ of $x_1$ equals $f$ of $
 />
 
 ## Exercise
-Show that if $g \bullet f$ is injective then $f$ is injective
-Show an example of where $g \bullet f$ is injective but $g$ is not
+Show that if $g \bullet f$ is [[injective|Injective]] then $f$ is [[injective|Injective]].
+Show an example of where $g \bullet f$ is [[injective|Injective]] but $g$ is not.

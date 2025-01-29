@@ -51,15 +51,15 @@ The polynomials $p_1(x) = x^2 + x$ and $p_2(x) = x^2 + x - 1$ are linearly indep
 
 ## Properties
 1. Any set of vectors containing $\mathbf{0}$ is linearly dependent
-2. Any set containing a vector that's a [[linear-combinations|linear combination]] of others is dependent
+2. Any set containing a vector that's a [[linear-combinations|Linear Combination]] of others is dependent
 3. A single non-zero vector is always linearly independent
 4. Adding a vector to a linearly independent set might create dependence
 
 ## Why Do We Care?
 Linear independence helps us:
-1. Find [[basis|bases]] for vector spaces
+1. Find [[basis|Bases]] for vector spaces
 2. Determine minimal generating sets
-3. Calculate dimensions of spaces
+3. Calculate [[vector-space|Dimensions]] of spaces
 4. Solve systems of equations efficiently
 
 Think of linear independence as a way to identify when vectors are truly "different" from each other - when none can be created from combinations of the others.

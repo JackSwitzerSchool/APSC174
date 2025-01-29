@@ -1,5 +1,5 @@
 import { getNotes, getNote } from '@/app/notes/utils'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serializeMDX } from '@/lib/mdx'
@@ -29,6 +29,14 @@ export default async function DynamicPage({ params }: Props) {
 
   try {
     const fullPath = params.slug.join('/')
+
+    // Handle PDF routes
+    if (fullPath.endsWith('.pdf')) {
+      // Remove any prefix like 'content/pages' and redirect to the public path
+      const pdfPath = fullPath.replace(/^(content\/pages\/)?/, '')
+      return redirect(`/${pdfPath}`)
+    }
+
     const lastSlug = params.slug[params.slug.length - 1].toLowerCase()
     
     const notes = await getNotes()

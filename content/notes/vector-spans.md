@@ -14,7 +14,7 @@ weight: 26
 ---
 
 ## Definition
-The span of vectors $v_1, v_2, \dots, v_n$ from a [[vector-space|Vector Space]] $\mathbb{V}$ is the set of all possible [[linear-combinations|linear combinations]] of these vectors.
+The span of vectors $v_1, v_2, \dots, v_n$ from a [[vector-space|Vector Space]] $\mathbb{V}$ is the set of all possible [[linear-combinations|Linear Combinations]] of these vectors.
 
 Formally:
 $$
@@ -36,7 +36,7 @@ Consider $p(x) = 1 + x$
 Then $\text{span}\{p(x)\}$ consists of all polynomials of the form $c(1 + x)$ where $c \in \mathbb{R}$.
 
 ## Properties
-1. The span is always a [[vector-subspaces|subspace]]
+1. The span is always a [[vector-subspaces|Subspace]]
 2. The span is the smallest subspace containing the vectors
 3. $\text{span}\{\mathbf{0}\} = \{\mathbf{0}\}$
 4. If $v$ is in the span of some vectors, adding $v$ to those vectors doesn't change the span
@@ -45,8 +45,8 @@ Then $\text{span}\{p(x)\}$ consists of all polynomials of the form $c(1 + x)$ wh
 Spans help us understand:
 1. How to generate subspaces
 2. Which vectors we can "reach" from our starting vectors
-3. How many vectors we need to describe a space (dimension)
-4. Whether vectors are [[linear-combinations|linearly dependent]]
+3. How many vectors we need to describe a space ([[vector-space|Dimension]])
+4. Whether vectors are [[linear-dependence|Linearly Dependent]]
 
 Think of span as the "reach" of your vectors - it tells you all possible destinations you can get to using only linear combinations as your means of travel.
 

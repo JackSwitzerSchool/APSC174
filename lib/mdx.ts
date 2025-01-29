@@ -17,10 +17,12 @@ export async function serializeMDX(content: string, options: SerializeOptions = 
           pageResolver: (name: string) => {
             // Convert wiki-link format to our route format
             // [[vector-space|Vector Space]] -> /content/notes/vector-space
-            const slug = name.split('|')[0].toLowerCase()
+            const parts = name.split('|')
+            const slug = parts[0].toLowerCase().trim()
             return [`/content/notes/${slug}`]
           },
           hrefTemplate: (permalink: string) => permalink,
+          aliasDivider: '|',
         }],
       ],
       rehypePlugins: [rehypeKatex],

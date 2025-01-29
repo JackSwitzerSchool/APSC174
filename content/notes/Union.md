@@ -14,7 +14,7 @@ weight: 12
 ---
 
 ## Definition
-The union of two [[Sets|sets]] $\mathbb{X}, \mathbb{Y}$ is the set of all elements that belong to $\mathbb{X}$ *or* $\mathbb{Y}$
+The union of two [[sets|Sets]] $\mathbb{X}, \mathbb{Y}$ is the set of all elements that belong to $\mathbb{X}$ *or* $\mathbb{Y}$
 
 Formally: 
 
@@ -25,7 +25,7 @@ $$
 This notion of "or" is foundational to computer programming and logic gates.
 
 ## Properties
-For arbitrary sets: $\mathbb{X}, \mathbb{Y}, \mathbb{Z}$, and the [[Empty Set|empty set]] $\emptyset$:
+For arbitrary sets: $\mathbb{X}, \mathbb{Y}, \mathbb{Z}$, and the [[empty-set|Empty Set]] $\emptyset$:
 
 i) $\mathbb{X} \cup \mathbb{X} = \mathbb{X}$
 
