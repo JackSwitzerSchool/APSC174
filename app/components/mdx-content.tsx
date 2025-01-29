@@ -9,13 +9,13 @@ const components = {
   a: memo(({ href, children, ...props }: any) => {
     if (!href) return null
 
-    // Handle PDF links
+    // Handle PDF links - now in public
     if (href?.endsWith('.pdf')) {
       const formattedHref = href.startsWith('http') 
         ? href 
         : href.startsWith('/') 
           ? href 
-          : `/content/assets/pdfs/${href}`
+          : `/content/assets/pdf/${href}`
 
       return (
         <a 
@@ -62,10 +62,10 @@ const components = {
   img: memo(({ src, alt = '', ...props }: any) => {
     if (!src) return null
 
-    // Handle image paths
+    // Handle image paths - now all assets are in public
     const formattedSrc = src.startsWith('http') 
       ? src 
-      : src.startsWith('/content/assets/') 
+      : src.startsWith('/') 
         ? src 
         : `/content/assets/images/${src}`
 

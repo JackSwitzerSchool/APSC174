@@ -34,33 +34,9 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Static assets should be served directly
-      {
-        source: '/content/assets/:path*',
-        destination: '/content/assets/:path*',
-        has: [
-          {
-            type: 'header',
-            key: 'accept',
-            value: '(.*)'
-          }
-        ]
-      },
-      // Specific handling for images
-      {
-        source: '/content/assets/images/:file*',
-        destination: '/content/assets/images/:file*',
-        has: [
-          {
-            type: 'header',
-            key: 'accept',
-            value: 'image/(.*)'
-          }
-        ]
-      },
       // Handle markdown files without extension
       {
-        source: '/:file((?!notes|tutorials|course-resources|content).*)',
+        source: '/:file((?!notes|tutorials|course-resources|content|assets).*)',
         destination: '/base/:file',
       },
       // Handle tutorial content

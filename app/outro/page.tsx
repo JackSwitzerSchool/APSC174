@@ -26,7 +26,7 @@ export default async function OutroPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <Image
-          src={`/assets/images/outro/${latestFile}`}
+          src={`/content/assets/images/outro/${latestFile}`}
           alt="Weekly QR Code"
           width={400}
           height={400}

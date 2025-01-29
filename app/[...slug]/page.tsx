@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serializeMDX } from '@/lib/mdx'
+import { NextResponse } from 'next/server'
 
 const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
   ssr: false,
@@ -30,15 +31,14 @@ export default async function DynamicPage({ params }: Props) {
   try {
     const fullPath = params.slug.join('/')
 
-    // Skip handling of static assets
+    // Skip handling of static assets entirely since they are served from public
     if (fullPath.includes('assets/')) {
-      return redirect(`/content/${fullPath}`)
+      return NextResponse.next()
     }
 
-    // Handle PDF routes
+    // Handle PDF routes - they are now in public too
     if (fullPath.endsWith('.pdf')) {
-      const pdfPath = fullPath.replace(/^(content\/pages\/)?/, '')
-      return redirect(`/${pdfPath}`)
+      return NextResponse.next()
     }
 
     const lastSlug = params.slug[params.slug.length - 1].toLowerCase()
