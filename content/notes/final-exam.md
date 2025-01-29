@@ -3,17 +3,17 @@ title: "Final Exam Information"
 type: "page"
 category: "course-resources"
 publishedAt: "2025-01-11"
-summary: "Information, study resources, and details for the Final Exam."
-tags: ["final", "exam", "assessment"]
+summary: "Information and details about the final exam."
+tags: ["exam", "assessment"]
 displayInNotes: true
 order: 5
-relatedContent: ["course-resources", "Midterm-1", "Midterm-2"]
+relatedContent: ["course-resources", "midterm-1", "midterm-2"]
 subcategory: "exams"
 isPublished: true
 weight: 5
 ---
 
-As per the course [syllabus](https://onq.queensu.ca/content/enforced/992465-APSC174W25/2025%20Winter/APSC174%20Syllabus%202025.pdf):
+As per the course [syllabus](/content/assets/pdf/course/syllabus.pdf):
 
 The final exam date, set by the Exams Office, is **Monday April 18th, 2-5 PM.** For students with accommodations, any alternate arrangements will be emailed to you from the Exams Office.
 
@@ -28,5 +28,7 @@ The final exam date, set by the Exams Office, is **Monday April 18th, 2-5 PM.** 
 
 **Help During the Exam Period**
 
-- [Math Help Center](https://www.queensu.ca/mathstat/undergraduate/current-undergraduate/help)
-- Email your professor
+- Past exams will be posted here closer to the exam date
+- [[webwork|Webwork]] practice problems
+- [[midterm-1|Midterm 1]] and [[midterm-2|Midterm 2]] practice
+- [Math Help Center](https://www.queensu.ca/mathstat/undergraduate/current-undergraduate/help)- Email your professor

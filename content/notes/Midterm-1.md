@@ -26,7 +26,7 @@ Midterm 1 will be given on **Tuesday, Feb 11, 2025** at **6:30 pm EST**.
 **Reminder**: Calculators are **not permitted** during the test.
 
 ## Past Years
-- 2022 Midterm 1: [Exam](/past-exams/Midterm1/Midterm1-2022.pdf) | [Solutions](/past-exams/Midterm1/Midterm1-2022Solution.pdf)
-- 2021 Midterm 1: [Exam](/past-exams/Midterm1/Midterm1-2021.pdf) | [Solutions](/past-exams/Midterm1/Midterm1-2021Solution.pdf)
-- 2020 Midterm 1: [Exam](/past-exams/Midterm1/Midterm1-2020.pdf) | [Solutions](/past-exams/Midterm1/Midterm1-2020Solution.pdf)
-- 2019 Midterm 1: [Exam](/past-exams/Midterm1/Midterm1-2019.pdf) | [Solutions](/past-exams/Midterm1/Midterm1-2019Solution.pdf)
+- 2022 Midterm 1: [Exam](/content/assets/pdf/midterms/Midterm1-2022.pdf) | [Solutions](/content/assets/pdf/midterms/Midterm1-2022Solution.pdf)
+- 2021 Midterm 1: [Exam](/content/assets/pdf/midterms/Midterm1-2021.pdf) | [Solutions](/content/assets/pdf/midterms/Midterm1-2021Solution.pdf)
+- 2020 Midterm 1: [Exam](/content/assets/pdf/midterms/Midterm1-2020.pdf) | [Solutions](/content/assets/pdf/midterms/Midterm1-2020Solution.pdf)
+- 2019 Midterm 1: [Exam](/content/assets/pdf/midterms/Midterm1-2019.pdf) | [Solutions](/content/assets/pdf/midterms/Midterm1-2019Solution.pdf)

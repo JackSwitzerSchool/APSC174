@@ -11,23 +11,23 @@ const staticNavItems = {
     name: 'home',
     order: 0
   },
-  '/content/notes': {
+  '/notes': {
     name: 'notes',
     order: 1
   },
-  '/content/course-resources': {
+  '/course-resources': {
     name: 'course resources',
     order: 2
   },
-  '/content/videos': {
+  '/videos': {
     name: 'videos',
     order: 3
   },
-  '/content/tutorials': {
+  '/tutorials': {
     name: 'tutorials',
     order: 4
   },
-  '/content/internships': {
+  '/internships': {
     name: 'internships',
     order: 5
   }

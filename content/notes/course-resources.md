@@ -3,29 +3,28 @@ title: "Course Resources"
 type: "page"
 category: "course-resources"
 publishedAt: "2025-01-11"
-summary: "Essential course resources, materials, and important information for APSC 174."
-tags: ["resources", "course-info", "syllabus"]
+summary: "Essential course resources and materials for APSC 174."
+tags: ["course-info", "resources"]
 displayInNotes: true
 order: 1
-relatedContent: ["Webwork", "Midterm-1", "Midterm-2", "final-exam"]
-subcategory: "general"
+relatedContent: ["webwork", "midterm-1", "midterm-2", "final-exam"]
+subcategory: "resources"
 isPublished: true
 weight: 1
 ---
 
-## Course Material
-
-- Syllabus: [Download](syllabus.pdf)
-- Mansouri Notes: [Download](mansouri-notes.pdf)
-- First Year Resources: [Download](first-year-resources.pdf)
+## Course Materials
+- Syllabus: [Download](/content/assets/pdf/course/syllabus.pdf)
+- Mansouri Notes: [Download](/content/assets/pdf/course/mansouri-notes.pdf)
+- First Year Resources: [Download](/content/assets/pdf/course/first-year-resources.pdf)
 - Textbook: Email Me
 
 ## Course Calendar
 
-- [Webwork](/webwork) - Due Thursday's @3:00 pm; Starting on January 16
-- [Midterm 1](/midterm-1) - February 11 @6:30 pm
-- [Midterm 2](/midterm-2) - March 25 @6:30 pm
-- [Final Exam](/final-exam) - (tentative?) April 18th @2:00 pm
+- [[webwork|Webwork]] - Due Thursday's @3:00 pm; Starting on January 16
+- [[midterm-1|Midterm 1]] - February 11 @6:30 pm
+- [[midterm-2|Midterm 2]] - March 25 @6:30 pm
+- [[final-exam|Final Exam]] - (tentative?) April 18th @2:00 pm
 
 ## Tutorial Sessions
 

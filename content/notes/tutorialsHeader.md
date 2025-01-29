@@ -1,30 +1,30 @@
 ---
-title: "Tutorial Materials"
+title: "Tutorial Information"
 type: "page"
 category: "course-resources"
 publishedAt: "2025-01-11"
-summary: "Weekly tutorial questions, solutions, and supplementary materials for APSC 174."
-tags: ["tutorials", "practice", "solutions"]
+summary: "Information about tutorials and their content."
+tags: ["tutorials", "course-info"]
 displayInNotes: true
-order: 6
-relatedContent: ["course-resources", "Webwork"]
+order: 2
+relatedContent: ["course-resources"]
 subcategory: "tutorials"
 isPublished: true
-weight: 6
+weight: 2
 ---
 
-## Week 1
-- [Tutorial Questions](/tutorials/tut_content/Tutorial1Questions.pdf)
-- [Tutorial Solutions](/tutorials/tut_content/Tutorial1Solutions.pdf)
+## Tutorial 1
+- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial1Questions.pdf)
+- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial1Solutions.pdf)
 
-## Week 2
-- [Tutorial Questions](/tutorials/tut_content/Tutorial2Questions.pdf)
-- [Tutorial Solutions](/tutorials/tut_content/Tutorial2Solutions.pdf)
+## Tutorial 2
+- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial2Questions.pdf)
+- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial2Solutions.pdf)
 
-## Week 3
-- [Tutorial Questions](/tutorials/tut_content/Tutorial3Questions.pdf)
-- [Tutorial Solutions](/tutorials/tut_content/Tutorial3Solutions.pdf)
+## Tutorial 3
+- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial3Questions.pdf)
+- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial3Solutions.pdf)
 
-## Week 4
-- [Tutorial Questions](/tutorials/tut_content/Tutorial4Questions.pdf)
-- [Tutorial Solutions](/tutorials/tut_content/Tutorial4Solutions.pdf)
+## Tutorial 4
+- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial4Questions.pdf)
+- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial4Solutions.pdf)

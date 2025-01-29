@@ -24,7 +24,5 @@ In week 1 we learned about the following:
 4) [[Notation|Mathematical Notation]]
 
 ## Additional Resources
-- [[./assets/pdfs/week1-practice.pdf|Practice Problems]]
-- ![[youtube:12345|Introduction to Vectors]]
 - [[notation|Mathematical Notation Guide]]
 
