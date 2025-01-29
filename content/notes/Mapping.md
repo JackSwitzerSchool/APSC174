@@ -24,8 +24,8 @@ $$
 Where $\mathbb{X}$ is the domain of the function and $\mathbb{Y}$ is the codomain or image of $f$
 
 <img 
-  src="/assets/images/BasicMappings.png" 
-  alt="Function Mapping showing domain and codomain" 
+  src="/content/assets/images/BasicMappings.png" 
+  alt="Basic Function Mappings" 
   width={600} 
   height={400} 
 />

@@ -23,8 +23,8 @@ $$\forall x_1, x_2 \in \mathbb{X}, f(x_1)=f(x_2) \Rightarrow x_1=x_2$$
 or "For all elements $x_1, x_2$ in $\mathbb{X}$. If $f$ of $x_1$ equals $f$ of $x_2$ that implies that $x_1$ equals $x_2$"
 
 <img 
-  src="/assets/images/Injective.png" 
-  alt="Mapping Injectivity Example" 
+  src="/content/assets/images/Injective.png" 
+  alt="Injective Function Example" 
   width={600} 
   height={400} 
 />

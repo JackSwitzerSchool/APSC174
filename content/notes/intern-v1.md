@@ -1,8 +1,18 @@
 ---
-title: Finding an Internship v1
-publishedAt: '2025-01-11'
-category: 'internships'
+title: "Finding an Internship v1"
+type: "page"
+category: "internships"
+publishedAt: "2025-01-11"
+summary: "A comprehensive guide to finding and landing your first engineering internship."
+tags: ["career", "internships", "job-search"]
+displayInNotes: false
+order: 1
+relatedContent: []
+subcategory: "career"
+isPublished: true
+weight: 1
 ---
+
 By Anne Raymond (my mom), former career coach/consultant
 
 [Feedback](https://forms.gle/fDA8cQ4NrGj9ZXT89)

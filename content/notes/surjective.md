@@ -24,8 +24,8 @@ or "For all elements $y$ in $\mathbb{Y}$, there exists an $x$ in $\mathbb{X}$ su
 
 
 <img 
-  src="/assets/images/Surjective.png" 
-  alt="Mapping Surjectivity Example" 
+  src="/content/assets/images/Surjective.png" 
+  alt="Surjective Function Example" 
   width={600} 
   height={400} 
 />

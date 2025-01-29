@@ -25,14 +25,14 @@ If no such scalars exist (or equivalently, if $c_1v_1 + c_2v_2 + \dots + c_nv_n 
 ### Visual Examples
 
 <img 
-  src="/assets/images/LinDep.png" 
+  src="/content/assets/images/LinDep.png" 
   alt="Linearly Dependent Vectors Example" 
   width={600} 
   height={400} 
 />
 
 <img 
-  src="/assets/images/LinIndep.png" 
+  src="/content/assets/images/LinIndep.png" 
   alt="Linearly Independent Vectors Example" 
   width={600} 
   height={400} 
