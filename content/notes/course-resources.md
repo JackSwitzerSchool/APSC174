@@ -14,9 +14,9 @@ weight: 1
 ---
 
 ## Course Materials
-- Syllabus: [Download](/content/assets/pdf/course/syllabus.pdf)
-- Mansouri Notes: [Download](/content/assets/pdf/course/mansouri-notes.pdf)
-- First Year Resources: [Download](/content/assets/pdf/course/first-year-resources.pdf)
+- Syllabus: [Download](/content/assets/pdf/base/syllabus.pdf)
+- Mansouri Notes: [Download](/content/assets/pdf/base/mansouri-notes.pdf)
+- First Year Resources: [Download](/content/assets/pdf/base/first-year-resources.pdf)
 - Textbook: Email Me
 
 ## Course Calendar

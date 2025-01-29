@@ -28,9 +28,8 @@ export default function middleware(request: NextRequest) {
     }
     // Otherwise, redirect to assets directory
     const pdfName = pathname.split('/').pop()
-    const category = pathname.split('/')[1] || 'misc'
     return NextResponse.redirect(
-      new URL(`/content/assets/pdf/${category}/${pdfName}`, request.url)
+      new URL(`/content/assets/pdf/base/${pdfName}`, request.url)
     )
   }
 

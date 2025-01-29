@@ -5,20 +5,20 @@ import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { baseUrl } from './sitemap'
+import config from '@/lib/config'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(config.baseUrl),
   title: {
-    default: 'Course Website',
-    template: '%s | Course Website',
+    default: config.title,
+    template: `%s | ${config.title}`,
   },
-  description: 'Course materials, notes, and resources.',
+  description: config.description,
   openGraph: {
-    title: 'Course Website',
-    description: 'Course materials, notes, and resources.',
-    url: baseUrl,
-    siteName: 'Course Website',
+    title: config.title,
+    description: config.description,
+    url: config.baseUrl,
+    siteName: config.title,
     locale: 'en_US',
     type: 'website',
   },
