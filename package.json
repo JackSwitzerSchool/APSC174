@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:setup": "cp .env.local.example .env.local || copy .env.local.example .env.local",
+    "clean": "rm -rf .next || rmdir /s /q .next"
   },
   "dependencies": {
     "@mdx-js/loader": "2.3.0",
