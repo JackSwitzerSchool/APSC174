@@ -22,32 +22,42 @@ export default async function NotesPage() {
     return acc
   }, {} as Record<string, typeof notes>)
   
-  // Sort notes within each category by order/weight if available, then by title
+  // Sort notes within each category
   Object.keys(notesByCategory).forEach(category => {
     notesByCategory[category].sort((a, b) => {
+      // First sort by order if available
       if (a.order !== undefined && b.order !== undefined) {
         return a.order - b.order
       }
+      // Then by weight if available
       if (a.weight !== undefined && b.weight !== undefined) {
         return a.weight - b.weight
       }
-      return a.title.localeCompare(b.title)
+      // Finally by title (safely)
+      return (a.title || '').localeCompare(b.title || '')
     })
   })
   
+  // Sort categories alphabetically
+  const sortedCategories = Object.keys(notesByCategory).sort()
+  
   return (
-    <section>
+    <section className="max-w-4xl mx-auto">
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
         Course Notes
       </h1>
-      {Object.entries(notesByCategory).map(([category, categoryNotes]) => (
-        <div key={category} className="mb-12">
-          <h2 className="font-medium text-xl mb-4 tracking-tighter capitalize">
-            {category.replace(/-/g, ' ')}
-          </h2>
-          <Notes notes={categoryNotes} />
-        </div>
-      ))}
+      <div className="grid gap-8">
+        {sortedCategories.map((category) => (
+          <div key={category} className="space-y-4">
+            <h2 className="font-medium text-xl tracking-tighter capitalize">
+              {category.replace(/-/g, ' ')}
+            </h2>
+            <div className="pl-4 border-l-2 border-neutral-200 dark:border-neutral-800">
+              <Notes notes={notesByCategory[category]} />
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   )
 } 

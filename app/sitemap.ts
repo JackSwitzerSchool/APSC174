@@ -6,40 +6,55 @@ interface Note {
   category?: string
 }
 
-export const baseUrl = 'https://apsc174.vercel.app'
+export const baseUrl = 'https://jackswitzer.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const notes = await getNotes()
   
   // Filter out posts that should have their own routes
   const filteredPosts = notes.filter((note: Note) => {
-    if (note.category === 'tutorials' || 
-        (note.category === 'base' && note.slug === 'course-resources')) {
-      return false
-    }
-    return true
+    // Only include notes and weekly summaries in sitemap
+    return note.category === 'notes' || note.category === 'weekly-summary'
   })
+
+  const currentDate = new Date()
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
     },
     {
-      url: `${baseUrl}/content/notes`,
-      lastModified: new Date(),
+      url: `${baseUrl}/notes`,
+      lastModified: currentDate,
+      changeFrequency: 'daily' as const,
+      priority: 0.9,
     },
     {
-      url: `${baseUrl}/content/tutorials`,
-      lastModified: new Date(),
+      url: `${baseUrl}/tutorials`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
     },
     {
-      url: `${baseUrl}/content/course-resources`,
-      lastModified: new Date(),
+      url: `${baseUrl}/course-resources`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/internships`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
     },
     ...filteredPosts.map((note: Note) => ({
-      url: `${baseUrl}/content/notes/${note.slug}`,
-      lastModified: new Date(),
+      url: `${baseUrl}/notes/${note.slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
     })),
   ]
 }

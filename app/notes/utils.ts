@@ -6,6 +6,9 @@ interface Note {
   title: string
   slug: string
   category?: string
+  subcategory?: string
+  order?: number
+  weight?: number
   [key: string]: any
 }
 
@@ -28,18 +31,38 @@ export async function getNotes(): Promise<Note[]> {
       const content = await fs.readFile(filePath, 'utf8')
       const { data } = matter(content)
       
+      // Ensure title exists
+      if (!data.title) {
+        data.title = file.replace(/\.mdx?$/, '').split('-')
+          .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+      }
+      
+      // Map category if it exists in categoryMap
+      const mappedCategory = data.category ? categoryMap[data.category] || data.category : 'notes'
+      
       return {
         ...data,
         slug: file.replace(/\.mdx?$/, ''),
-        category: 'notes'
+        category: mappedCategory,
+        subcategory: data.subcategory || 'Uncategorized',
+        order: data.order || 0,
+        weight: data.weight || 0
       } as Note
     })
   )
 
   return notes.sort((a, b) => {
-    if (a.title < b.title) return -1
-    if (a.title > b.title) return 1
-    return 0
+    // First sort by order if available
+    if (a.order !== undefined && b.order !== undefined) {
+      return a.order - b.order
+    }
+    // Then by weight if available
+    if (a.weight !== undefined && b.weight !== undefined) {
+      return a.weight - b.weight
+    }
+    // Finally by title
+    return (a.title || '').localeCompare(b.title || '')
   })
 }
 
@@ -67,18 +90,17 @@ export async function getNote(slug: string): Promise<Note & { content: string }>
     const content = await fs.readFile(filePath, 'utf8')
     const { data, content: markdown } = matter(content)
     
-    // Ensure required fields are present
-    if (!data.title) {
-      data.title = normalizedSlug.split('-').map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' ')
-    }
+    // Map category if it exists in categoryMap
+    const mappedCategory = data.category ? categoryMap[data.category] || data.category : 'notes'
     
     return {
       ...data,
       content: markdown,
       slug: normalizedSlug,
-      category: 'notes'
+      category: mappedCategory,
+      subcategory: data.subcategory || 'Uncategorized',
+      order: data.order || 0,
+      weight: data.weight || 0
     } as Note & { content: string }
   } catch (error) {
     console.error(`Error reading file: ${filePath}`, error)

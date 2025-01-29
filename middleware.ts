@@ -5,39 +5,39 @@ export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // Handle legacy routes
-  if (pathname.startsWith('/notes/')) {
-    const slug = pathname.split('/').slice(2).join('/')
+  if (pathname.startsWith('/content/notes/')) {
+    const slug = pathname.split('/').slice(3).join('/')
     return NextResponse.redirect(
-      new URL(`/content/notes/${slug}`, request.url)
+      new URL(`/notes/${slug}`, request.url)
     )
   }
 
-  // Handle base routes
-  if (pathname.startsWith('/base/')) {
-    const slug = pathname.split('/').slice(2).join('/')
+  // Handle legacy base routes
+  if (pathname.startsWith('/content/')) {
+    const path = pathname.split('/').slice(2).join('/')
     return NextResponse.redirect(
-      new URL(`/content/pages/${slug}`, request.url)
-    )
-  }
-
-  // Handle tutorial routes
-  if (pathname.startsWith('/tutorials/')) {
-    const slug = pathname.split('/').slice(2).join('/')
-    return NextResponse.redirect(
-      new URL(`/content/tutorials/${slug}`, request.url)
+      new URL(`/${path}`, request.url)
     )
   }
 
   // Handle PDF files
   if (pathname.endsWith('.pdf')) {
-    // If it's already in the assets directory or starts with /, serve it
-    if (pathname.startsWith('/content/assets/') || pathname.startsWith('/')) {
+    // If it's already in the assets directory, serve it
+    if (pathname.startsWith('/content/assets/')) {
       return NextResponse.next()
     }
     // Otherwise, redirect to assets directory
     const pdfName = pathname.split('/').pop()
+    const category = pathname.split('/')[1] || 'misc'
     return NextResponse.redirect(
-      new URL(`/content/assets/pdfs/${pdfName}`, request.url)
+      new URL(`/content/assets/pdf/${category}/${pdfName}`, request.url)
+    )
+  }
+
+  // Handle direct note access
+  if (/^\/[a-zA-Z0-9-]+$/.test(pathname) && pathname !== '/notes') {
+    return NextResponse.redirect(
+      new URL(`/notes${pathname}`, request.url)
     )
   }
 
@@ -46,8 +46,8 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except static files and API routes
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    // Match all paths except static files, API routes, and assets
+    '/((?!api|_next/static|_next/image|favicon.ico|content/assets).*)',
     // Match PDF files specifically
     '/:path*/:file*.pdf'
   ]
