@@ -30,9 +30,13 @@ export default async function DynamicPage({ params }: Props) {
   try {
     const fullPath = params.slug.join('/')
 
+    // Skip handling of static assets
+    if (fullPath.includes('assets/')) {
+      return redirect(`/content/${fullPath}`)
+    }
+
     // Handle PDF routes
     if (fullPath.endsWith('.pdf')) {
-      // Remove any prefix like 'content/pages' and redirect to the public path
       const pdfPath = fullPath.replace(/^(content\/pages\/)?/, '')
       return redirect(`/${pdfPath}`)
     }

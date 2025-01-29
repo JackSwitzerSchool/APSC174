@@ -34,30 +34,53 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Handle static assets
+      // Static assets should be served directly
       {
         source: '/content/assets/:path*',
         destination: '/content/assets/:path*',
+        has: [
+          {
+            type: 'header',
+            key: 'accept',
+            value: '(.*)'
+          }
+        ]
       },
-      // Handle PDF files
+      // Specific handling for images
       {
-        source: '/content/assets/pdf/:path*',
-        destination: '/content/assets/pdf/:path*',
-      },
-      // Handle images
-      {
-        source: '/content/assets/images/:path*',
-        destination: '/content/assets/images/:path*',
+        source: '/content/assets/images/:file*',
+        destination: '/content/assets/images/:file*',
+        has: [
+          {
+            type: 'header',
+            key: 'accept',
+            value: 'image/(.*)'
+          }
+        ]
       },
       // Handle markdown files without extension
       {
-        source: '/:file((?!notes|tutorials|course-resources).*)',
+        source: '/:file((?!notes|tutorials|course-resources|content).*)',
         destination: '/base/:file',
       },
-      // Handle all tutorial content
+      // Handle tutorial content
       {
         source: '/tutorials/:path*',
         destination: '/tutorials/:path*',
+      }
+    ]
+  },
+  // Configure static asset handling
+  async headers() {
+    return [
+      {
+        source: '/content/assets/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          }
+        ],
       }
     ]
   },
