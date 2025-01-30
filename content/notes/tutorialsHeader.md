@@ -16,17 +16,17 @@ weight: 1
 ---
 
 ## Tutorial 1
-- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial1Questions.pdf)
-- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial1Solutions.pdf)
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial1Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial1Solutions.pdf)
 
 ## Tutorial 2
-- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial2Questions.pdf)
-- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial2Solutions.pdf)
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial2Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial2Solutions.pdf)
 
 ## Tutorial 3
-- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial3Questions.pdf)
-- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial3Solutions.pdf)
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial3Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial3Solutions.pdf)
 
 ## Tutorial 4
-- [Tutorial Questions](/content/assets/pdf/tutorials/Tutorial4Questions.pdf)
-- [Tutorial Solutions](/content/assets/pdf/tutorials/Tutorial4Solutions.pdf)
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial4Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial4Solutions.pdf)

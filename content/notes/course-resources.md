@@ -7,7 +7,7 @@ tags:
   - course-info
   - resources
   - materials
-publishedAt: '2025-01-11'
+publishedAt: '2024-01-29'
 summary: "Essential course resources and materials for APSC 174."
 relatedContent: ["webwork", "midterm-1", "midterm-2", "final-exam"]
 subcategory: "resources"
@@ -16,10 +16,14 @@ weight: 1
 ---
 
 ## Course Materials
-- Syllabus: [Download](/content/assets/pdf/base/syllabus.pdf)
-- Mansouri Notes: [Download](/content/assets/pdf/base/mansouri-notes.pdf)
-- First Year Resources: [Download](/content/assets/pdf/base/first-year-resources.pdf)
-- Textbook: Email Me
+- [Course Syllabus](/assets/pdf/base/APSC174_Syllabus.pdf)
+- [Mansouri Notes](/assets/pdf/base/APSC174_Notes.pdf)
+- [First Year Resources](/assets/pdf/base/FirstYearResources.pdf)
+
+## Past Exams
+- [Midterm 1 2023](/assets/pdf/exams/2023MT1.pdf)
+- [Midterm 2 2023](/assets/pdf/exams/2023MT2.pdf)
+- [Final Exam 2023](/assets/pdf/exams/2023Final.pdf)
 
 ## Course Calendar
 

@@ -42,6 +42,46 @@ export default async function DynamicPage({ params }: Props) {
 
     const lastSlug = params.slug[params.slug.length - 1].toLowerCase()
     
+    // Handle special routes by showing their content directly
+    if (lastSlug === 'course-resources') {
+      const note = await getNote('course-resources')
+      const mdxSource = await serializeMDX(note.content)
+      return (
+        <article>
+          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+            {note.title}
+          </h1>
+          <MDXContent source={mdxSource} />
+        </article>
+      )
+    }
+
+    if (lastSlug === 'tutorials') {
+      const note = await getNote('tutorialsHeader')
+      const mdxSource = await serializeMDX(note.content)
+      return (
+        <article>
+          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+            {note.title}
+          </h1>
+          <MDXContent source={mdxSource} />
+        </article>
+      )
+    }
+
+    if (lastSlug === 'internships') {
+      const note = await getNote('intern-v1')
+      const mdxSource = await serializeMDX(note.content)
+      return (
+        <article>
+          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+            {note.title}
+          </h1>
+          <MDXContent source={mdxSource} />
+        </article>
+      )
+    }
+    
     const notes = await getNotes()
     const noteMatch = notes.find((note) => {
       const normalizedNoteSlug = note.slug.toLowerCase()

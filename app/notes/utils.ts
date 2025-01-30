@@ -18,7 +18,10 @@ interface Note {
 // Map frontmatter categories to route categories
 const categoryMap: Record<string, string> = {
   'course-content': 'notes',
-  'reference': 'notes'
+  'reference': 'notes',
+  'tutorial': 'tutorials',
+  'resource': 'course-resources',
+  'internship': 'internships'
 }
 
 // List of special pages to exclude from general notes listing
