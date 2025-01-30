@@ -25,6 +25,11 @@ Midterm 1 will be given on **Tuesday, Feb 11, 2025** at **6:30 pm EST**.
 
 **Reminder**: Calculators are **not permitted** during the test.
 
+## What to Know
+You should be comfortable with definitions of [[vector-space|Vector Spaces]], and their [[vector-subspaces|Subspaces]] (and how to prove that!).
+You should be comfortable applying notions of [[linear-combinations|Linear Combinations]] and how that relates to [[linear-dependence|dependence]] or [[vector-spans|Spans]] (as well as using [[systems-of-linear-equations|systems of linear equations]] and solving for different key values - 0 Vector, scalars, etc.). Additionally, you should practice proving things, specifically [[sets|Set]] equality or showing how a "fact" holds using a general case.
+Go through past Midterms below or check the Tutorials page for related examples.
+
 ## Past Midterms
 
 - 2022 Midterm 1: [Exam](/assets/pdf/past-exams/midterm1/midterm1-2022.pdf) | [Solutions](/assets/pdf/past-exams/midterm1/midterm1-2022-solutions.pdf)
