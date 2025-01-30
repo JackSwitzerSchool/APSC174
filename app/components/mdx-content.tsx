@@ -67,7 +67,7 @@ const components = {
       ? src 
       : src.startsWith('/') 
         ? src 
-        : `/content/assets/images/${src}`
+        : `/assets/images/${src}`
 
     return (
       <img 
