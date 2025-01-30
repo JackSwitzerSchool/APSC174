@@ -9,6 +9,18 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Special case for /outro to show latest image
+  if (pathname === '/outro') {
+    return NextResponse.redirect(
+      new URL('/assets/images/outro/Week4.png', request.url)
+    )
+  }
+
+  // Special case for /videos to use the videos page component
+  if (pathname === '/videos') {
+    return NextResponse.next()
+  }
+
   // Handle legacy routes
   if (pathname.startsWith('/content/notes/')) {
     const slug = pathname.split('/').slice(3).join('/')
@@ -46,8 +58,9 @@ export default function middleware(request: NextRequest) {
     )
   }
 
-  // Handle direct note access
-  if (/^\/[a-zA-Z0-9-]+$/.test(pathname) && pathname !== '/notes') {
+  // Handle direct note access - exclude special routes
+  if (/^\/[a-zA-Z0-9-]+$/.test(pathname) && 
+      !['notes', 'outro', 'videos'].includes(pathname.slice(1))) {
     return NextResponse.redirect(
       new URL(`/notes${pathname}`, request.url)
     )
