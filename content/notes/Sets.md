@@ -1,16 +1,15 @@
 ---
-title: "Set Theory"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Fundamental concepts of set theory, including set operations and properties."
-tags: ["sets", "foundations", "notation"]
-displayInNotes: true
-order: 10
-relatedContent: ["Union", "Intersection", "Subset", "empty-set"]
-subcategory: "foundations"
+title: Sets
+type: note
+category: set-theory
+order: 2
+tags:
+  - sets
+  - fundamentals
+publishedAt: '2025-01-11'
+summary: "Introduction to set theory and basic set operations."
+relatedContent: ["empty-set", "subset", "union", "intersection", "cartesian-product"]
 isPublished: true
-weight: 10
 ---
 
 ## Definition

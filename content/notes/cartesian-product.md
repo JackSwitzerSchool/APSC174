@@ -1,16 +1,16 @@
 ---
-title: "Cartesian Product"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding the cartesian product operation on sets and its applications."
-tags: ["sets", "operations", "cartesian-product"]
-displayInNotes: true
-order: 14
-relatedContent: ["Sets", "Union", "Intersection"]
-subcategory: "operations"
+title: Cartesian Product
+type: note
+category: set-theory
+order: 6
+tags:
+  - sets
+  - operations
+  - cartesian-product
+publishedAt: '2025-01-11'
+summary: "Understanding the cartesian product operation on sets."
+relatedContent: ["sets", "union", "intersection"]
 isPublished: true
-weight: 14
 ---
 
 ## Definition

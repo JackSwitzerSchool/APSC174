@@ -1,12 +1,14 @@
 ---
-title: "Vector Spaces"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
+title: Vector Spaces
+type: note
+category: vector-spaces
+order: 1
+tags:
+  - vectors
+  - spaces
+  - fundamentals
+publishedAt: '2025-01-11'
 summary: "Fundamental definition and properties of vector spaces, including operations and their generalizations."
-tags: ["vector-spaces", "linear-algebra", "foundations"]
-displayInNotes: true
-order: 20
 relatedContent: ["vectors", "vector-space-axioms", "vector-subspaces"]
 subcategory: "foundations"
 isPublished: true

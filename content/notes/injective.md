@@ -1,16 +1,16 @@
 ---
-title: "Injective Functions"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding one-to-one functions and their properties in function theory."
-tags: ["functions", "mappings", "injective", "one-to-one"]
-displayInNotes: true
-order: 16
-relatedContent: ["Mapping", "surjective", "Sets"]
-subcategory: "functions"
+title: Injective Functions
+type: note
+category: functions
+order: 2
+tags:
+  - functions
+  - injective
+  - one-to-one
+publishedAt: '2025-01-11'
+summary: "Understanding injective (one-to-one) functions and their properties."
+relatedContent: ["mapping", "surjective"]
 isPublished: true
-weight: 16
 ---
 
 A [[mapping|Function]] is injective when different elements of the domain are mapped to different elements of the codomain.

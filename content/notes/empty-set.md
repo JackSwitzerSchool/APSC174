@@ -1,16 +1,15 @@
 ---
-title: "Empty Set"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "The concept of the empty set and its special properties in set theory."
-tags: ["sets", "foundations", "empty-set"]
-displayInNotes: true
-order: 15
-relatedContent: ["Sets", "Subset", "Union", "Intersection"]
-subcategory: "foundations"
+title: Empty Set
+type: note
+category: set-theory
+order: 3
+tags:
+  - sets
+  - empty-set
+publishedAt: '2025-01-11'
+summary: "Definition and properties of the empty set."
+relatedContent: ["sets", "subset"]
 isPublished: true
-weight: 15
 ---
 
 The empty set or the null set denoted $\emptyset = \{\}$ is the set containing *no* elements

@@ -1,16 +1,16 @@
 ---
-title: "Vector Subspaces"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "Understanding subspaces as special subsets of vector spaces that preserve vector operations."
-tags: ["vector-spaces", "subspaces", "foundations"]
-displayInNotes: true
-order: 22
-relatedContent: ["vector-space", "vector-space-axioms", "linear-combinations"]
-subcategory: "foundations"
+title: Vector Subspaces
+type: note
+category: vector-spaces
+order: 7
+tags:
+  - vectors
+  - subspaces
+  - linear-algebra
+publishedAt: '2025-01-11'
+summary: "Understanding vector subspaces and their properties."
+relatedContent: ["vector-space", "vector-spans", "linear-combinations"]
 isPublished: true
-weight: 22
 ---
 
 ## Definition

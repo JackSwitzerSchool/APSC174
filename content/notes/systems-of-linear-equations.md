@@ -1,12 +1,14 @@
 ---
-title: "Systems of Linear Equations"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
+title: Systems of Linear Equations
+type: note
+category: applications
+order: 1
+tags:
+  - applications
+  - systems
+  - equations
+publishedAt: '2025-01-11'
 summary: "Understanding and solving systems of linear equations using various methods."
-tags: ["linear-equations", "systems", "matrices"]
-displayInNotes: true
-order: 18
 relatedContent: ["solving-systems-of-linear-equations", "vectors", "linear-combinations"]
 subcategory: "applications"
 isPublished: true

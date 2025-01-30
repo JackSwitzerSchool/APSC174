@@ -1,16 +1,16 @@
 ---
-title: "Linear Dependence"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "Understanding when vectors can be expressed as linear combinations of other vectors."
-tags: ["linear-dependence", "vectors", "linear-combinations"]
-displayInNotes: true
-order: 27
-relatedContent: ["linear-combinations", "vector-spans", "basis"]
-subcategory: "operations"
+title: Linear Dependence
+type: note
+category: vector-spaces
+order: 6
+tags:
+  - vectors
+  - linear-dependence
+  - linear-algebra
+publishedAt: '2025-01-11'
+summary: "Understanding linear dependence and independence of vectors."
+relatedContent: ["vector-space", "linear-combinations", "basis"]
 isPublished: true
-weight: 27
 ---
 
 ## Definition

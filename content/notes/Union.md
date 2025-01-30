@@ -1,16 +1,16 @@
 ---
-title: "Set Union"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding the union operation on sets and its properties."
-tags: ["sets", "operations", "union"]
-displayInNotes: true
-order: 12
-relatedContent: ["Sets", "Intersection", "Subset"]
-subcategory: "operations"
+title: Union
+type: note
+category: set-theory
+order: 4
+tags:
+  - sets
+  - operations
+  - union
+publishedAt: '2025-01-11'
+summary: "Understanding set unions and their properties."
+relatedContent: ["sets", "intersection", "subset"]
 isPublished: true
-weight: 12
 ---
 
 ## Definition

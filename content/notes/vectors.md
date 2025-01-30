@@ -1,16 +1,16 @@
 ---
-title: "Vectors"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "Introduction to vectors, their properties, and operations in linear algebra."
-tags: ["vectors", "linear-algebra", "foundations"]
-displayInNotes: true
-order: 15
-relatedContent: ["vector-space", "vector-operations", "linear-combinations"]
-subcategory: "foundations"
+title: Vectors
+type: note
+category: vector-spaces
+order: 3
+tags:
+  - vectors
+  - fundamentals
+  - linear-algebra
+publishedAt: '2025-01-11'
+summary: "Introduction to vectors and their basic properties."
+relatedContent: ["vector-space", "vector-space-axioms", "linear-combinations"]
 isPublished: true
-weight: 15
 ---
 
 ## Definition

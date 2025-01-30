@@ -7,7 +7,7 @@ tags:
   - foundations
   - notation
   - sets
-publishedAt: '2024-01-29'
+publishedAt: '2025-01-11'
 summary: "Essential mathematical symbols and conventions used throughout the course. Foundation for reading and writing mathematical expressions."
 relatedContent:
 subcategory: "reference"

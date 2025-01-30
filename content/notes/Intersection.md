@@ -1,16 +1,16 @@
 ---
-title: "Set Intersection"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding the intersection operation on sets and its properties."
-tags: ["sets", "operations", "intersection"]
-displayInNotes: true
-order: 13
-relatedContent: ["Sets", "Union", "Subset"]
-subcategory: "operations"
+title: Intersection
+type: note
+category: set-theory
+order: 5
+tags:
+  - sets
+  - operations
+  - intersection
+publishedAt: '2025-01-11'
+summary: "Understanding set intersections and their properties."
+relatedContent: ["sets", "union", "subset"]
 isPublished: true
-weight: 13
 ---
 
 ## Definition

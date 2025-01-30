@@ -1,16 +1,16 @@
 ---
-title: "Vector Space Basis"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "Understanding basis as a minimal spanning set of linearly independent vectors."
-tags: ["basis", "linear-independence", "vector-spaces"]
-displayInNotes: true
-order: 28
-relatedContent: ["vector-spans", "linear-dependence", "vector-space"]
-subcategory: "foundations"
+title: Basis
+type: note
+category: vector-spaces
+order: 8
+tags:
+  - vectors
+  - basis
+  - linear-algebra
+publishedAt: '2024-01-29'
+summary: "Understanding basis of vector spaces and their significance."
+relatedContent: ["vector-space", "linear-dependence", "vector-spans"]
 isPublished: true
-weight: 28
 ---
 
 ## Definition

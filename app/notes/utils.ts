@@ -32,16 +32,15 @@ const excludedSlugs = [
   'internships',
   'weekly-summary',
   'weekly-reviews',
-  'finding-an-internship-v1'
+  'outro'
 ]
 
 // Main categories in preferred order
 const mainCategories = [
-  'foundations',
-  'operations',
+  'set-theory',
   'functions',
-  'applications',
-  'weekly-content'
+  'vector-spaces',
+  'applications'
 ]
 
 export async function getNotes(): Promise<Note[]> {
@@ -61,22 +60,13 @@ export async function getNotes(): Promise<Note[]> {
           .join(' ')
       }
       
-      // Map category if it exists in categoryMap
-      const mappedCategory = data.category ? categoryMap[data.category] || data.category : 'notes'
-      
-      // Handle weekly content subcategory
-      let subcategory = data.subcategory
-      if (data.subcategory?.startsWith('week-') || data.subcategory?.startsWith('Week')) {
-        subcategory = 'weekly-content'
-      }
-      
       return {
         ...data,
         slug: file.replace(/\.mdx?$/, ''),
-        category: mappedCategory,
-        subcategory: subcategory || 'foundations',
+        category: data.category || 'uncategorized',
+        type: data.type || 'note',
+        subcategory: data.subcategory,
         order: data.order || 0,
-        weight: data.weight || 0,
         isPublished: data.isPublished !== false, // default to true if not specified
         displayInNotes: data.displayInNotes !== false // default to true if not specified
       } as Note
@@ -88,14 +78,13 @@ export async function getNotes(): Promise<Note[]> {
     .filter(note => 
       !excludedSlugs.includes(note.slug) && 
       note.isPublished !== false &&
-      note.type !== 'page' &&
       note.displayInNotes !== false &&
       !note.slug.toLowerCase().includes('page') // Exclude any page.tsx files
     )
     .sort((a, b) => {
-      // First sort by category order
-      const aCatIndex = mainCategories.indexOf(a.subcategory || '')
-      const bCatIndex = mainCategories.indexOf(b.subcategory || '')
+      // First sort by category order for main categories
+      const aCatIndex = mainCategories.indexOf(a.category || '')
+      const bCatIndex = mainCategories.indexOf(b.category || '')
       if (aCatIndex !== -1 && bCatIndex !== -1 && aCatIndex !== bCatIndex) {
         return aCatIndex - bCatIndex
       }
@@ -103,11 +92,6 @@ export async function getNotes(): Promise<Note[]> {
       // Then by order if available
       if (a.order !== undefined && b.order !== undefined) {
         return a.order - b.order
-      }
-      
-      // Then by weight if available
-      if (a.weight !== undefined && b.weight !== undefined) {
-        return a.weight - b.weight
       }
       
       // Finally by title

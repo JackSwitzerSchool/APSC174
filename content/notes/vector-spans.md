@@ -1,16 +1,16 @@
 ---
-title: "Vector Spans"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "The span of vectors as all possible linear combinations, forming a fundamental subspace."
-tags: ["spans", "linear-combinations", "subspaces"]
-displayInNotes: true
-order: 26
-relatedContent: ["linear-combinations", "vector-subspaces", "vector-space"]
-subcategory: "operations"
+title: Vector Spans
+type: note
+category: vector-spaces
+order: 5
+tags:
+  - vectors
+  - spans
+  - linear-algebra
+publishedAt: '2025-01-11'
+summary: "Understanding vector spans and their role in vector spaces."
+relatedContent: ["vector-space", "linear-combinations", "basis"]
 isPublished: true
-weight: 26
 ---
 
 ## Definition

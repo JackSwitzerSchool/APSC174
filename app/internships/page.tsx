@@ -1,5 +1,12 @@
-import { getNotes } from '@/app/notes/utils'
+import { getNotes, getNote } from '@/app/notes/utils'
 import Notes from '@/app/components/notes'
+import dynamic from 'next/dynamic'
+import { serializeMDX } from '@/lib/mdx'
+
+const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
+  ssr: false,
+  loading: () => <div>Loading...</div>
+})
 
 export const metadata = {
   title: 'Internships',
@@ -8,26 +15,26 @@ export const metadata = {
 
 export default async function InternshipsPage() {
   const notes = await getNotes()
-  const internships = notes
-    .filter(note => note.category === 'internships')
-    .sort((a, b) => {
-      // Sort by version number if present (e.g., v1, v2)
-      const versionA = parseInt(a.slug.match(/v(\d+)/)?.[1] || '0')
-      const versionB = parseInt(b.slug.match(/v(\d+)/)?.[1] || '0')
-      return versionB - versionA // Latest version first
-    })
+  const internships = notes.filter(note => note.category === 'internships')
+  
+  // Get the header content
+  const header = await getNote('intern-v1')
+  const mdxSource = await serializeMDX(header.content)
   
   return (
-    <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-        Internship Resources
-      </h1>
-      <div className="prose dark:prose-invert">
-        <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-          Resources and guides to help you find and secure internship opportunities.
-        </p>
-        <Notes notes={internships} />
+    <section className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mb-12">
+        <h1 className="font-bold text-3xl mb-2 tracking-tighter">
+          {header.title}
+        </h1>
+        <MDXContent source={mdxSource} />
       </div>
+
+      {internships.length > 0 && (
+        <div className="mt-8">
+          <Notes notes={internships} />
+        </div>
+      )}
     </section>
   )
 } 

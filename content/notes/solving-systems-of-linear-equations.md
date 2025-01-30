@@ -1,16 +1,16 @@
 ---
-title: "Solving Linear Systems"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
+title: Solving Systems of Linear Equations
+type: note
+category: applications
+order: 2
+tags:
+  - applications
+  - systems
+  - solutions
+publishedAt: '2025-01-11'
 summary: "Methods and techniques for solving systems of linear equations."
-tags: ["linear-equations", "systems", "solutions", "methods"]
-displayInNotes: true
-order: 19
-relatedContent: ["systems-of-linear-equations", "vectors", "linear-combinations"]
-subcategory: "applications"
+relatedContent: ["systems-of-linear-equations", "linear-combinations"]
 isPublished: true
-weight: 19
 ---
 
 You are likely familiar with solving systems of linear equations in the following ways:

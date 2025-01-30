@@ -1,16 +1,16 @@
 ---
-title: "Surjective Functions"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding onto functions and their properties in function theory."
-tags: ["functions", "mappings", "surjective", "onto"]
-displayInNotes: true
-order: 17
-relatedContent: ["Mapping", "injective", "Sets"]
-subcategory: "functions"
+title: Surjective Functions
+type: note
+category: functions
+order: 3
+tags:
+  - functions
+  - surjective
+  - onto
+publishedAt: '2025-01-11'
+summary: "Understanding surjective (onto) functions and their properties."
+relatedContent: ["mapping", "injective"]
 isPublished: true
-weight: 17
 ---
 
 A [[mapping|Function]] is surjective when all elements of the co-domain are mapped to.

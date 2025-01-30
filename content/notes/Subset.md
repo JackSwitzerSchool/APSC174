@@ -1,16 +1,16 @@
 ---
-title: "Subsets"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding subset relationships between sets and their implications."
-tags: ["sets", "foundations", "subset"]
-displayInNotes: true
-order: 14
-relatedContent: ["Sets", "empty-set", "Union", "Intersection"]
-subcategory: "foundations"
+title: Subsets
+type: note
+category: set-theory
+order: 8
+tags:
+  - sets
+  - subsets
+  - fundamentals
+publishedAt: '2025-01-11'
+summary: "Understanding subsets and their properties in set theory."
+relatedContent: ["sets", "empty-set", "union", "intersection"]
 isPublished: true
-weight: 14
 ---
 
 ## Definition

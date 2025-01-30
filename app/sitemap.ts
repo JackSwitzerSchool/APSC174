@@ -27,8 +27,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   
   // Filter out posts that should have their own routes
   const filteredPosts = notes.filter((note: Note) => {
-    // Only include notes and weekly summaries in sitemap
-    return note.category === 'notes' || note.category === 'weekly-summary'
+    // Include all notes from our main categories
+    return note.category === 'set-theory' ||
+           note.category === 'functions' ||
+           note.category === 'vector-spaces' ||
+           note.category === 'applications'
   })
 
   const currentDate = new Date().toISOString()

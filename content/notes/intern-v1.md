@@ -1,12 +1,15 @@
 ---
-title: "Finding an Internship v1"
-type: "page"
-category: "internships"
-publishedAt: "2025-01-11"
-summary: "A comprehensive guide to finding and landing your first engineering internship."
-tags: ["career", "internships", "job-search"]
-displayInNotes: false
+title: Finding an Internship
+type: note
+category: internships
 order: 1
+tags:
+  - career
+  - internships
+  - job-search
+  - guide
+publishedAt: '2025-01-11'
+summary: "A comprehensive guide to finding and landing your first engineering internship."
 relatedContent: []
 subcategory: "career"
 isPublished: true

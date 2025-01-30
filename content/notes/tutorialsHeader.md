@@ -1,16 +1,18 @@
 ---
-title: "Tutorial Information"
-type: "page"
-category: "course-resources"
-publishedAt: "2025-01-11"
-summary: "Information about tutorials and their content."
-tags: ["tutorials", "course-info"]
-displayInNotes: true
-order: 2
-relatedContent: ["course-resources"]
+title: Tutorial Information
+type: note
+category: tutorials
+order: 1
+tags:
+  - tutorials
+  - course-info
+  - practice
+publishedAt: '2025-01-11'
+summary: "Information about tutorials and practice problems for APSC 174."
+relatedContent: ["course-resources", "webwork"]
 subcategory: "tutorials"
 isPublished: true
-weight: 2
+weight: 1
 ---
 
 ## Tutorial 1

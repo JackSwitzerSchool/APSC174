@@ -1,16 +1,16 @@
 ---
-title: "Why Abstract Mathematics?"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
-summary: "Understanding the importance and benefits of abstract mathematical thinking."
-tags: ["abstraction", "foundations", "motivation"]
-displayInNotes: true
-order: 9
-relatedContent: ["Sets", "vector-space", "Mapping"]
-subcategory: "foundations"
+title: Motivation for the Abstract
+type: note
+category: set-theory
+order: 7
+tags:
+  - foundations
+  - concepts
+  - motivation
+publishedAt: '2025-01-11'
+summary: "Understanding why we study abstract mathematical concepts."
+relatedContent: ["sets", "vector-space", "functions"]
 isPublished: true
-weight: 9
 ---
 
 # The Point of it All

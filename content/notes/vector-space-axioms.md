@@ -1,16 +1,16 @@
 ---
-title: "Vector Space Axioms"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "The fundamental axioms that define a vector space and their implications."
-tags: ["vector-spaces", "axioms", "foundations"]
-displayInNotes: true
-order: 21
+title: Vector Space Axioms
+type: note
+category: vector-spaces
+order: 2
+tags:
+  - vectors
+  - axioms
+  - fundamentals
+publishedAt: '2025-01-11'
+summary: "The fundamental axioms that define a vector space."
 relatedContent: ["vector-space", "vectors", "vector-subspaces"]
-subcategory: "foundations"
 isPublished: true
-weight: 21
 ---
 
 ## Axioms

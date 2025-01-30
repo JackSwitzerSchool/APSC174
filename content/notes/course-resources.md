@@ -1,12 +1,14 @@
 ---
-title: "Course Resources"
-type: "page"
-category: "course-resources"
-publishedAt: "2025-01-11"
-summary: "Essential course resources and materials for APSC 174."
-tags: ["course-info", "resources"]
-displayInNotes: true
+title: Course Resources
+type: note
+category: course-resources
 order: 1
+tags:
+  - course-info
+  - resources
+  - materials
+publishedAt: '2025-01-11'
+summary: "Essential course resources and materials for APSC 174."
 relatedContent: ["webwork", "midterm-1", "midterm-2", "final-exam"]
 subcategory: "resources"
 isPublished: true

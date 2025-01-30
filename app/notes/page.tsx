@@ -23,23 +23,15 @@ const categories = {
   'applications': {
     title: 'Applications',
     description: 'Systems of linear equations and practical applications'
-  },
-  'weekly-content': {
-    title: 'Weekly Content',
-    description: 'Course materials organized by week'
-  },
-  'course-resources': {
-    title: 'Course Resources',
-    description: 'Exams, assignments, and other course materials'
   }
 }
 
 export default async function NotesPage() {
   const notes = await getNotes()
   
-  // Group notes by subcategory
+  // Group notes by category instead of subcategory
   const notesByCategory = notes.reduce((acc, note) => {
-    const category = note.subcategory || 'foundations'
+    const category = note.category || 'uncategorized'
     if (!acc[category]) {
       acc[category] = []
     }
@@ -47,14 +39,11 @@ export default async function NotesPage() {
     return acc
   }, {} as Record<string, typeof notes>)
   
-  // Sort notes within each category
+  // Sort notes within each category by order
   Object.keys(notesByCategory).forEach(category => {
     notesByCategory[category].sort((a, b) => {
       if (a.order !== undefined && b.order !== undefined) {
         return a.order - b.order
-      }
-      if (a.weight !== undefined && b.weight !== undefined) {
-        return a.weight - b.weight
       }
       return (a.title || '').localeCompare(b.title || '')
     })
@@ -79,7 +68,7 @@ export default async function NotesPage() {
           Course Notes
         </h1>
         <p className="text-neutral-600 dark:text-neutral-400">
-          Comprehensive course materials organized by topic and weekly content.
+          Comprehensive course materials organized by topic.
         </p>
       </div>
 

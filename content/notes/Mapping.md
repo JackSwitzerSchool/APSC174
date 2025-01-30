@@ -1,12 +1,14 @@
 ---
-title: "Functions and Mappings"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-11"
+title: Functions and Mappings
+type: note
+category: functions
+order: 1
+tags:
+  - functions
+  - mappings
+  - basics
+publishedAt: '2025-01-11'
 summary: "Understanding functions as mappings between sets, including key properties and types."
-tags: ["functions", "mappings", "foundations"]
-displayInNotes: true
-order: 11
 relatedContent: ["Sets", "injective", "surjective"]
 subcategory: "foundations"
 isPublished: true

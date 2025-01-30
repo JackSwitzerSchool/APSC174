@@ -1,16 +1,16 @@
 ---
-title: "Linear Combinations"
-type: "reference"
-category: "course-content"
-publishedAt: "2025-01-16"
-summary: "Understanding how vectors can be combined using scalar multiplication and addition."
-tags: ["linear-combinations", "vectors", "operations"]
-displayInNotes: true
-order: 25
-relatedContent: ["vectors", "vector-space", "vector-spans"]
-subcategory: "operations"
+title: Linear Combinations
+type: note
+category: vector-spaces
+order: 4
+tags:
+  - vectors
+  - linear-combinations
+  - fundamentals
+publishedAt: '2025-01-11'
+summary: "Understanding linear combinations of vectors and their significance."
+relatedContent: ["vector-space", "vector-spans", "linear-dependence"]
 isPublished: true
-weight: 25
 ---
 
 ## Definition
