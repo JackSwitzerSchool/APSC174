@@ -62,7 +62,7 @@ export default async function NotesPage() {
     })
   
   return (
-    <section className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full max-w-[2000px] mx-auto px-2 sm:px-4">
       <div className="mb-12">
         <h1 className="font-bold text-3xl mb-2 tracking-tighter">
           Course Notes
@@ -72,7 +72,7 @@ export default async function NotesPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4">
         {sortedCategories.map((category) => {
           const categoryInfo = categories[category as keyof typeof categories]
           return (
@@ -80,15 +80,15 @@ export default async function NotesPage() {
               key={category} 
               className="w-full flex flex-col bg-white dark:bg-black rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
             >
-              <div className="flex flex-col h-full p-4 sm:p-5">
-                <div className="mb-4">
-                  <h2 className="font-semibold text-lg mb-2">
+              <div className="flex flex-col h-full p-4 sm:p-6">
+                <div className="mb-6">
+                  <h2 className="font-semibold text-xl mb-3">
                     {categoryInfo?.title || category.split('-').map(word => 
                       word.charAt(0).toUpperCase() + word.slice(1)
                     ).join(' ')}
                   </h2>
                   {categoryInfo?.description && (
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-base text-neutral-600 dark:text-neutral-400">
                       {categoryInfo.description}
                     </p>
                   )}
