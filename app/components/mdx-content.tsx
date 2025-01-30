@@ -15,7 +15,7 @@ const components = {
         ? href 
         : href.startsWith('/') 
           ? href 
-          : `/content/assets/pdf/${href}`
+          : `/assets/pdf/${href}`
 
       return (
         <a 

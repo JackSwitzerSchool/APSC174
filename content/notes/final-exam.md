@@ -13,7 +13,7 @@ isPublished: true
 weight: 5
 ---
 
-As per the course [syllabus](/content/assets/pdf/course/syllabus.pdf):
+As per the course [syllabus](/assets/pdf/base/syllabus.pdf):
 
 The final exam date, set by the Exams Office, is **Monday April 18th, 2-5 PM.** For students with accommodations, any alternate arrangements will be emailed to you from the Exams Office.
 

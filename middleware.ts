@@ -34,7 +34,7 @@ export default function middleware(request: NextRequest) {
     // Otherwise, redirect to assets directory
     const pdfName = pathname.split('/').pop()
     return NextResponse.redirect(
-      new URL(`/content/assets/pdf/base/${pdfName}`, request.url)
+      new URL(`/assets/pdf/base/${pdfName}`, request.url)
     )
   }
 
