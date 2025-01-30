@@ -18,21 +18,16 @@ interface Note {
 // Map frontmatter categories to route categories
 const categoryMap: Record<string, string> = {
   'course-content': 'notes',
-  'reference': 'notes',
-  'tutorial': 'tutorials',
-  'resource': 'resources',
-  'internship': 'internships'
+  'reference': 'notes'
 }
 
 // List of special pages to exclude from general notes listing
 const excludedSlugs = [
   'page',
-  'course-resources',
+  'outro',
+  'intern-v1',
   'tutorialsHeader',
-  'internships',
-  'weekly-summary',
-  'weekly-reviews',
-  'outro'
+  'course-resources'
 ]
 
 // Main categories in preferred order
@@ -60,10 +55,13 @@ export async function getNotes(): Promise<Note[]> {
           .join(' ')
       }
       
+      // Map category if it exists in categoryMap
+      const mappedCategory = data.category ? categoryMap[data.category] || data.category : 'notes'
+      
       return {
         ...data,
         slug: file.replace(/\.mdx?$/, ''),
-        category: data.category || 'uncategorized',
+        category: mappedCategory,
         type: data.type || 'note',
         subcategory: data.subcategory,
         order: data.order || 0,
@@ -73,7 +71,7 @@ export async function getNotes(): Promise<Note[]> {
     })
   )
 
-  // Filter out excluded pages, unpublished content, and special types
+  // Filter out excluded pages, unpublished content
   return notes
     .filter(note => 
       !excludedSlugs.includes(note.slug) && 

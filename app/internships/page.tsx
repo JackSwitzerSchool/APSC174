@@ -15,7 +15,7 @@ export const metadata = {
 
 export default async function InternshipsPage() {
   const notes = await getNotes()
-  const internships = notes.filter(note => note.category === 'internships')
+  const internships = notes.filter(note => note.category === 'internships' && note.slug !== 'intern-v1')
   
   // Get the header content
   const header = await getNote('intern-v1')
