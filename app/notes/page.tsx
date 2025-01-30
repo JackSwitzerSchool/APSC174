@@ -72,31 +72,29 @@ export default async function NotesPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
         {sortedCategories.map((category) => {
           const categoryInfo = categories[category as keyof typeof categories]
           return (
             <div 
               key={category} 
-              className="w-full min-w-[min(100%,600px)] mx-auto flex flex-col bg-white dark:bg-black rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
+              className="w-full flex flex-col bg-white dark:bg-black rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
             >
-              <div className="flex flex-col h-full p-5 sm:p-6 lg:p-8">
-                <div className="mb-6">
-                  <h2 className="font-semibold text-xl mb-3">
+              <div className="flex flex-col h-full p-4 sm:p-5 lg:p-6">
+                <div className="mb-4 sm:mb-6">
+                  <h2 className="font-semibold text-lg sm:text-xl mb-2 sm:mb-3 truncate">
                     {categoryInfo?.title || category.split('-').map(word => 
                       word.charAt(0).toUpperCase() + word.slice(1)
                     ).join(' ')}
                   </h2>
                   {categoryInfo?.description && (
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
                       {categoryInfo.description}
                     </p>
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="space-y-2.5">
-                    <Notes notes={notesByCategory[category]} />
-                  </div>
+                  <Notes notes={notesByCategory[category]} />
                 </div>
               </div>
             </div>

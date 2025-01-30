@@ -17,3 +17,6 @@ weight: 13
 In week 4 we learnt more about [[vector-space|Vector Spaces]], and further notions of [[linear-dependence|Linear Dependence]] built off of [[linear-combinations|Linear Combinations]].
 
 ### [Exit Poll](https://forms.gle/a6jHBpKRndM34TVZA)
+
+### Last Weeks Poll
+Added [[Midterm-1]] past exams, and weekly notes - Can record a walkthrough if there is interest
