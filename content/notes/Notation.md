@@ -44,7 +44,7 @@ Real Numbers: $\mathbb{R}$
 
 [[Intersection]]: $\cap$
 
-[[Cartesian Product]]: $\times$
+[[Cartesian-Product]]: $\times$
 
 Set Equality: 
 
