@@ -1,13 +1,15 @@
 ---
-title: "Mathematical Notation Guide"
-type: "page"
-category: "course-resources"
-publishedAt: "2025-01-11"
+title: Mathematical Notation
+type: note
+category: set-theory
+order: 1
+tags:
+  - foundations
+  - notation
+  - sets
+publishedAt: '2024-01-29'
 summary: "Essential mathematical symbols and conventions used throughout the course. Foundation for reading and writing mathematical expressions."
-tags: ["notation", "reference", "symbols", "mathematics"]
-displayInNotes: true
-order: 7
-relatedContent: ["course-resources", "week-1"]
+relatedContent:
 subcategory: "reference"
 isPublished: true
 weight: 7
@@ -20,7 +22,7 @@ Where $x$ is an element and $P(x)$ is a condition on $x$.
 
 Given That (Rule or Pattern or Condition): "$:$" or "$|$" 
 
-[[Subset]]: $\subseteq$
+[[subset|Subsets]]: $\subseteq$
 
 Strict Subset: $\subset$
 

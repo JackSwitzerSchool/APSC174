@@ -8,25 +8,29 @@ export const metadata = {
 
 // Category display names and descriptions
 const categories = {
-  'foundations': {
-    title: 'Foundations',
-    description: 'Core mathematical concepts and basic principles'
-  },
-  'operations': {
-    title: 'Operations',
-    description: 'Mathematical operations and transformations'
+  'set-theory': {
+    title: 'Set Theory',
+    description: 'Fundamental concepts of sets, operations, and mathematical notation'
   },
   'functions': {
-    title: 'Functions',
-    description: 'Function types and their properties'
+    title: 'Functions & Mappings',
+    description: 'Functions, mappings, and their properties'
+  },
+  'vector-spaces': {
+    title: 'Vector Spaces',
+    description: 'Vector spaces, subspaces, linear combinations, and basis'
   },
   'applications': {
     title: 'Applications',
-    description: 'Real-world applications and problem solving'
+    description: 'Systems of linear equations and practical applications'
   },
   'weekly-content': {
     title: 'Weekly Content',
     description: 'Course materials organized by week'
+  },
+  'course-resources': {
+    title: 'Course Resources',
+    description: 'Exams, assignments, and other course materials'
   }
 }
 

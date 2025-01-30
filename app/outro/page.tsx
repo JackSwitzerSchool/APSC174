@@ -11,7 +11,7 @@ export const metadata = {
 export default async function OutroPage() {
   try {
     // Get all files in the outro directory
-    const outroDir = path.join(process.cwd(), 'content', 'assets', 'images', 'outro')
+    const outroDir = path.join(process.cwd(), 'public', 'assets', 'images', 'outro')
     const files = await fs.readdir(outroDir)
     
     // Find the most recent week file
@@ -26,7 +26,7 @@ export default async function OutroPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <Image
-          src={`/content/assets/images/outro/${latestFile}`}
+          src={`/assets/images/outro/${latestFile}`}
           alt="Weekly QR Code"
           width={400}
           height={400}
