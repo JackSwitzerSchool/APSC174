@@ -17,8 +17,7 @@ The empty set or the null set denoted $\emptyset = \{\}$ is the set containing *
 This has useful "annihilation" properties similar to other identity elements such as the additive identify 0. 
 NOTE: This does not mean $0=\emptyset$
 
-## Fun Fact:
-Constructing the counting numbers from simple empty set's and successor functions (a notion of 0+1=1 or 1+1=2...)
+## Crazy Video Constructing Natural Numbers from the empty set and [[mapping|functions]]
 
 <iframe 
   width="100%" 
