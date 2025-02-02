@@ -30,13 +30,16 @@ export default async function DynamicPage({ params }: Props) {
   try {
     const fullPath = params.slug.join('/')
 
-    // Handle static assets by redirecting to the public path
-    if (fullPath.includes('assets/')) {
-      return redirect(`/${fullPath}`)
-    }
-
-    // Handle PDF routes
-    if (fullPath.endsWith('.pdf')) {
+    // Handle static assets and favicons
+    if (
+      fullPath.includes('assets/') ||
+      fullPath.endsWith('.ico') ||
+      fullPath.endsWith('.png') ||
+      fullPath.endsWith('.jpg') ||
+      fullPath.endsWith('.jpeg') ||
+      fullPath.endsWith('.svg') ||
+      fullPath.endsWith('.pdf')
+    ) {
       return redirect(`/${fullPath}`)
     }
 
@@ -82,6 +85,11 @@ export default async function DynamicPage({ params }: Props) {
       )
     }
     
+    // Only attempt to find notes for paths under /notes/
+    if (!fullPath.startsWith('notes/')) {
+      notFound()
+    }
+
     const notes = await getNotes()
     const noteMatch = notes.find((note) => {
       const normalizedNoteSlug = note.slug.toLowerCase()
