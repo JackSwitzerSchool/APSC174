@@ -17,7 +17,7 @@ weight: 14
 Your [[Midterm-1|first Midterm]] is coming up on Tuesday, February 11th 2025
 
 ### Additional Review
-I posted some [[/videos]] going over past midterm examples
+I posted some [review videos](/videos) going over past midterm examples
 
 I'm teaching the [EngLinks](https://linktr.ee/englinks?fbclid=PAZXh0bgNhZW0CMTEAAabEz6u0ydugTzstbteV8uACjSfhg3KuV_OhpbnUvtrgzmSRx_fYZssc5l4_aem_G3qSW0kRxCPGIZMoYXVECA) review session on Saturday Feb 8th from 2:00-4:00pm in Stirling C
 

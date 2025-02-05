@@ -38,7 +38,7 @@ export default function Page() {
       </div>
 
       <div className="space-y-6">
-        <h2 className="font-medium text-xl tracking-tighter">Linear Algebra Fundamentals</h2>
+        <h2 className="font-medium text-xl tracking-tighter">The Fundamentals</h2>
         <div className="w-full max-w-3xl">
           <YouTube 
             id="fNk_zzaMoSs" 
