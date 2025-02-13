@@ -21,7 +21,7 @@ export default async function OutroPage() {
     }
 
     // Sort files to get the latest week
-    const latestFile = weekFiles.sort().reverse()[0]
+    const latestFile = 'Week6.png'
     
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
