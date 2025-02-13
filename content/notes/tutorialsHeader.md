@@ -34,3 +34,7 @@ weight: 1
 ## Tutorial 5
 - [Tutorial Questions](/assets/pdf/tutorials/Tutorial5Questions.pdf)
 - [Tutorial Solutions](/assets/pdf/tutorials/Tutorial5Solutions.pdf)
+
+## Tutorial 6
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial6Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial6Solutions.pdf)
