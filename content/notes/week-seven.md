@@ -14,25 +14,23 @@ weight: 16
 ---
 ## Week 7 Summary
 
-This week we explored three fundamental concepts in linear algebra:
+This week we explored three fundamental concepts in linear algebra that build upon our understanding of vector spaces:
 
-### 1. Dimensions of Vector Spaces
+### 1. [[vector-space-dimension|Dimensions of Vector Spaces]]
 
 - The concept of dimension as the size of a basis
 - The key lemma relating linearly independent sets and spanning sets
-- Finite-dimensional vs. infinite-dimensional vector spaces
 
-### 2. Linear Transformations
+### 2. [[linear-transformations|Linear Transformations]]
 
 - Definition and properties of linear transformations
 - Matrix representations of linear transformations
 - Composition of linear transformations
 
-### 3. Null Spaces and Kernels
+### 3. [[null-space|Null Spaces and Kernels]]
 
 - Definition of null space (kernel) of a linear transformation
 - Relationship between null space and solutions to homogeneous systems
-- The rank-nullity theorem and its applications
 
 ### Key Lemma
 
