@@ -5,14 +5,6 @@ category: "weekly-summary"
 publishedAt: "2025-02-24"
 summary: "Dimensions of vector spaces, linear transformations, null spaces, and the rank-nullity theorem"
 tags: 
-  - vector-spaces
-  - linear-dependence
-  - linear-combinations
-  - dimensions
-  - linear-transformations
-  - null-space
-  - kernel
-  - rank-nullity
 displayInNotes: true
 order: 7
 relatedContent: ["vector-space", "basis", "gen-sets", "linear-dependence", "matrix", "vector-space-dimension", "linear-transformations", "null-space"]
