@@ -14,33 +14,33 @@ weight: 16
 ---
 ## Week 7 Summary
 
-This week we explored three fundamental concepts in linear algebra that build upon our understanding of [[vector-space|vector spaces]]:
+This week we explored three fundamental concepts in linear algebra:
 
 ### 1. Dimensions of Vector Spaces
 
-- The concept of [[vector-space-dimension|dimension]] as the size of a [[basis|basis]]
-- The key lemma relating [[linear-dependence|linearly independent]] sets and [[gen-sets|spanning sets]]
-- Finite-dimensional vs. infinite-dimensional [[vector-space|vector spaces]]
+- The concept of dimension as the size of a basis
+- The key lemma relating linearly independent sets and spanning sets
+- Finite-dimensional vs. infinite-dimensional vector spaces
 
 ### 2. Linear Transformations
 
-- Definition and properties of [[linear-transformations|linear transformations]]
-- [[matrix|Matrix]] representations of [[linear-transformations|linear transformations]]
-- Composition of [[linear-transformations|linear transformations]]
+- Definition and properties of linear transformations
+- Matrix representations of linear transformations
+- Composition of linear transformations
 
 ### 3. Null Spaces and Kernels
 
-- Definition of [[null-space|null space]] (kernel) of a [[linear-transformations|linear transformation]]
-- Relationship between [[null-space|null space]] and solutions to homogeneous [[systems-of-linear-equations|systems]]
+- Definition of null space (kernel) of a linear transformation
+- Relationship between null space and solutions to homogeneous systems
 - The rank-nullity theorem and its applications
 
 ### Key Lemma
 
 One of the most important results we covered is:
 
-> **Key Lemma**: Let V be a [[vector-space|vector space]], and suppose that {u₁, u₂, ..., uₐ} is a set of [[linear-dependence|linearly independent]] vectors in V, and that {v₁, v₂, ..., vᵦ} is a [[gen-sets|spanning set]] for V. Then a ≤ b.
+> **Key Lemma**: Let V be a vector space, and suppose that {u₁, u₂, ..., uₐ} is a set of linearly independent vectors in V, and that {v₁, v₂, ..., vᵦ} is a spanning set for V. Then a ≤ b.
 
 This lemma establishes that:
-- Any [[linear-dependence|linearly independent]] set can have at most as many [[vectors|vectors]] as any [[gen-sets|spanning set]]
-- All [[basis|bases]] of a [[vector-space|vector space]] have the same number of elements
-- The [[vector-space-dimension|dimension]] of a [[vector-space|vector space]] is well-defined
+- Any linearly independent set can have at most as many vectors as any spanning set
+- All bases of a vector space have the same number of elements
+- The dimension of a vector space is well-defined
