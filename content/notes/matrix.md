@@ -28,7 +28,7 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 \end{bmatrix}
 $$
 
-## Visual Representation
+## Augmented Matrices as Systems of Linear Equations
 
 <img 
   src="/content/assets/images/Matrix.png" 
