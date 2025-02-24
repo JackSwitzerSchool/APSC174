@@ -7,7 +7,7 @@ summary: "Dimensions of vector spaces, linear transformations, null spaces, and 
 tags: 
 displayInNotes: true
 order: 7
-relatedContent: ["vector-space", "basis", "gen-sets", "linear-dependence", "matrix", "vector-space-dimension", "linear-transformations", "null-space"]
+relatedContent:
 subcategory: "week-7"
 isPublished: true
 weight: 16

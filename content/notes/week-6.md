@@ -5,15 +5,9 @@ category: "weekly-summary"
 publishedAt: "2025-02-24"
 summary: "Matrices and dat"
 tags: 
-  - matrices
-  - systems
-  - RREF
-  - gaussian elimination
-  - generating sets
-  - bases
 displayInNotes: true
 order: 6
-relatedContent: ["matrix", "rref", "gaussian-elim", "systems-of-linear-equations", "solving-systems-of-linear-equations", "gen-sets", "basis"]
+relatedContent:
 subcategory: "week-6"
 isPublished: true
 weight: 15
