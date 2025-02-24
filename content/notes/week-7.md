@@ -8,7 +8,7 @@ tags:
 displayInNotes: true
 order: 7
 relatedContent:
-subcategory: "week-seven"
+subcategory: "week-7"
 isPublished: true
 weight: 16
 ---
