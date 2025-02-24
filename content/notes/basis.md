@@ -16,7 +16,7 @@ isPublished: true
 ## Definition
 A basis for a [[vector-space|Vector Space]] $\mathbb{V}$ is a set of vectors that is:
 1. [[linear-dependence|Linearly Independent]]
-2. [[vector-spans|Spans]] the entire space $\mathbb{V}$
+2. [[vector-spans|Spans]] / [[gen-sets| A Generating Set]] for the entire space $\mathbb{V}$
 
 In other words, a basis is a minimal set of vectors that can generate the entire space through [[linear-combinations|Linear Combinations]].
 

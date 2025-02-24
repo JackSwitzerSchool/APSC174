@@ -9,7 +9,7 @@ tags:
   - solutions
 publishedAt: '2025-01-11'
 summary: "Methods and techniques for solving systems of linear equations."
-relatedContent: ["systems-of-linear-equations", "linear-combinations"]
+relatedContent: ["systems-of-linear-equations", "linear-combinations", "matrix", "gaussian-elim", "rref"]
 isPublished: true
 ---
 
@@ -28,4 +28,4 @@ Other ways of solving these equations include:
 The solution to these systems often appear as intersections. If you can find where and how your linear equations intersect, you can describe their solution.
 
 4) Matrices
-Since linear algebra also describes the language of matrices, there are many powerful tools you can use to solve larger systems of linear equations using techniques like RREF or Gaussian elimination.
+Since linear algebra also describes the language of [[matrix|matrices]], there are many powerful tools you can use to solve larger systems of linear equations using techniques like [[rref|RREF]] or [[gaussian-elim|Gaussian elimination]].

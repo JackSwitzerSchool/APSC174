@@ -9,7 +9,7 @@ tags:
   - equations
 publishedAt: '2025-01-11'
 summary: "Understanding and solving systems of linear equations using various methods."
-relatedContent: ["solving-systems-of-linear-equations", "vectors", "linear-combinations"]
+relatedContent: ["solving-systems-of-linear-equations", "vectors", "linear-combinations", "matrix", "gaussian-elim", "rref"]
 subcategory: "applications"
 isPublished: true
 weight: 18
@@ -51,7 +51,7 @@ $$
 
 Solution: This gives a unique solution of $x=1200$, $y=500$, $z=300$
 
-See [[Solving Systems of Linear Equations|how to solve these systems]].
+See [[solving-systems-of-linear-equations|how to solve these systems]] using methods like [[gaussian-elim|Gaussian elimination]] and [[matrix|matrices]].
 
 ### Counter Examples
 #### a) $\sin(x) = 0.2$ 
