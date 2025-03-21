@@ -42,3 +42,15 @@ weight: 1
 ## Tutorial 7
 - [Tutorial Questions](/assets/pdf/tutorials/Tutorial7Questions.pdf)
 - [Tutorial Solutions](/assets/pdf/tutorials/Tutorial7Solutions.pdf)
+
+## Tutorial 8
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial8Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial8Solutions.pdf)
+
+## Tutorial 9
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial9Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial9Solutions.pdf)
+
+## Tutorial 10
+- [Tutorial Questions](/assets/pdf/tutorials/Tutorial10Questions.pdf)
+- [Tutorial Solutions](/assets/pdf/tutorials/Tutorial10Solutions.pdf)
