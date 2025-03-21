@@ -2,16 +2,17 @@
 title: "Week 7: Dimensions and Linear Transformations"
 type: "note"
 category: "weekly-summary"
-publishedAt: "2025-02-24"
-summary: "Dimensions of vector spaces, linear transformations, null spaces"
-tags: 
+publishedAt: "2025-03-03"
+summary: "Dimensions of vector spaces, linear transformations, and null spaces - fundamental concepts building upon vector spaces."
+tags: ["week-7", "dimensions", "linear-transformations", "null-space", "vector-spaces"]
 displayInNotes: true
 order: 7
-relatedContent:
+relatedContent: ["course-resources", "vector-spaces", "basis", "linear-systems"]
 subcategory: "week-7"
 isPublished: true
 weight: 16
 ---
+
 ## Week 7 Summary
 
 This week we explored three fundamental concepts in linear algebra that build upon our understanding of vector spaces:
@@ -41,4 +42,4 @@ One of the most important results we covered is:
 This lemma establishes that:
 - Any linearly independent set can have at most as many vectors as any spanning set
 - All bases of a vector space have the same number of elements
-- The dimension of a vector space is well-defined
+- The dimension of a vector space is well-defined 

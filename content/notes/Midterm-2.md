@@ -24,4 +24,7 @@ Midterm 2 will be given on **Tuesday, March 25, 2025** at **6:30 pm**.
 **Reminder**: Calculators are **not permitted** during the test.
 
 ## Past Years
-Coming soon...
+- 2022 Midterm 2: [Exam](/assets/pdf/past-exams/midterm2/midterm2-2022.pdf) | [Solutions](/assets/pdf/past-exams/midterm2/midterm2-2022-solutions.pdf)
+- 2021 Midterm 2: [Exam](/assets/pdf/past-exams/midterm2/midterm2-2021.pdf) | [Solutions](/assets/pdf/past-exams/midterm2/midterm2-2021-solutions.pdf)
+- 2020 Midterm 2: [Exam](/assets/pdf/past-exams/midterm2/midterm2-2020.pdf) | [Solutions](/assets/pdf/past-exams/midterm2/midterm2-2020-solutions.pdf)
+- 2019 Midterm 2: [Exam](/assets/pdf/past-exams/midterm2/midterm2-2019.pdf) | [Solutions](/assets/pdf/past-exams/midterm2/midterm2-2019-solutions.pdf)
