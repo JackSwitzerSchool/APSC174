@@ -1,16 +1,16 @@
 ---
-title: "Midterm 2 Review"
-type: "page"
-category: "course-resources"
+title: "Week 10: Midterm 2 Review"
+type: "note"
+category: "weeks"
 publishedAt: "2025-03-21"
 summary: "Review materials and resources for Midterm 2"
 tags: ["midterm", "review", "linear-transformations"]
 displayInNotes: true
-order: 9
+order: 10
 relatedContent: ["Midterm-2", "linear-transformations", "null-space", "image-of-vector-space", "standard-matrix"]
-subcategory: "exams"
+subcategory: "weekly"
 isPublished: true
-weight: 9
+weight: 10
 ---
 
 ## Midterm 2 Review Resources
