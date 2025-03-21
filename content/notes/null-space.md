@@ -32,6 +32,8 @@ where $\vec{0}_W$ is the zero vector in $W$.
    $$\text{nullity}(T) = \dim(\ker(T))$$
 
 3. **Injectivity**: A [[linear-transformations|linear transformation]] $T$ is [[injective|injective]] (one-to-one) if and only if $\ker(T) = \{\vec{0}_V\}$, i.e., the null space contains only the zero [[vectors|vector]].
+   - This means distinct inputs always yield distinct outputs
+   - By the [[rank-nullity-theorem|Rank-Nullity Theorem]], $T$ can only be injective if $\dim(V) \leq \dim(W)$
 
 ## Null Space of a Matrix
 
@@ -78,13 +80,18 @@ And the nullity of $A$ is 2.
 
 ## Rank-Nullity Theorem
 
-The **Rank-Nullity Theorem** is a fundamental result in [[linear-transformations|linear algebra]] that relates the [[vector-space-dimension|dimension]] of a [[vector-space|vector space]] to the rank and nullity of a [[linear-transformations|linear transformation]].
+The **[[rank-nullity-theorem|Rank-Nullity Theorem]]** establishes a fundamental relationship between the null space and image:
 
 > **Theorem**: If $T: V \rightarrow W$ is a [[linear-transformations|linear transformation]] and $V$ is finite-dimensional, then:
 > 
 > $$\dim(V) = \text{rank}(T) + \text{nullity}(T)$$
 > 
 > where $\text{rank}(T) = \dim(\text{Im}(T))$ and $\text{nullity}(T) = \dim(\ker(T))$.
+
+This theorem provides powerful insights:
+- The sum of the dimensions of the image and kernel equals the dimension of the domain
+- Understanding one space helps characterize the other
+- It directly connects to the concepts of injectivity and surjectivity
 
 ### Interpretation
 

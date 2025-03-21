@@ -32,6 +32,8 @@ This is the set of all possible outputs of the transformation.
    $$\text{rank}(T) = \dim(\text{Im}(T))$$
 
 3. **Surjectivity**: A [[linear-transformations|linear transformation]] $T$ is [[surjective|surjective]] (onto) if and only if $\text{Im}(T) = W$, i.e., the image is the entire codomain.
+   - This means every vector in $W$ is the output of $T$ for some input
+   - By the [[rank-nullity-theorem|Rank-Nullity Theorem]], $T$ can only be surjective if $\dim(V) \geq \dim(W)$
 
 ## Image of a Matrix
 
@@ -69,11 +71,14 @@ And the rank of $A$ is 1.
 
 ## Relationship with the Null Space
 
-The image and [[null-space|null space]] of a [[linear-transformations|linear transformation]] are related through the **Rank-Nullity Theorem**:
+The image and [[null-space|null space]] of a [[linear-transformations|linear transformation]] are related through the **[[rank-nullity-theorem|Rank-Nullity Theorem]]**:
 
 $$\dim(V) = \text{rank}(T) + \text{nullity}(T)$$
 
-This tells us that the higher the rank (dimension of the image), the lower the nullity (dimension of the null space), and vice versa.
+This fundamental relationship tells us that:
+- The higher the rank (dimension of the image), the lower the nullity (dimension of the null space)
+- The sum of these dimensions always equals the dimension of the domain
+- A transformation cannot be both injective and surjective unless the domain and codomain have the same dimension
 
 ## Applications
 

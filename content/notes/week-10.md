@@ -1,13 +1,13 @@
 ---
 title: "Week 10: Midterm 2 Review"
-type: "note"
-category: "weeks"
+type: "page"
+category: "weekly-summary"
 publishedAt: "2025-03-21"
 summary: "Review materials and resources for Midterm 2"
 tags: ["midterm", "review", "linear-transformations"]
 displayInNotes: true
 order: 10
-relatedContent: ["Midterm-2", "linear-transformations", "null-space", "image-of-vector-space", "standard-matrix"]
+relatedContent: ["Midterm-2", "linear-transformations", "null-space", "image-of-vector-space", "standard-matrix", "rank-nullity-theorem"]
 subcategory: "weekly"
 isPublished: true
 weight: 10
@@ -25,8 +25,8 @@ Make sure you understand these core concepts covered in the past few weeks:
 - [[null-space|Null Space/Kernel]] - vectors that map to zero under a transformation
 - [[image-of-vector-space|Image/Range]] - possible outputs of a linear transformation
 - [[standard-matrix|Standard Matrix]] - how to represent a linear transformation as a matrix
+- [[rank-nullity-theorem|Rank-Nullity Theorem]] - fundamental relationship between dimensions of domain, image, and kernel
 - [[vector-space-dimension|Vector Space Dimension]]
-- Rank-Nullity Theorem - fundamental relationship between nullity and rank
 
 ### Additional Resources
 
