@@ -11,9 +11,19 @@ export default function Page() {
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">YouTube Videos</h1>
       
       <div className="space-y-6">
+        <h2 className="font-medium text-xl tracking-tighter">Midterm 2 - Review</h2>
+        <div className="w-full max-w-3xl">
+          <YouTube 
+            id="9mL7mP1ZdeA" 
+            title="Midterm 2 Review" 
+          />
+        </div>
+      </div>
+      
+      <div className="space-y-6">
         <h2 className="font-medium text-xl tracking-tighter">Midterm 1 Review Videos</h2>
         <p className="text-sm text-gray-600 italic mb-4">
-          Note: I didn't properly prove the 0 function is in W for the 2nd video. It is clear that with 0(x) = x ∀x ∈ ℝ and 0"(x)=0'(x)=0 and thus abides by the set rule for W as 0"(x)=0'(x)+2*0(x)=0 so 0(x) ∈ W
+          Note: I didn't properly prove the 0 function is in W for the 2nd video. It is clear that with 0(x) = 0 ∀x ∈ ℝ and 0"(x)=0'(x)=0 and thus abides by the set rule for W as 0"(x)=0'(x)+2*0(x)=0 so 0(x) ∈ W
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="w-full">
