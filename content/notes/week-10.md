@@ -30,7 +30,8 @@ Make sure you understand these core concepts covered in the past few weeks:
 
 ### Additional Resources
 
-- **Review Videos**: Coming soon! Watch your email and the course website for links.
+- **Review Videos**: Check out the [Midterm 2 Review Video](https://youtu.be/9mL7mP1ZdeA)
+- More coming tomorrow (Sunday)
 
 - **EngLinks Workshop**: Join us for a comprehensive review workshop this **Sunday** (March 23). Bring your questions!
 
