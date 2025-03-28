@@ -28,7 +28,12 @@ This week we explored the fascinating concept of [[determinant|determinants]] an
 
 ### Weekly Poll
 
-![Week 11 Resources](/Week11.png)
+<img 
+  src="/content/assets/images/Week11.png" 
+  alt="Week 11 Poll QR Code" 
+  width={400} 
+  height={400} 
+/>
 
 ### Looking Ahead
 
