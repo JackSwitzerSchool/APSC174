@@ -26,18 +26,3 @@ This week we explored the fascinating concept of [[determinant|determinants]] an
 
 - **Connection to [[invertibility|Invertibility]]**: We discovered that matrices are only invertible when their determinant is non-zero, which geometrically means the transformation doesn't collapse space into a lower dimension
 
-### Weekly Poll
-
-<img 
-  src="/assets/images/Week11.png" 
-  alt="Week 11 Poll QR Code" 
-  width={400} 
-  height={400} 
-/>
-
-### Looking Ahead
-
-Next week, we'll build on these concepts to explore:
-- Eigenvalues and eigenvectors
-- How determinants help us find eigenvalues
-- Applications in computer graphics and physics
