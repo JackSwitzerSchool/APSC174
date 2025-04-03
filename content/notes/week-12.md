@@ -32,4 +32,4 @@ This week covered [[eigen-stuff|eigenvalues and eigenvectors]] and their propert
   - Set of all eigenvectors for a given eigenvalue
   - Geometric multiplicity = dimension of eigenspace
 
-### Weekly Poll
+### [Exit Poll](https://forms.gle/NTJ2R2AwB3N4c8Ah9)
