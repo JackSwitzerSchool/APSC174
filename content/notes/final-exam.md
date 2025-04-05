@@ -13,14 +13,25 @@ isPublished: true
 weight: 5
 ---
 
-As per the course [syllabus](/assets/pdf/base/syllabus.pdf):
 
-The final exam date, set by the Exams Office, is **Monday April 18th, 2-5 PM.** For students with accommodations, any alternate arrangements will be emailed to you from the Exams Office.
+The final exam of APSC174 will have the following format:
+
+16 multiple-choice problems (16x1 marks)
+4 long-answer questions (32 marks)
+Sample multiple-choice problems can be found in [2025MC](/assets/pdf/past-exams/final/2025MC.pdf).
+
+Past final exams and their solutions are available for practice:
+- 2022 Final: [Exam](/assets/pdf/past-exams/final/final-2022.pdf) | [Solutions](/assets/pdf/past-exams/final/final-2022-solutions.pdf)
+- 2019 Final: [Exam](/assets/pdf/past-exams/final/final-2019.pdf) | [Solutions](/assets/pdf/past-exams/final/final-2019-solutions.pdf)
+- 2018 Final: [Exam](/assets/pdf/past-exams/final/final-2018.pdf) | [Solutions](/assets/pdf/past-exams/final/final-2018-solutions.pdf)
+
+The final exam date, set by the Exams Office, is **Sunday April 13th, 2-5 PM.** For students with accommodations, any alternate arrangements will be emailed to you from the Exams Office.
 
 ## **Exam Locations:**
- **Bartlett Gym** for students whose **Surname begins with the letters A-G**.
-**Dunning Hall** for students whose **Surname begins with the letters H-PQ**.
-**Gym 5** for students whose **Surname begins with the letters PR-Z.**
+Gym 5 for students whose Surname begins with the letters A-D.
+Grant Hall for students whose Surname begins with the letters E-G.
+Gym 4 (Ross) for students whose Surname begins with the letters H-O.
+Gym 3 (Bartlett) for students whose Surname begins with the letters P-Z.
 
 ## **Material Covered**
 - The final exam covers **all material in the course, from Weeks 1-12**. This included lecture notes, the online textbook, tutorial problems, and Webwork.
@@ -28,7 +39,4 @@ The final exam date, set by the Exams Office, is **Monday April 18th, 2-5 PM.** 
 
 **Help During the Exam Period**
 
-- Past exams will be posted here closer to the exam date
-- [[webwork|Webwork]] practice problems
-- [[midterm-1|Midterm 1]] and [[midterm-2|Midterm 2]] practice
-- [Math Help Center](https://www.queensu.ca/mathstat/undergraduate/current-undergraduate/help)- Email your professor
+
