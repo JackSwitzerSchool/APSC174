@@ -24,7 +24,7 @@ This week covered [[eigen-stuff|eigenvalues and eigenvectors]] and their propert
   - $\lambda$ is the eigenvalue (scalar)
   - $v$ is the eigenvector (direction preserved under transformation)
 
-- **Characteristic Polynomial**
+- **[[characteristic-polynomial|Characteristic Polynomial]]**
   - $\det(A - \lambda I) = 0$ gives eigenvalues
   - Connects to [[determinant|determinants]] from last week
 
