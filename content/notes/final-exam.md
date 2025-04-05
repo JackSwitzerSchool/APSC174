@@ -28,10 +28,10 @@ Past final exams and their solutions are available for practice:
 The final exam date, set by the Exams Office, is **Sunday April 13th, 2-5 PM.** For students with accommodations, any alternate arrangements will be emailed to you from the Exams Office.
 
 ## **Exam Locations:**
-Gym 5 for students whose Surname begins with the letters A-D.
-Grant Hall for students whose Surname begins with the letters E-G.
-Gym 4 (Ross) for students whose Surname begins with the letters H-O.
-Gym 3 (Bartlett) for students whose Surname begins with the letters P-Z.
+- Gym 5 for students whose Surname begins with the letters A-D.
+- Grant Hall for students whose Surname begins with the letters E-G.
+- Gym 4 (Ross) for students whose Surname begins with the letters H-O.
+- Gym 3 (Bartlett) for students whose Surname begins with the letters P-Z.
 
 ## **Material Covered**
 - The final exam covers **all material in the course, from Weeks 1-12**. This included lecture notes, the online textbook, tutorial problems, and Webwork.
