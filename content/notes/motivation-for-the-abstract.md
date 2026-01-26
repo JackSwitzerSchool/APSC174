@@ -20,7 +20,7 @@ Likely, it will seem needlessly theoretical, and you might wonder; So what?
 
 One of the many ways to solve math problems is to generalize. To find problems with a similiar "structure", or to say these 2 diasperate ideas are actually equivelent is a powerful [tool](https://www.youtube.com/watch?v=i0UTeQfnzfM)
 
-Linear Algebra is a formalization of many similiar and weird forms of math; It acts as a glue. The language of [[linearity]] unifies many of the mathematical ideas you've seen up until this point. 
+Linear Algebra is a formalization of many similiar and weird forms of math; It acts as a glue. The language of [[linear-transformations|linearity]] unifies many of the mathematical ideas you've seen up until this point. 
 
 From the familiar geometry, cartesian plane, and thus undefined space in which we do calculus that you're used to; To solutions of polynomial equations, and matrices; Ideas of mappings, and functions; How to generalize distance, size, and angles; signal processing, and endless others. Linear Algebra can describe it all... ish.
 

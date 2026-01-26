@@ -18,7 +18,7 @@ weight: 12
 A matrix A is invertible if there exists another matrix B such that:
 AB = BA = I
 
-where I is the [[identity-matrix|identity matrix]]. In this case, we write B = A⁻¹ and call it the inverse of A.
+where $I$ is the identity [[matrix|matrix]]. In this case, we write $B = A^{-1}$ and call it the inverse of $A$.
 
 ### Key Properties
 
