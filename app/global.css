@@ -150,3 +150,24 @@ table {
 .title {
   text-wrap: balance;
 }
+
+/* Math display blocks - proper spacing */
+.math-display-rendered {
+  @apply my-6 overflow-x-auto;
+  text-align: center;
+}
+
+.math-inline-rendered {
+  @apply inline;
+}
+
+/* KaTeX specific overrides for prose context */
+.prose .katex-display {
+  @apply my-6;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.prose .katex {
+  font-size: 1.1em;
+}
