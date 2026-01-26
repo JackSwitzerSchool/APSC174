@@ -26,8 +26,8 @@ function preprocessMath(content: string): string {
     // Trim whitespace from the latex content
     const trimmedLatex = latex.trim()
     const html = renderDisplayMath(trimmedLatex)
-    // Wrap in a div to preserve block-level semantics
-    return `<div class="math-display-rendered">${html}</div>`
+    // Wrap in a div with blank lines before/after so remark treats surrounding text as markdown
+    return `\n\n<div class="math-display-rendered">${html}</div>\n\n`
   })
 
   // Then handle inline math ($...$) - but not $$

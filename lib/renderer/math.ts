@@ -1,17 +1,30 @@
 import katex from 'katex'
 
 /**
+ * Clean KaTeX output to fix rendering issues
+ * - Removes newlines from SVG path data which can cause display problems
+ */
+function cleanKatexOutput(html: string): string {
+  // Remove newlines inside SVG path d attributes
+  return html.replace(/<path d="([^"]+)"/g, (match, pathData) => {
+    const cleanedPath = pathData.replace(/\n/g, ' ')
+    return `<path d="${cleanedPath}"`
+  })
+}
+
+/**
  * Render inline math (no display mode)
  * Returns pure HTML string - no JS needed on client
  */
 export function renderInlineMath(latex: string): string {
   try {
-    return katex.renderToString(latex, {
+    const html = katex.renderToString(latex, {
       displayMode: false,
       throwOnError: false,
       strict: false,
       trust: true,
     })
+    return cleanKatexOutput(html)
   } catch {
     // Return the raw latex wrapped in a span if rendering fails
     return `<span class="katex-error">${escapeHtml(latex)}</span>`
@@ -24,12 +37,13 @@ export function renderInlineMath(latex: string): string {
  */
 export function renderDisplayMath(latex: string): string {
   try {
-    return katex.renderToString(latex, {
+    const html = katex.renderToString(latex, {
       displayMode: true,
       throwOnError: false,
       strict: false,
       trust: true,
     })
+    return cleanKatexOutput(html)
   } catch {
     return `<div class="katex-error katex-display">${escapeHtml(latex)}</div>`
   }
