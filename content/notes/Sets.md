@@ -36,6 +36,14 @@ $$
 \emptyset \subset \mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}
 $$
 
+## Set Operations
+
+Sets can be combined and manipulated using several key operations:
+
+- [[union|Union]] ($A \cup B$) - all elements in either set
+- [[intersection|Intersection]] ($A \cap B$) - elements in both sets
+- [[cartesian-product|Cartesian Product]] ($A \times B$) - ordered pairs from both sets
+
 ## Examples
 In descent from the abstract, many common objects you're used to can be easily described by the notion of a set and some rule(s)!
 

@@ -1,7 +1,7 @@
 ---
 title: "Matrix Invertibility"
-type: "page"
-category: "notes"
+type: "note"
+category: "matrices"
 publishedAt: "2025-03-21"
 summary: "Understanding when matrices can be inverted and their relationship to the identity matrix"
 tags: ["invertibility", "identity-matrix", "linear-transformations", "determinant"]
@@ -18,7 +18,7 @@ weight: 12
 A matrix A is invertible if there exists another matrix B such that:
 AB = BA = I
 
-where I is the [[identity-matrix|identity matrix]]. In this case, we write B = A⁻¹ and call it the inverse of A.
+where $I$ is the identity [[matrix|matrix]]. In this case, we write $B = A^{-1}$ and call it the inverse of $A$.
 
 ### Key Properties
 

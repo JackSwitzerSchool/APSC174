@@ -16,7 +16,7 @@ weight: 18
 ---
 
 ## Definition
-A system of linear equations is a collection of equations that have some [[linearity]] property...
+A system of linear equations is a collection of equations that have some [[linear-transformations|linearity]] property...
 
 More generally, a linear equation is in the form ( * ):
 

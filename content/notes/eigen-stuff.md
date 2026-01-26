@@ -1,7 +1,7 @@
 ---
 title: Eigen-Stuff
 type: note
-category: linear-algebra
+category: linear-transformations
 order: 1
 tags:
   - eigenvalues

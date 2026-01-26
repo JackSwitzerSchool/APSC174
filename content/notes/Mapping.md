@@ -45,7 +45,7 @@ $$
 \forall y \in \mathbb{Y}, \; \exists x \in \mathbb{X} : f(x)=y
 $$
 
-[[bijective|Bijective]] - Both injective and surjective
+**Bijective** - Both [[injective|injective]] and [[surjective|surjective]]
 
 ## Example
 A function $f: \mathbb{Z} \longrightarrow \mathbb{Z}$ is defined as $f(x)=x^2$ where $x \in \mathbb{Z}$

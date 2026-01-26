@@ -1,7 +1,7 @@
 ---
 title: Characteristic Polynomial
 type: note
-category: linear-algebra
+category: linear-transformations
 order: 1
 tags:
   - characteristic-polynomial
