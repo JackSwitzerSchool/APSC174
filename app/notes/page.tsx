@@ -174,18 +174,20 @@ export default async function NotesPage() {
       {/* Weekly summaries section */}
       {weeklyNotes.length > 0 && (
         <div className="border-t border-neutral-200 dark:border-neutral-800 pt-10">
-          <h2 className="font-semibold text-xl mb-2">Weekly Summaries</h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-500 mb-6">
-            Week-by-week course coverage and key topics
-          </p>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+          <div className="text-center mb-6">
+            <h2 className="font-semibold text-xl mb-2">Weekly Summaries</h2>
+            <p className="text-sm text-neutral-500 dark:text-neutral-500">
+              Week-by-week course coverage and key topics
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
             {weeklyNotes.map((note) => (
               <Link
                 key={note.slug}
                 href={`/notes/${note.slug}`}
-                className="block py-3 px-4 text-center rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700"
+                className="py-2 px-4 text-center rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700"
               >
-                <span className="font-medium text-sm text-neutral-900 dark:text-neutral-100">
+                <span className="font-medium text-sm text-neutral-900 dark:text-neutral-100 whitespace-nowrap">
                   {note.title}
                 </span>
               </Link>
