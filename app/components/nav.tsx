@@ -2,8 +2,6 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import type { Content, ContentType } from '@/lib/content-types'
 
 // Static nav items that are always present
 const staticNavItems = {
