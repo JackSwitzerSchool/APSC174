@@ -1,7 +1,7 @@
 ---
 title: "Matrix Invertibility"
-type: "page"
-category: "notes"
+type: "note"
+category: "matrices"
 publishedAt: "2025-03-21"
 summary: "Understanding when matrices can be inverted and their relationship to the identity matrix"
 tags: ["invertibility", "identity-matrix", "linear-transformations", "determinant"]

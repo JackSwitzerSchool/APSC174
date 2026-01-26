@@ -1,7 +1,7 @@
 ---
 title: "Determinant"
-type: "page"
-category: "notes"
+type: "note"
+category: "matrices"
 publishedAt: "2025-03-21"
 summary: "Understanding determinants and their geometric meaning"
 tags: ["determinant", "linear-transformations", "invertibility", "area", "volume"]
