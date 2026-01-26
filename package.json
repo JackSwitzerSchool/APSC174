@@ -5,11 +5,14 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "prebuild": "tsx scripts/prebuild-content.ts",
+    "build": "npm run prebuild && next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "dev:setup": "cp .env.local.example .env.local || copy .env.local.example .env.local",
-    "clean": "rm -rf .next || rmdir /s /q .next"
+    "clean": "rm -rf .next .content-cache.json || rmdir /s /q .next"
   },
   "dependencies": {
     "@mdx-js/loader": "2.3.0",
@@ -29,19 +32,26 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rehype-katex": "^6.0.3",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^9.0.4",
     "remark-math": "^5.1.1",
+    "remark-parse": "^10.0.2",
     "remark-rehype": "10.1.0",
     "remark-wiki-link": "^1.0.4",
     "sugar-high": "^0.6.0",
     "typescript": "5.3.3",
-    "unified": "10.1.0"
+    "unified": "10.1.0",
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "@types/katex": "^0.16.8",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
-    "terser-webpack-plugin": "^5.3.11"
+    "terser-webpack-plugin": "^5.3.11",
+    "tsx": "^4.21.0",
+    "vitest": "^4.0.18"
   },
   "overrides": {
     "vfile": "5.0.0",

@@ -57,6 +57,9 @@ public/base/linear-algebra-5th-edition.pdf
 *.temp
 .cache/
 
+# Build-time content cache
+.content-cache.json
+
 # Editor specific
 .idea/
 *.swp

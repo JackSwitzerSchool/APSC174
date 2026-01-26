@@ -1,5 +1,8 @@
-import { getNotes } from './utils'
+import { getAllCachedNotes } from '@/lib/renderer/cache'
 import Notes from '@/app/components/notes'
+
+// ISR - revalidate every hour
+export const revalidate = 3600
 
 export const metadata = {
   title: 'Course Notes',
@@ -27,20 +30,34 @@ const categories = {
 }
 
 export default async function NotesPage() {
-  const notes = await getNotes()
-  
-  // Group notes by category instead of subcategory
-  const notesByCategory = notes.reduce((acc, note) => {
-    const category = note.category || 'uncategorized'
-    if (!acc[category]) {
-      acc[category] = []
-    }
-    acc[category].push(note)
-    return acc
-  }, {} as Record<string, typeof notes>)
-  
+  const cachedNotes = getAllCachedNotes()
+
+  // Transform cached notes to the shape expected by the Notes component
+  const notes = cachedNotes
+    .filter((n) => n.frontmatter.displayInNotes !== false)
+    .map((n) => ({
+      slug: n.slug,
+      title: n.frontmatter.title,
+      category: n.frontmatter.category,
+      order: n.frontmatter.order,
+      summary: n.frontmatter.summary,
+    }))
+
+  // Group notes by category
+  const notesByCategory = notes.reduce(
+    (acc, note) => {
+      const category = note.category || 'uncategorized'
+      if (!acc[category]) {
+        acc[category] = []
+      }
+      acc[category].push(note)
+      return acc
+    },
+    {} as Record<string, typeof notes>
+  )
+
   // Sort notes within each category by order
-  Object.keys(notesByCategory).forEach(category => {
+  Object.keys(notesByCategory).forEach((category) => {
     notesByCategory[category].sort((a, b) => {
       if (a.order !== undefined && b.order !== undefined) {
         return a.order - b.order

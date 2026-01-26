@@ -1,120 +1,113 @@
-import { getNotes, getNote } from '@/app/notes/utils'
 import { notFound, redirect } from 'next/navigation'
-import dynamic from 'next/dynamic'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serializeMDX } from '@/lib/mdx'
+import { getCachedNote, getAllNoteSlugs } from '@/lib/renderer/cache'
+import StaticContent from '@/app/components/static-content'
 
-const MDXContent = dynamic(() => import('@/app/components/mdx-content'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>
-})
+// Enable ISR - revalidate every hour (though content is pre-built)
+export const revalidate = 3600
 
-interface Note {
-  slug: string
-  title: string
-  category?: string
-  content?: MDXRemoteSerializeResult
+// Generate static params for all notes at build time
+export async function generateStaticParams() {
+  const slugs = getAllNoteSlugs()
+
+  return [
+    // All notes under /notes/[slug]
+    ...slugs.map((slug) => ({ slug: ['notes', slug] })),
+    // Special routes
+    { slug: ['course-resources'] },
+    { slug: ['tutorials'] },
+    { slug: ['internships'] },
+  ]
 }
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string[]
-  }
+  }>
 }
 
 export default async function DynamicPage({ params }: Props) {
-  if (!params?.slug?.length) {
+  const resolvedParams = await params
+
+  if (!resolvedParams?.slug?.length) {
     notFound()
   }
 
-  try {
-    const fullPath = params.slug.join('/')
+  const fullPath = resolvedParams.slug.join('/')
 
-    // Handle static assets and favicons
-    if (
-      fullPath.includes('assets/') ||
-      fullPath.endsWith('.ico') ||
-      fullPath.endsWith('.png') ||
-      fullPath.endsWith('.jpg') ||
-      fullPath.endsWith('.jpeg') ||
-      fullPath.endsWith('.svg') ||
-      fullPath.endsWith('.pdf')
-    ) {
-      return redirect(`/${fullPath}`)
-    }
+  // Handle static assets and favicons - redirect to public
+  if (
+    fullPath.includes('assets/') ||
+    fullPath.endsWith('.ico') ||
+    fullPath.endsWith('.png') ||
+    fullPath.endsWith('.jpg') ||
+    fullPath.endsWith('.jpeg') ||
+    fullPath.endsWith('.svg') ||
+    fullPath.endsWith('.pdf')
+  ) {
+    return redirect(`/${fullPath}`)
+  }
 
-    const lastSlug = params.slug[params.slug.length - 1].toLowerCase()
-    
-    // Handle special routes by showing their content directly
-    if (lastSlug === 'course-resources') {
-      const note = await getNote('course-resources')
-      const mdxSource = await serializeMDX(note.content)
-      return (
-        <article>
-          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-            {note.title}
-          </h1>
-          <MDXContent source={mdxSource} />
-        </article>
-      )
-    }
+  const lastSlug = resolvedParams.slug[resolvedParams.slug.length - 1].toLowerCase()
 
-    if (lastSlug === 'tutorials') {
-      const note = await getNote('tutorialsHeader')
-      const mdxSource = await serializeMDX(note.content)
-      return (
-        <article>
-          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-            {note.title}
-          </h1>
-          <MDXContent source={mdxSource} />
-        </article>
-      )
-    }
-
-    if (lastSlug === 'internships') {
-      const note = await getNote('intern-v1')
-      const mdxSource = await serializeMDX(note.content)
-      return (
-        <article>
-          <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-            {note.title}
-          </h1>
-          <MDXContent source={mdxSource} />
-        </article>
-      )
-    }
-    
-    // Only attempt to find notes for paths under /notes/
-    if (!fullPath.startsWith('notes/')) {
-      notFound()
-    }
-
-    const notes = await getNotes()
-    const noteMatch = notes.find((note) => {
-      const normalizedNoteSlug = note.slug.toLowerCase()
-      return normalizedNoteSlug === lastSlug
-    })
-
-    if (!noteMatch) {
-      console.error(`Note not found for path: ${fullPath}`)
-      notFound()
-    }
-
-    // Fetch the full note content
-    const fullNote = await getNote(noteMatch.slug)
-    const mdxSource = await serializeMDX(fullNote.content)
-
+  // Handle special routes
+  if (lastSlug === 'course-resources') {
+    const note = getCachedNote('course-resources')
+    if (!note) notFound()
     return (
       <article>
         <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-          {fullNote.title}
+          {note.frontmatter.title}
         </h1>
-        <MDXContent source={mdxSource} />
+        <StaticContent html={note.html} />
       </article>
     )
-  } catch (error) {
-    console.error('Error in DynamicPage:', error)
+  }
+
+  if (lastSlug === 'tutorials') {
+    const note = getCachedNote('tutorialsheader')
+    if (!note) notFound()
+    return (
+      <article>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+          {note.frontmatter.title}
+        </h1>
+        <StaticContent html={note.html} />
+      </article>
+    )
+  }
+
+  if (lastSlug === 'internships') {
+    const note = getCachedNote('intern-v1')
+    if (!note) notFound()
+    return (
+      <article>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+          {note.frontmatter.title}
+        </h1>
+        <StaticContent html={note.html} />
+      </article>
+    )
+  }
+
+  // Only serve notes under /notes/ path
+  if (!fullPath.startsWith('notes/')) {
     notFound()
   }
-} 
+
+  // Get pre-built note from cache
+  const note = getCachedNote(lastSlug)
+
+  if (!note) {
+    console.error(`Note not found in cache: ${lastSlug}`)
+    notFound()
+  }
+
+  return (
+    <article>
+      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+        {note.frontmatter.title}
+      </h1>
+      <StaticContent html={note.html} />
+    </article>
+  )
+}
