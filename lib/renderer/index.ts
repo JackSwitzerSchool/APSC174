@@ -3,12 +3,12 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import rehypeRaw from 'rehype-raw'
-import matter from 'gray-matter'
 import { visit } from 'unist-util-visit'
 import type { Root, Element } from 'hast'
 import type { Root as MdastRoot } from 'mdast'
 import { renderInlineMath, renderDisplayMath } from './math'
 import { processWikiLink, processExternalLink, processPdfLink, processImagePath } from './links'
+import { parseFrontmatter } from './frontmatter'
 
 // Wiki-link regex: [[slug]] or [[slug|text]]
 const wikiLinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g
@@ -145,7 +145,7 @@ function rehypeImages() {
  */
 export async function renderMarkdown(markdown: string): Promise<string> {
   // Extract frontmatter if present
-  const { content } = matter(markdown)
+  const { content } = parseFrontmatter(markdown)
 
   // Pre-render math before markdown parsing (handles indented display math)
   const contentWithMath = preprocessMath(content)
@@ -168,9 +168,9 @@ export async function renderMarkdown(markdown: string): Promise<string> {
  */
 export async function renderMarkdownWithMeta(markdown: string): Promise<{
   html: string
-  frontmatter: Record<string, any>
+  frontmatter: Record<string, unknown>
 }> {
-  const { content, data } = matter(markdown)
+  const { content, data } = parseFrontmatter(markdown)
 
   // Pre-render math before markdown parsing (handles indented display math)
   const contentWithMath = preprocessMath(content)

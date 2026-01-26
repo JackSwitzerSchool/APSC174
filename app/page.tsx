@@ -1,4 +1,4 @@
-import { getNotes } from '@/app/notes/utils'
+import { getAllCachedNotes } from '@/lib/renderer/cache'
 import Notes from '@/app/components/notes'
 
 export const metadata = {
@@ -7,11 +7,16 @@ export const metadata = {
 }
 
 export default async function HomePage() {
-  const allNotes = await getNotes()
-  
+  const cachedNotes = getAllCachedNotes()
+
   // Filter for weekly summaries and sort by week number in reverse order
-  const weeklySummaries = allNotes
-    .filter(note => note.category === 'weekly-summary')
+  const weeklySummaries = cachedNotes
+    .filter((n) => n.frontmatter.category === 'weekly-summary')
+    .map((n) => ({
+      slug: n.slug,
+      title: n.frontmatter.title,
+      category: n.frontmatter.category,
+    }))
     .sort((a, b) => {
       const weekA = parseInt(a.slug.replace('week-', '')) || 0
       const weekB = parseInt(b.slug.replace('week-', '')) || 0

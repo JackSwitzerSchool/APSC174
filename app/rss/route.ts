@@ -1,13 +1,11 @@
-import { getNotes } from '@/app/notes/utils'
+import { getAllCachedNotes } from '@/lib/renderer/cache'
 import config from '@/lib/config'
 
-function formatDate(date: string | Date): string {
+function formatDate(date: string | Date | undefined): string {
+  if (!date) return new Date().toISOString()
   try {
     const d = new Date(date)
-    // Check if date is valid
-    if (isNaN(d.getTime())) {
-      return new Date().toISOString()
-    }
+    if (isNaN(d.getTime())) return new Date().toISOString()
     return d.toISOString()
   } catch {
     return new Date().toISOString()
@@ -15,7 +13,8 @@ function formatDate(date: string | Date): string {
 }
 
 export async function GET() {
-  const notes = await getNotes()
+  const cachedNotes = getAllCachedNotes()
+
   const feed = `<?xml version="1.0" encoding="utf-8"?>
   <feed xmlns="http://www.w3.org/2005/Atom">
     <title>${config.title}</title>
@@ -24,22 +23,21 @@ export async function GET() {
     <link href="${config.baseUrl}"/>
     <updated>${new Date().toISOString()}</updated>
     <id>${config.baseUrl}</id>
-    ${notes
-      .filter(note => note.category === 'notes' || note.category === 'weekly-summary')
-      .filter(note => note.publishedAt) // Only include notes with valid publishedAt
+    ${cachedNotes
+      .filter((n) => n.frontmatter.publishedAt)
       .sort((a, b) => {
-        const dateA = new Date(a.publishedAt).getTime()
-        const dateB = new Date(b.publishedAt).getTime()
+        const dateA = new Date(a.frontmatter.publishedAt || 0).getTime()
+        const dateB = new Date(b.frontmatter.publishedAt || 0).getTime()
         return isNaN(dateB) || isNaN(dateA) ? 0 : dateB - dateA
       })
-      .map((note) => `
+      .map((n) => `
         <entry>
-          <title>${note.title}</title>
-          <link href="${config.baseUrl}/notes/${note.slug}"/>
-          <updated>${formatDate(note.publishedAt)}</updated>
-          <id>${config.baseUrl}/notes/${note.slug}</id>
-          <content type="html"><![CDATA[${note.summary || ''}]]></content>
-          ${note.tags ? `<category term="${note.tags.join(',')}" />` : ''}
+          <title>${n.frontmatter.title}</title>
+          <link href="${config.baseUrl}/notes/${n.slug}"/>
+          <updated>${formatDate(n.frontmatter.publishedAt)}</updated>
+          <id>${config.baseUrl}/notes/${n.slug}</id>
+          <content type="html"><![CDATA[${n.frontmatter.summary || ''}]]></content>
+          ${n.frontmatter.tags ? `<category term="${(n.frontmatter.tags as string[]).join(',')}" />` : ''}
         </entry>
       `)
       .join('')}

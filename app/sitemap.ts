@@ -1,37 +1,28 @@
-import { getNotes } from '@/app/notes/utils'
+import { getAllCachedNotes } from '@/lib/renderer/cache'
 import { MetadataRoute } from 'next'
 import config from '@/lib/config'
-
-interface Note {
-  slug: string
-  category?: string
-  publishedAt?: string
-}
 
 function formatDate(date: string | Date | undefined): string {
   if (!date) return new Date().toISOString()
   try {
     const d = new Date(date)
-    // Check if date is valid
-    if (isNaN(d.getTime())) {
-      return new Date().toISOString()
-    }
+    if (isNaN(d.getTime())) return new Date().toISOString()
     return d.toISOString()
   } catch {
     return new Date().toISOString()
   }
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const notes = await getNotes()
-  
-  // Filter out posts that should have their own routes
-  const filteredPosts = notes.filter((note: Note) => {
-    // Include all notes from our main categories
-    return note.category === 'set-theory' ||
-           note.category === 'functions' ||
-           note.category === 'vector-spaces' ||
-           note.category === 'applications'
+export default function sitemap(): MetadataRoute.Sitemap {
+  const cachedNotes = getAllCachedNotes()
+
+  // Filter to main categories
+  const filteredNotes = cachedNotes.filter((note) => {
+    const category = note.frontmatter.category as string | undefined
+    return category === 'set-theory' ||
+           category === 'functions' ||
+           category === 'vector-spaces' ||
+           category === 'applications'
   })
 
   const currentDate = new Date().toISOString()
@@ -49,27 +40,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily' as const,
       priority: 0.9,
     },
-    {
-      url: `${config.baseUrl}/tutorials`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${config.baseUrl}/course-resources`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${config.baseUrl}/internships`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    ...filteredPosts.map((note: Note) => ({
+    ...filteredNotes.map((note) => ({
       url: `${config.baseUrl}/notes/${note.slug}`,
-      lastModified: formatDate(note.publishedAt),
+      lastModified: formatDate(note.frontmatter.publishedAt as string | undefined),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
     })),
