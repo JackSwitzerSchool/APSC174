@@ -16,14 +16,14 @@ const categoryConfig: Record<string, { title: string; description: string; order
     description: 'Sets, notation, and mathematical foundations',
     order: 1
   },
-  'functions': {
-    title: 'Functions & Mappings',
-    description: 'Functions, injectivity, surjectivity, and bijections',
-    order: 2
-  },
   'vector-spaces': {
     title: 'Vector Spaces',
     description: 'Vector spaces, subspaces, spans, basis, and dimension',
+    order: 2
+  },
+  'functions': {
+    title: 'Functions & Mappings',
+    description: 'Functions, injectivity, surjectivity, and bijections',
     order: 3
   },
   'matrices': {
