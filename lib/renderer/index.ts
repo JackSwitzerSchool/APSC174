@@ -1,37 +1,32 @@
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
-import rehypeRaw from 'rehype-raw'
-import { visit } from 'unist-util-visit'
-import type { Root, Element } from 'hast'
-import type { Root as MdastRoot } from 'mdast'
+import { marked } from 'marked'
 import { renderInlineMath, renderDisplayMath } from './math'
 import { processWikiLink, processExternalLink, processPdfLink, processImagePath } from './links'
 import { parseFrontmatter } from './frontmatter'
+
+// Configure marked
+marked.setOptions({
+  breaks: false,
+})
 
 // Wiki-link regex: [[slug]] or [[slug|text]]
 const wikiLinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g
 
 /**
- * Pre-process markdown to render math BEFORE remark parsing
- * This handles indented display math that remark-math fails on
+ * Pre-process markdown to render math BEFORE markdown parsing
+ * This handles indented display math that other parsers fail on
  */
 function preprocessMath(content: string): string {
   // First, handle display math ($$...$$) - including multiline and indented
-  // Use a regex that captures content between $$ markers, handling newlines
   const displayMathRegex = /\$\$([\s\S]*?)\$\$/g
 
   content = content.replace(displayMathRegex, (_, latex: string) => {
-    // Trim whitespace from the latex content
     const trimmedLatex = latex.trim()
     const html = renderDisplayMath(trimmedLatex)
-    // Wrap in a div with blank lines before/after so remark treats surrounding text as markdown
+    // Wrap in a div with blank lines before/after
     return `\n\n<div class="math-display-rendered">${html}</div>\n\n`
   })
 
   // Then handle inline math ($...$) - but not $$
-  // Be careful not to match $$ or escaped \$
   const inlineMathRegex = /(?<!\$)\$(?!\$)((?:[^$\\]|\\.)+?)\$(?!\$)/g
 
   content = content.replace(inlineMathRegex, (_, latex: string) => {
@@ -43,100 +38,66 @@ function preprocessMath(content: string): string {
 }
 
 /**
- * Custom remark plugin to transform wiki-links before going to HTML
+ * Pre-process wiki-links to standard markdown links BEFORE parsing
+ * Converts [[slug|text]] to [text](/notes/slug)
  */
-function remarkWikiLinks() {
-  return (tree: MdastRoot) => {
-    visit(tree, 'text', (node: any, index, parent) => {
-      if (!parent || index === undefined) return
-
-      const text = node.value as string
-      const matches = Array.from(text.matchAll(wikiLinkRegex))
-
-      if (matches.length === 0) return
-
-      const children: any[] = []
-      let lastIndex = 0
-
-      for (const match of matches) {
-        const [fullMatch, slug, alias] = match
-        const matchIndex = match.index!
-
-        // Add text before the match
-        if (matchIndex > lastIndex) {
-          children.push({
-            type: 'text',
-            value: text.slice(lastIndex, matchIndex),
-          })
-        }
-
-        // Add the wiki-link as a proper link
-        const { href, text: linkText } = processWikiLink(slug, alias || null)
-        children.push({
-          type: 'link',
-          url: href,
-          children: [{ type: 'text', value: linkText }],
-        })
-
-        lastIndex = matchIndex + fullMatch.length
-      }
-
-      // Add remaining text after last match
-      if (lastIndex < text.length) {
-        children.push({
-          type: 'text',
-          value: text.slice(lastIndex),
-        })
-      }
-
-      // Replace the text node with the new children
-      parent.children.splice(index, 1, ...children)
-    })
-  }
+function preprocessWikiLinks(content: string): string {
+  return content.replace(wikiLinkRegex, (_, slug: string, alias?: string) => {
+    const { href, text } = processWikiLink(slug, alias || null)
+    return `[${text}](${href})`
+  })
 }
 
 /**
- * Rehype plugin to process links (external, PDF, internal)
+ * Post-process HTML to add attributes to links and images
  */
-function rehypeLinks() {
-  return (tree: Root) => {
-    visit(tree, 'element', (node: Element) => {
-      if (node.tagName === 'a' && node.properties?.href) {
-        const href = node.properties.href as string
+function postprocessHTML(html: string): string {
+  // Process links: add target="_blank" for external and PDF links
+  html = html.replace(/<a\s+href="([^"]+)"([^>]*)>/g, (match, href: string, rest: string) => {
+    // Skip if already has target
+    if (rest.includes('target=')) return match
 
-        // Check if PDF
-        if (href.endsWith('.pdf')) {
-          node.properties.href = processPdfLink(href)
-          node.properties.target = '_blank'
-          node.properties.rel = 'noopener noreferrer'
-          return
-        }
+    // Check if PDF
+    if (href.endsWith('.pdf')) {
+      const resolvedHref = processPdfLink(href)
+      return `<a href="${resolvedHref}" target="_blank" rel="noopener noreferrer"${rest}>`
+    }
 
-        // Check if external
-        const { isExternal } = processExternalLink(href)
-        if (isExternal) {
-          node.properties.target = '_blank'
-          node.properties.rel = 'noopener noreferrer'
-        }
-      }
-    })
-  }
-}
+    // Check if external
+    const { isExternal } = processExternalLink(href)
+    if (isExternal) {
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer"${rest}>`
+    }
 
-/**
- * Rehype plugin to process images
- */
-function rehypeImages() {
-  return (tree: Root) => {
-    visit(tree, 'element', (node: Element) => {
-      if (node.tagName === 'img' && node.properties?.src) {
-        const src = node.properties.src as string
-        node.properties.src = processImagePath(src)
-        node.properties.loading = 'lazy'
-        node.properties.className = ['max-w-full', 'h-auto', 'rounded-lg', 'mx-auto', 'my-4']
-      }
-    })
-  }
+    return match
+  })
+
+  // Process images: resolve paths and add attributes
+  html = html.replace(/<img\s+([^>]*)>/g, (match, attrs: string) => {
+    // Extract src
+    const srcMatch = attrs.match(/src="([^"]+)"/)
+    if (!srcMatch) return match
+
+    const src = srcMatch[1]
+    const resolvedSrc = processImagePath(src)
+
+    // Build new attributes
+    let newAttrs = attrs.replace(/src="[^"]+"/, `src="${resolvedSrc}"`)
+
+    // Add loading="lazy" if not present
+    if (!newAttrs.includes('loading=')) {
+      newAttrs += ' loading="lazy"'
+    }
+
+    // Add classes if not present
+    if (!newAttrs.includes('class=')) {
+      newAttrs += ' class="max-w-full h-auto rounded-lg mx-auto my-4"'
+    }
+
+    return `<img ${newAttrs}>`
+  })
+
+  return html
 }
 
 /**
@@ -147,20 +108,17 @@ export async function renderMarkdown(markdown: string): Promise<string> {
   // Extract frontmatter if present
   const { content } = parseFrontmatter(markdown)
 
-  // Pre-render math before markdown parsing (handles indented display math)
-  const contentWithMath = preprocessMath(content)
+  // Pre-render math before markdown parsing
+  const withMath = preprocessMath(content)
 
-  const processor = unified()
-    .use(remarkParse)
-    .use(remarkWikiLinks)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(rehypeLinks)
-    .use(rehypeImages)
-    .use(rehypeStringify, { allowDangerousHtml: true })
+  // Convert wiki-links to standard markdown links
+  const withLinks = preprocessWikiLinks(withMath)
 
-  const result = await processor.process(contentWithMath)
-  return String(result)
+  // Parse markdown to HTML
+  const html = marked.parse(withLinks) as string
+
+  // Post-process HTML for links and images
+  return postprocessHTML(html)
 }
 
 /**
@@ -172,21 +130,18 @@ export async function renderMarkdownWithMeta(markdown: string): Promise<{
 }> {
   const { content, data } = parseFrontmatter(markdown)
 
-  // Pre-render math before markdown parsing (handles indented display math)
-  const contentWithMath = preprocessMath(content)
+  // Pre-render math before markdown parsing
+  const withMath = preprocessMath(content)
 
-  const processor = unified()
-    .use(remarkParse)
-    .use(remarkWikiLinks)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(rehypeLinks)
-    .use(rehypeImages)
-    .use(rehypeStringify, { allowDangerousHtml: true })
+  // Convert wiki-links to standard markdown links
+  const withLinks = preprocessWikiLinks(withMath)
 
-  const result = await processor.process(contentWithMath)
+  // Parse markdown to HTML
+  const html = marked.parse(withLinks) as string
+
+  // Post-process HTML for links and images
   return {
-    html: String(result),
+    html: postprocessHTML(html),
     frontmatter: data,
   }
 }
