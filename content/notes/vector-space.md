@@ -40,7 +40,6 @@ Similarly, this formalizes the notions of regular multiplication and scalar mult
 This may be the first formal mathematical "object" you've seen before. These objects are defined by their structure or properties.
 
 [[vector-space-axioms|The axioms that define a vector space are:]]
-% embedded eventually idk how rn%
 
 ## Examples
 3 dimensional real space or $\mathbb{R}^3$ is a real vector space, it obeys all above axioms.
