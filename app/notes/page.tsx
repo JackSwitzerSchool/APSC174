@@ -51,23 +51,17 @@ interface NoteItem {
   title: string
   category: string
   order?: number
-  summary?: string
 }
 
 function NoteCard({ note }: { note: NoteItem }) {
   return (
     <Link
       href={`/notes/${note.slug}`}
-      className="block p-4 rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700"
+      className="block p-3 rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700"
     >
-      <h3 className="font-medium text-neutral-900 dark:text-neutral-100">
+      <h3 className="font-medium text-sm text-neutral-900 dark:text-neutral-100 truncate">
         {note.title}
       </h3>
-      {note.summary && (
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
-          {note.summary}
-        </p>
-      )}
     </Link>
   )
 }
@@ -86,10 +80,10 @@ function CategorySection({
   ).join(' ')
 
   return (
-    <div className="bg-white dark:bg-black rounded-xl border border-neutral-200 dark:border-neutral-800 p-5">
+    <div className="bg-white dark:bg-black rounded-xl border border-neutral-200 dark:border-neutral-800 p-6">
       <h2 className="font-semibold text-lg mb-1">{title}</h2>
       {config?.description && (
-        <p className="text-sm text-neutral-500 dark:text-neutral-500 mb-4">
+        <p className="text-sm text-neutral-500 dark:text-neutral-500 mb-5">
           {config.description}
         </p>
       )}
@@ -113,7 +107,6 @@ export default async function NotesPage() {
       title: n.frontmatter.title,
       category: n.frontmatter.category || 'uncategorized',
       order: n.frontmatter.order,
-      summary: n.frontmatter.summary,
     }))
 
   // Separate main notes and weekly summaries
@@ -139,11 +132,11 @@ export default async function NotesPage() {
     })
   })
 
-  // Sort weekly notes by week number (descending - newest first)
+  // Sort weekly notes by week number (ascending - Week 1 first)
   weeklyNotes.sort((a, b) => {
     const weekA = parseInt(a.slug.replace('week-', '')) || 0
     const weekB = parseInt(b.slug.replace('week-', '')) || 0
-    return weekB - weekA
+    return weekA - weekB
   })
 
   // Get sorted categories
@@ -167,7 +160,7 @@ export default async function NotesPage() {
       </div>
 
       {/* Main notes grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         {sortedCategories.map((category) => (
           <CategorySection
             key={category}
@@ -185,14 +178,14 @@ export default async function NotesPage() {
           <p className="text-sm text-neutral-500 dark:text-neutral-500 mb-6">
             Week-by-week course coverage and key topics
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
             {weeklyNotes.map((note) => (
               <Link
                 key={note.slug}
                 href={`/notes/${note.slug}`}
-                className="block p-3 text-center rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700"
+                className="block py-3 px-4 text-center rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700"
               >
-                <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                <span className="font-medium text-sm text-neutral-900 dark:text-neutral-100">
                   {note.title}
                 </span>
               </Link>
