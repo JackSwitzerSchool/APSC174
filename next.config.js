@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
       {
@@ -14,14 +14,9 @@ const nextConfig = {
     return [
       // Handle markdown files without extension
       {
-        source: '/:file((?!notes|tutorials|course-resources|content|assets).*)',
+        source: '/:file((?!notes|content|assets).*)',
         destination: '/base/:file',
       },
-      // Handle tutorial content
-      {
-        source: '/tutorials/:path*',
-        destination: '/tutorials/:path*',
-      }
     ]
   },
   // Configure static asset handling
@@ -39,8 +34,7 @@ const nextConfig = {
     ]
   },
   experimental: {
-    // Only use supported experimental features
-    mdxRs: true
+    // Keep empty for future use
   }
 }
 

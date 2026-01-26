@@ -14,8 +14,8 @@ export default async function HomePage() {
     .filter((n) => n.frontmatter.category === 'weekly-summary')
     .map((n) => ({
       slug: n.slug,
-      title: n.frontmatter.title,
-      category: n.frontmatter.category,
+      title: n.frontmatter.title as string,
+      summary: n.frontmatter.summary as string | undefined,
     }))
     .sort((a, b) => {
       const weekA = parseInt(a.slug.replace('week-', '')) || 0

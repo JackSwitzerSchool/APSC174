@@ -13,7 +13,7 @@ const staticNavItems = {
     name: 'notes',
     order: 1
   },
-  '/course-resources': {
+  '/notes/course-resources': {
     name: 'course resources',
     order: 2
   },
@@ -21,11 +21,11 @@ const staticNavItems = {
     name: 'videos',
     order: 3
   },
-  '/tutorials': {
+  '/notes/tutorialsheader': {
     name: 'tutorials',
     order: 4
   },
-  '/internships': {
+  '/notes/intern-v1': {
     name: 'internships',
     order: 5
   }
