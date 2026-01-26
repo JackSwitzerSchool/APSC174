@@ -173,24 +173,14 @@ export default async function NotesPage() {
 
       {/* Weekly summaries section */}
       {weeklyNotes.length > 0 && (
-        <div className="border-t border-neutral-200 dark:border-neutral-800 pt-10">
-          <div className="text-center mb-6">
-            <h2 className="font-semibold text-xl mb-2">Weekly Summaries</h2>
-            <p className="text-sm text-neutral-500 dark:text-neutral-500">
-              Week-by-week course coverage and key topics
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
+        <div className="bg-white dark:bg-black rounded-xl border border-neutral-200 dark:border-neutral-800 p-6">
+          <h2 className="font-semibold text-lg mb-1">Weekly Summaries</h2>
+          <p className="text-sm text-neutral-500 dark:text-neutral-500 mb-5">
+            Week-by-week course coverage and key topics
+          </p>
+          <div className="space-y-2">
             {weeklyNotes.map((note) => (
-              <Link
-                key={note.slug}
-                href={`/notes/${note.slug}`}
-                className="py-2 px-4 text-center rounded-lg bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700"
-              >
-                <span className="font-medium text-sm text-neutral-900 dark:text-neutral-100 whitespace-nowrap">
-                  {note.title}
-                </span>
-              </Link>
+              <NoteCard key={note.slug} note={note} />
             ))}
           </div>
         </div>
